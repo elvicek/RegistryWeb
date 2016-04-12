@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd"> 
+<validators> 
+<field name="cellgroup.groupName"> 
+<field-validator type="requiredstring"> 
+<message>Please enter a Group Name</message>
+ </field-validator>
+  </field> 
+  <field name="cellgroup.groupLocation"> 
+ <field-validator type="requiredstring"> 
+ <message>Please enter a Group Location</message>
+  </field-validator> 
+  </field>
+  
+  <!--  field name="member"> 
+ <field-validator type="int"> 
+ <param name="min">1</param>
+ <message>Please Selector Group Leader</message>
+  </field-validator> 
+  </field --> 
+  </validators>

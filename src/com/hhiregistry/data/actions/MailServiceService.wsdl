@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<s0:definitions name="MailServiceServiceDefinitions" targetNamespace="http://com/registry/service" xmlns="" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://com/registry/service" xmlns:s2="java:javax.mail" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/">
+  <s0:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://com/registry/service" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://com/registry/service" xmlns:s2="java:javax.mail" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="sendEmail">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="user" type="xs:string"/>
+            <xs:element name="pass" type="xs:string"/>
+            <xs:element name="from" type="xs:string"/>
+
+            <xs:element name="recipient" type="xs:string"/>
+            <xs:element name="subject" type="xs:string"/>
+            <xs:element name="message" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="sendEmailResponse">
+        <xs:complexType>
+          <xs:sequence/>
+
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:java.lang" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://com/registry/service" xmlns:s2="java:javax.mail" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="Exception">
+        <xs:complexContent>
+          <xs:extension base="java:Throwable" xmlns:java="java:java.lang"/>
+        </xs:complexContent>
+      </xs:complexType>
+
+      <xs:complexType name="Throwable"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="java:javax.mail" xmlns:s0="http://schemas.xmlsoap.org/wsdl/" xmlns:s1="http://com/registry/service" xmlns:s2="java:javax.mail" xmlns:s3="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="MessagingException"/>
+      <xs:element name="MessagingException" type="java:MessagingException" xmlns:java="java:javax.mail"/>
+    </xs:schema>
+  </s0:types>
+  <s0:message name="sendEmail">
+    <s0:part element="s1:sendEmail" name="parameters"/>
+
+  </s0:message>
+  <s0:message name="sendEmailResponse">
+    <s0:part element="s1:sendEmailResponse" name="parameters"/>
+  </s0:message>
+  <s0:message name="MessagingException">
+    <s0:part element="s2:MessagingException" name="MessagingException"/>
+  </s0:message>
+  <s0:portType name="MailService">
+    <s0:operation name="sendEmail" parameterOrder="parameters">
+
+      <s0:input message="s1:sendEmail"/>
+      <s0:output message="s1:sendEmailResponse"/>
+      <s0:fault message="s1:MessagingException" name="MessagingException"/>
+    </s0:operation>
+  </s0:portType>
+  <s0:binding name="MailServiceServiceSoapBinding" type="s1:MailService">
+    <s3:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <s0:operation name="sendEmail">
+      <s3:operation style="document"/>
+
+      <s0:input>
+        <s3:body parts="parameters" use="literal"/>
+      </s0:input>
+      <s0:output>
+        <s3:body use="literal"/>
+      </s0:output>
+      <s0:fault name="MessagingException">
+        <s3:fault name="MessagingException" use="literal"/>
+      </s0:fault>
+
+    </s0:operation>
+  </s0:binding>
+  <s0:service name="MailServiceService">
+    <s0:port binding="s1:MailServiceServiceSoapBinding" name="MailServiceSoapPort">
+      <s3:address location="http://192.168.147.129:7001/HHIServices/MailService"/>
+    </s0:port>
+  </s0:service>
+</s0:definitions>

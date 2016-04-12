@@ -1,0 +1,400 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: Arial,san-sarif,Verdana;
+  font-size: 12px;
+}
+#global{
+	margin: 10% auto;
+	padding: 10px;
+	width: 400px;
+	background: #f9f9f9;
+	border: 1px solid #ccc;
+	text-align: left;
+	
+	}
+#header {
+  background: #FFFFFF;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-image: url(../images/headerImage_fif_logo.GIF);
+  width: 100%;
+  height:110px;
+}
+#leftcol {
+  background: #81BEF7;
+  float: left;
+  width: 15%;
+  height: 500px;
+  border-right: 1px solid #003366;
+}
+#content {
+  background: #fff;
+  float: right;
+  width: 80%;
+  height: 90%;
+  overflow: auto;
+}
+#center{
+	
+	padding: 10px;
+	width: 98%;
+	background: #f9f9f9;
+	border: 1px solid #ccc;
+	float: left;
+	overflow: auto;
+	
+	
+	
+	}
+	
+#displayOption{
+	
+	
+	width: 30%;
+	border: 1px solid #ccc;
+	
+	
+	
+	
+	
+	}
+	
+#incentreleft {
+  
+  float: left;
+  width: 48%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+}
+
+#incentreleft_scroll{
+  
+  float: left;
+  width: 50%;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  overflow: scroll;
+}
+
+#incentreright {
+  
+  float: right;
+  width: 48%;
+  height: 100%;
+  border-right: 0px ;
+}
+#wwgrp{
+	
+	padding: 3px;
+	width: 300px%;
+	height: 100%;
+	
+	
+	}
+#footer {
+  background: #ffffff;
+  clear: both;
+  width: 100%;
+  height: 100px;
+  font: #cccccc;
+}
+#savedrecord {
+  background: 	#FAF8CC;
+  clear: both;
+  width: 60%;
+  height: 100px;
+  border: 1px solid #FDD017;
+}
+#operror {
+  background: 	#FDEEF4;
+  clear: both;
+  width: 60%;
+  height: 100px;
+  border: 1px solid #FF0000;
+}
+#breadcrumbs {
+  float: left;
+  width: 100%;
+  
+}
+
+table.maintables {
+	width:100%;
+	border-color: #FFFFFF;
+	background: #FFFFFF;
+  
+}
+table.footertable {
+	width:100%;
+	border-color: #FFFFFF;
+	background: #FFFFFF;
+  
+}
+table.mainmenu{
+width:100%;	
+	
+}
+.heading {
+color:#003366;
+font-size:13px;
+font-weight:700;
+}
+
+.outer A:link {text-decoration: none}
+.outer A:visited {text-decoration: none}
+.outer A:active {text-decoration: underline; color:gold;}
+.outer A:hover {text-decoration: underline; color:gold;}
+
+
+.internal A:link {text-decoration: underline}
+.internal A:visited {text-decoration: underline}
+.internal A:active {text-decoration: underline; color:gold;}
+.internal A:hover {text-decoration: underline; color:gold;}
+
+.headerleft A:link {text-decoration: none; color:grey}
+.headerleft A:visited {text-decoration: underline}
+.headerleft A:active {text-decoration: underline; color:gold;}
+.headerleft A:hover {text-decoration: underline; color:gold;}
+
+.home A:link {text-decoration: none; color:red;font-weight:bold;}
+.home A:visited {text-decoration: none; color:red;font-weight:bold;}
+.home A:active {text-decoration: none; color:grey;}
+.home A:hover {text-decoration: none; color:grey;}
+
+.error{
+ color:red;
+}
+.success{
+ color:green;
+}
+.headerTitle{
+color:gold;
+font-size:20px;
+font-weight:bold;
+}
+.maintables{
+font-size:12px
+}
+
+table.menu{
+border-color: #003366;
+background: #003366;
+border: 1px;
+
+}
+
+table.headingmenu{
+
+
+}
+table.messages{
+
+
+}
+table.messages td{
+padding : 3px;
+}
+table.menu th{
+ background-color: #CEE3F6;
+ border-color: #FFFFFF;
+ font-weight: bold;
+ color: #003366;
+ width: 350px;
+ margin: 4px;
+ padding : 4px;
+ 
+ 
+ 
+}
+table.menu td{
+ background-color: #FFFFFF;
+ border-color: #CEE3F6;
+ width: 350px;
+ margin: 4px;
+ padding : 4px;
+ 
+}
+
+table.headingmenu th{
+ background-color: #81BEF7;
+ border-color: #FFFFFF;
+ font-weight: bold;
+ color: white;
+ width: 350px;
+ margin: 4px;
+ padding : 4px;
+ 
+ 
+}
+table.headingmenu td{
+ background-color: #FFFFFF;
+ border-color: #81BEF7;
+ width: 350px;
+ margin: 1px;
+ padding 1px;
+ 
+}
+
+table.data{
+border-color: #003366;
+background: #003366;
+border: 1px;
+
+}
+
+table.display{
+border-color: #003366;
+background: #003366;
+border: 1px;
+width: 30%;
+
+}
+
+
+table.data th{
+ background-color: #CEE3F6;
+ border-color: #FFFFFF;
+ font-weight: bold;
+ color: #003366;
+ width: 350px;
+ margin: 4px;
+ padding : 4px;
+ 
+ 
+ 
+}
+table.data td{
+ background-color: #FFFFFF;
+ border-color: #CEE3F6;
+ width: 350px;
+ margin: 4px;
+ padding : 4px;
+ 
+}
+
+.errorMessage{
+color: red;
+}
+.required{
+color: red;
+}
+
+.button{
+width: 100px;
+}
+ul {
+	margin: 1px;
+	padding: 1px;
+	list-style: none;
+	width: 170px;
+	border-bottom: 1px solid #ccc;
+	
+}
+li{
+	position: relative;
+}
+li ul{
+	position: absolute;
+	left: 169px;
+	top: 0;
+	display: none;
+}
+ul li a {
+	display: block;
+	text-decoration: none;
+	background-color: #2175bc;
+	color: #fff;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+	}
+	
+li:hover ul { display: block;
+
+}
+ul li a:hover {
+		border-left: 2px solid #1c64d1;
+		border-right: 2px solid #5ba3e0;
+		
+		color: gold;
+		}
+
+ul li a:hover.bak {
+		border-left: 10px solid #1c64d1;
+		border-right: 10px solid #5ba3e0;
+		
+		color: gold;
+		}
+
+
+div.Tabview div.Tabs
+{
+    height: 24px;
+    overflow: hidden;
+    
+    
+}
+
+div.Tabview div.Tabs a
+{
+    float: left;
+    display: block;
+    width:  90px;
+    text-align: center;
+    height: 24px;
+    padding-top: 3px;
+    vertical-align: middle;
+    border: 1px solid black;
+    text-decoration: none;
+    font-family: "Arial", Serif;
+    font-weight: 900;
+    color: grey;
+    background-color: lightyellow;
+    border: 1px solid #ccc;
+     
+    
+}
+
+div.Tabview div.Tabs a:hover, div.Tabview div.Tabs a.Active
+{
+    background: #f9f9f9;
+    border-bottom-width: 0px;
+    color:#000080;
+    
+}
+
+
+div.Tabview div.Pages
+{
+    clear: both;
+    border-top: 0px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    background: #f9f9f9;
+    
+}
+
+div.Tabview div.Pages div.Page
+{
+    height: 100%;
+    padding: 0px;
+    overflow: hidden;
+    
+}
+
+div.Tabview div.Pages div.Page div.Pad
+{
+    padding: 3px 5px;
+   
+    
+}
+
+#top_borders {
+  
+    position: relative;
+    border-top: 1px solid #ccc;
+    left: 12.1%;
+}	

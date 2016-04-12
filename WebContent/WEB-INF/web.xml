@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>RegistryWeb</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>hhiHome.jsp</welcome-file>
+    
+  </welcome-file-list>
+ 
+<filter>
+    <filter-name>ResponseOverrideFilter</filter-name>
+    <filter-class>org.displaytag.filter.ResponseOverrideFilter</filter-class>
+  </filter>
+ 
+	<filter-mapping>
+    <filter-name>ResponseOverrideFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ResponseOverrideFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>ResponseOverrideFilter</filter-name>
+    <url-pattern>/export_memberview.action</url-pattern>
+  </filter-mapping>
+  
+    <filter>
+	   <filter-name>struts2</filter-name>
+	   <filter-class>org.apache.struts2.dispatcher.FilterDispatcher</filter-class>
+	</filter>
+	
+	<filter-mapping>
+	   <filter-name>struts2</filter-name>
+	   <url-pattern>/*</url-pattern>
+	   <dispatcher>FORWARD</dispatcher>
+	   <dispatcher>REQUEST</dispatcher>
+	   <dispatcher>ERROR</dispatcher>
+	</filter-mapping>
+  	 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>home</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+		<role-name>myusers</role-name>
+		<role-name>manager</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	
+	<context-param>
+	   <description>Parameter used to control display rows</description>
+		<param-name>count</param-name>
+		<param-value>15,45,100,300</param-value>
+	</context-param>
+	<context-param>
+	   <description>Parameter used to determine the number of days a member should have new member status</description>
+		<param-name>newMemberPeriod</param-name>
+		<param-value>30</param-value>
+	</context-param>
+	<context-param>
+	   <description>Parameter used to control page center contet</description>
+		<param-name>menu</param-name>
+		<param-value>menu</param-value>
+	</context-param>
+	<context-param>
+	   <description>Parameter used to control page center contet</description>
+		<param-name>view</param-name>
+		<param-value>view</param-value>
+	</context-param>
+	<context-param>
+	<description>Parameter used to control page center contet</description>
+		<param-name>input</param-name>
+		<param-value>input</param-value>
+	</context-param>
+	<context-param>
+	<description>Parameter used to control page center contet</description>
+		<param-name>edit</param-name>
+		<param-value>edit</param-value>
+	</context-param>
+	<context-param>
+	<description>Parameter used to control page center contet</description>
+		<param-name>success</param-name>
+		<param-value>success</param-value>
+	</context-param>
+	<context-param>
+	<description>Parameter used to control page center contet</description>
+		<param-name>error</param-name>
+		<param-value>error</param-value>
+	</context-param>
+	<context-param>
+	<description>Parameter used to control page center contet</description>
+		<param-name>leader</param-name>
+		<param-value>leader</param-value>
+	</context-param>
+	
+	<context-param>
+	<description> Clickatell username</description>
+		<param-name>username</param-name>
+		<param-value>fifparklands</param-value>
+	</context-param>
+	<context-param>
+	<description>Clickatell password</description>
+		<param-name>password</param-name>
+		<param-value>Pb67oxGi</param-value>
+	</context-param>
+	<context-param>
+	<description>Clickatell AppId</description>
+		<param-name>clientId</param-name>
+		<param-value>3398696</param-value>
+	</context-param>
+	<context-param>
+	<description>Clickatell senderNumber</description>
+		<param-name>senderNumber</param-name>
+		<param-value>27780153115</param-value>
+	</context-param>
+	<context-param>
+	<description> Gmail SMTP username</description>
+		<param-name>user</param-name>
+		<param-value>fifparklands@gmail.com</param-value>
+	</context-param>
+	<context-param>
+	<description>Gmail SMTP password</description>
+		<param-name>pass</param-name>
+		<param-value>fifparklands01</param-value>
+	</context-param>
+	<context-param>
+	<description>Gmail SMTP from</description>
+		<param-name>from</param-name>
+		<param-value>fifparklands@gmail.com</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.hhiregistry.listeners.Initializer</listener-class>
+	</listener>
+	
+	<session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+	
+	
+	
+	
+	 
+	
+	<login-config>
+	   <auth-method>FORM</auth-method>
+	   <form-login-config>
+	   		<form-login-page>/jsp/home/login.jsp</form-login-page>
+	   		<form-error-page>/jsp/home/loginError.jsp</form-error-page>
+	   </form-login-config>
+	</login-config>
+	
+	
+	
+	<security-role>
+	 <role-name>myusers</role-name>
+	</security-role>
+	<security-role>
+	 <role-name>manager</role-name>
+	</security-role>
+	
+	
+</web-app>

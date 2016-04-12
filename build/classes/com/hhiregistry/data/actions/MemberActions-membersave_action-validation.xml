@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd"> 
+<validators> 
+<field name="member.name"> 
+<field-validator type="requiredstring"> 
+<message>Please enter a Member Name</message>
+ </field-validator>
+  </field> 
+  <field name="member.surname"> 
+ <field-validator type="requiredstring"> 
+ <message>Please enter a Surname</message>
+  </field-validator> 
+  </field>
+  <field name="member.title"> 
+ <field-validator type="requiredstring"> 
+   <param name="trim">true</param>
+ <message>Please enter Select a Title</message>
+  </field-validator> 
+  </field>
+  <field name="member.sex"> 
+ <field-validator type="required"> 
+ <message>Please Select sex</message>
+  </field-validator> 
+  </field>
+  <field name="address.addressline1"> 
+ <field-validator type="requiredstring"> 
+ <message>Please enter Address Line 1</message>
+  </field-validator> 
+  </field>
+  <field name="address.addressline2"> 
+ <field-validator type="requiredstring"> 
+ <message>Please enter AddressLine 2</message>
+  </field-validator> 
+  </field>
+  <field name="member.cellphone"> 
+ <field-validator type="requiredstring"> 
+ <message>Please enter a Cell phone Number</message>
+  </field-validator> 
+  </field>
+  <field name="member.employmentStatus"> 
+ <field-validator type="requiredstring"> 
+ <param name="trim">true</param>
+ <message>Please Select an Employment Status</message>
+  </field-validator> 
+  </field>
+  <field name="member.maritalStatus"> 
+ <field-validator type="requiredstring"> 
+ <param name="trim">true</param>
+ <message>Please Select a Marital Status</message>
+  </field-validator> 
+  </field>
+  <field name="cellgroup.groupName"> 
+ <field-validator type="requiredstring"> 
+ <param name="trim">true</param>
+ <message>Please Allocate  a Cell Group</message>
+  </field-validator> 
+  </field>
+  <field name="member.email"> 
+ <field-validator type="email"> 
+ <message>Invalid email address</message>
+  </field-validator> 
+  </field>
+  
+  </validators>
