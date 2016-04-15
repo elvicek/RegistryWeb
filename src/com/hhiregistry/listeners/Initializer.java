@@ -52,33 +52,33 @@ public final class Initializer implements ServletContextListener {
 		Integer newMemberPeriod = Integer.valueOf(ctx.getInitParameter("newMemberPeriod"));
 		List<Member> newMembers = new ArrayList<Member> ();
 		
-		try {
+		/*try {
 			 newMembers = HhiService.getAllNewMembers();
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
-		if (newMembers.size() > 0){
-			Date currentDate = new Date();
-			for(Member member: newMembers){
-				int daysbetween = Days.daysBetween(new DateMidnight(currentDate), new DateMidnight(member.getCreatedDate())).getDays();
-				if( daysbetween > newMemberPeriod ){
-					Groups group;
-					 try {
-						group = HhiService.getGroupsByName(HhiService.NEW_MEMBER_GROUP);
-						HhiService.removeMemberFromGroup(group, member);
-						System.out.println("Member "+member.getName()+" "+member.getSurname()+" No Longer New Member");
-					} catch (PersistanceException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				//if(((currentDate.getTime()- member.getCreatedDate().getTime())/(1000*60*60*24)) > newMemberPeriod ){
-					//update
-				}
-			}
-			
-		}
+//		if (newMembers.size() > 0){
+//			Date currentDate = new Date();
+//			for(Member member: newMembers){
+//				int daysbetween = Days.daysBetween(new DateMidnight(currentDate), new DateMidnight(member.getCreatedDate())).getDays();
+//				if( daysbetween > newMemberPeriod ){
+//					Groups group;
+//					 try {
+//						group = HhiService.getGroupsByName(HhiService.NEW_MEMBER_GROUP);
+//						HhiService.removeMemberFromGroup(group, member);
+//						System.out.println("Member "+member.getName()+" "+member.getSurname()+" No Longer New Member");
+//					} catch (PersistanceException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				//if(((currentDate.getTime()- member.getCreatedDate().getTime())/(1000*60*60*24)) > newMemberPeriod ){
+//					//update
+//				}
+//			}
+//			
+//		}
 		
 	}
 

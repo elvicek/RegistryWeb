@@ -17,9 +17,9 @@ body {
   background: #FFFFFF;
   background-repeat: no-repeat;
   background-size: 100%;
-  background-image: url(../images/headerImage_fif_logo.GIF);
+  background-image: url(../images/header.PNG);
   width: 100%;
-  height:110px;
+  height:130px;
 }
 #leftcol {
   background: #81BEF7;

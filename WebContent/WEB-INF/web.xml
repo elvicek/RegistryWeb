@@ -49,8 +49,9 @@
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-		<role-name>myusers</role-name>
-		<role-name>manager</role-name>
+		<role-name>admin</role-name>
+		<role-name>secretary</role-name>
+		<role-name>engineer</role-name>
 		</auth-constraint>
 	</security-constraint>
 	
@@ -156,14 +157,20 @@
 	   		<form-error-page>/jsp/home/loginError.jsp</form-error-page>
 	   </form-login-config>
 	</login-config>
+	<!--   login-config>
+	   <auth-method>BASIC</auth-method>
+	</login-config -->
 	
 	
 	
 	<security-role>
-	 <role-name>myusers</role-name>
+	 <role-name>admin</role-name>
 	</security-role>
 	<security-role>
-	 <role-name>manager</role-name>
+	 <role-name>secretary</role-name>
+	</security-role>
+	<security-role>
+	 <role-name>engineer</role-name>
 	</security-role>
 	
 	

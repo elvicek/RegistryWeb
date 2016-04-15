@@ -22,7 +22,7 @@
 	}
 #welcome{
 	float: left;
-	background: #81BEF7;
+	background: #81d742;
 	width: 100%;
 	height: 20px;
 	padding: 2px;

@@ -17,16 +17,17 @@ body {
   background: #FFFFFF;
   background-repeat: no-repeat;
   background-size: 100%;
-  background-image: url(../images/headerImage_logo.GIF);
-  width: 100%;
-  height:110px;
+  background-image: url(../images/header.PNG);
+  width: 105%;
+  height:140px;
+  
 }
 #leftcol {
-  background: #81BEF7;
+  background: #A4A4A4;
   float: left;
   width: 15%;
   height: 500px;
-  border-right: 1px solid #003366;
+  border-right: 1px solid #81d742;
 }
 #content {
   background: #fff;
@@ -90,7 +91,7 @@ body {
   clear: both;
   width: 60%;
   height: 100px;
-  border: 1px solid #FF0000;
+  border: 1px solid #81d742;
 }
 #breadcrumbs {
   float: left;
@@ -111,19 +112,21 @@ table.footertable {
   
 }
 table.mainmenu{
-width:100%;	
+width:100%;
+font-size:13px;
+font-weight: bold;
 	
 }
 .heading {
-color:#003366;
+color:#81d742;
 font-size:13px;
 font-weight:700;
 }
 
-.outer A:link {text-decoration: none}
-.outer A:visited {text-decoration: none}
-.outer A:active {text-decoration: underline; color:gold;}
-.outer A:hover {text-decoration: underline; color:gold;}
+.outer A:link {text-decoration: underline; color:#81d742; }
+.outer A:visited {text-decoration: underline; color:white}
+.outer A:active {text-decoration: underline; color:grey;}
+.outer A:hover {text-decoration: underline; color:grey;}
 
 
 .internal A:link {text-decoration: underline}
@@ -132,9 +135,14 @@ font-weight:700;
 .internal A:hover {text-decoration: underline; color:gold;}
 
 .headerleft A:link {text-decoration: none; color:grey}
-.headerleft A:visited {text-decoration: underline}
-.headerleft A:active {text-decoration: underline; color:gold;}
-.headerleft A:hover {text-decoration: underline; color:gold;}
+.headerleft A:visited {text-decoration: underline; color:grey}
+.headerleft A:active {text-decoration: underline; color:white;}
+.headerleft A:hover {text-decoration: underline; color:white;}
+
+.home A:link {text-decoration: none; color:#81d742;}
+.home A:visited {text-decoration: none; color:#81d742;}
+.home A:active {text-decoration: none; color:grey;}
+.home A:hover {text-decoration: none; color:grey;}
 
 .error{
  color:red;
@@ -149,8 +157,8 @@ font-size:12px
 }
 
 table.menu{
-border-color: #003366;
-background: #003366;
+border-color: #ccc;
+background: #ccc;
 border: 1px;
 
 }
@@ -167,10 +175,10 @@ table.messages td{
 padding : 3px;
 }
 table.menu th{
- background-color: #CEE3F6;
- border-color: #FFFFFF;
+ background-color: #6E6E6E;
+ border-color: #ccc;
  font-weight: bold;
- color: #003366;
+ color: #D8D8D8;
  width: 350px;
  margin: 4px;
  padding : 4px;
@@ -208,18 +216,18 @@ table.headingmenu td{
 }
 
 table.data{
-border-color: #003366;
-background: #003366;
+border-color: #ccc;
+background: #ccc;
 border: 1px;
 
 }
 
 
 table.data th{
- background-color: #CEE3F6;
- border-color: #FFFFFF;
+ background-color: #6E6E6E;
+ border-color: #ccc;
  font-weight: bold;
- color: #003366;
+ color: #D8D8D8;
  width: 350px;
  margin: 4px;
  padding : 4px;
@@ -241,6 +249,10 @@ color: red;
 }
 .required{
 color: red;
+}
+
+.faint{
+color: grey;
 }
 
 .button{
@@ -266,19 +278,21 @@ li ul{
 ul li a {
 	display: block;
 	text-decoration: none;
-	background-color: #2175bc;
+	background-color: #81d742;
 	color: #fff;
 	padding: 5px;
 	border: 1px solid #ccc;
 	border-bottom: 0;
+	font-size: 12px;
+	font-weight: 600;
 	}
 	
 li:hover ul { display: block;
 
 }
 ul li a:hover {
-		border-left: 2px solid #1c64d1;
-		border-right: 2px solid #5ba3e0;
+		border-left: 2px solid #81d742;
+		border-right: 2px solid #81d742;
 		
 		color: gold;
 		}
