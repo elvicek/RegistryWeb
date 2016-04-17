@@ -44,10 +44,10 @@ Home</a></li>
     </li> 
     <li><a href="#">Administration</a> 
     <ul>
-      <li><a href="<s:url action="groupsview_action" namespace="/"/>">View All Groups</a></li>
-      <li><a href="<s:url action="groupsinput_action" namespace="/"/>">Groups Input</a></li>
-      <li><a href="<s:url action="groupSMS_action" namespace="/"/>">Send SMS to Members</a></li>
-      <li><a href="<s:url action="messageEmail_action" namespace="/"/>">Email members</a></li>
+      <li><a href="<s:url action="rolesview_action" namespace="/"/>">View All Roles</a></li>
+      <li><a href="<s:url action="userinput_action" namespace="/"/>">users Input</a></li>
+      <li><a href="<s:url action="groupSMS_action" namespace="/"/>">Send SMS to Users</a></li>
+      <li><a href="<s:url action="messageEmail_action" namespace="/"/>">Email users</a></li>
       <li><a href="<s:url action="emailTextFile_action" namespace="/"/>">Email Text File</a></li>
     </ul>
     </li>

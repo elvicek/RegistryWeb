@@ -11,38 +11,38 @@
         <action name="home_action">
             <result>/jsp/welcome.jsp</result>
         </action>
-        <action name="cellgroupmenu_action" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction">
+        <action name="cellgroupmenu_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
             <result name="success">/jsp/cellgroups.jsp</result>
             <result name="error">/jsp/cellgroups.jsp</result>
         </action>
-        <action name="cellgroupinput_action" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction">
+        <action name="cellgroupinput_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
             <result name="success" >/jsp/cellgroups.jsp</result>
             <result name="input" >/jsp/cellgroups.jsp</result> 
             <result name="error" type="dispatcher">/cellgroup_error.action</result>    
             
         </action>
-        <action name="cellgroupview_action" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction">
+        <action name="cellgroupview_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
             <interceptor-ref name="validation">
          		<param name="excludeMethods">cellGroupAction</param>
      		</interceptor-ref>
             <result name="success" >/jsp/cellgroups.jsp</result>
             <result name="error" type="dispatcher">/cellgroup_error.action</result>
         </action>
-        <action name="cellgroupmembership_action" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction">
+        <action name="cellgroupmembership_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
             <result name="success" >/jsp/cellgroups.jsp</result>
             <result name="error" type="dispatcher">/cellgroup_error.action</result>
         </action>
-        <action name="save_cellgroup" class="com.hhiregistry.data.actions.DataActions" method="saveCellGroup" >
+        <action name="save_cellgroup" class="com.aes.data.actions.DataActions" method="saveCellGroup" >
             <result name="success" type="dispatcher">/save_cellgroupsuccess.action</result>
             <result name="input" >/cellgroupinput_action.action</result>
             <result name="error" type="dispatcher">/cellgroup_error.action</result>   
         </action>
-        <action name="update_cellgroup" class="com.hhiregistry.data.actions.DataActions" method="updateCellGroup" >
+        <action name="update_cellgroup" class="com.aes.data.actions.DataActions" method="updateCellGroup" >
             <result name="success" type="dispatcher">/update_cellgroupsuccess.action</result>
             <result name="input" type="dispatcher">/editcellgroup_action.action</result>
             <result name="error" type="dispatcher">/cellgroup_error.action</result>   
         </action>
-        <action name="save_cellgroupsuccess" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction" >
+        <action name="save_cellgroupsuccess" class="com.aes.data.actions.DataActions" method="cellGroupAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">cellGroupAction</param>
      		</interceptor-ref>
@@ -50,18 +50,18 @@
             
         </action>
         
-        <action name="update_cellgroupsuccess" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction" >
+        <action name="update_cellgroupsuccess" class="com.aes.data.actions.DataActions" method="cellGroupAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">cellGroupAction</param>
      		</interceptor-ref>
             <result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
             
         </action>
-        <action name="cellgroupdeletesuccess_action" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction">
+        <action name="cellgroupdeletesuccess_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
             <result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
             
         </action>
-        <action name="cellgroup_error" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction" >
+        <action name="cellgroup_error" class="com.aes.data.actions.DataActions" method="cellGroupAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">cellGroupAction</param>
      		</interceptor-ref>
@@ -79,7 +79,7 @@
         <action name="maintenance_action">
             <result>/jsp/maintenance.jsp</result>
         </action>
-        <action name="membersmenu_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="membersmenu_action" class="com.aes.data.actions.MemberActions" method="memberAction">
         	
             <result name="success">/jsp/members.jsp</result>
             <result name="error">/jsp/members.jsp</result>
@@ -89,13 +89,13 @@
         </action>
          
         
-        <action name="memberinput_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="memberinput_action" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" >/jsp/members.jsp</result>
             <result name="input" >/jsp/members.jsp</result>
             
             
         </action>
-        <action name="editcellgroup_action" class="com.hhiregistry.data.actions.DataActions" method="cellGroupAction">
+        <action name="editcellgroup_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
         
             <result name="success">/jsp/cellgroups.jsp</result>
             <result name="input" >/jsp/cellgroups.jsp</result>
@@ -103,7 +103,7 @@
             
             
         </action>
-        <action name="deletecellgroup_action" class="com.hhiregistry.data.actions.DataActions" method="cellgroupDelete">
+        <action name="deletecellgroup_action" class="com.aes.data.actions.DataActions" method="cellgroupDelete">
         
             <result name="success">/cellgroupdeletesuccess_action.action</result>
             <result name="input" >/cellgroupview_action</result>
@@ -111,75 +111,75 @@
             
             
         </action>
-        <action name="editmember_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="editmember_action" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" >/jsp/members.jsp</result>
             <result name="input" >/jsp/members.jsp</result>
             
             
         </action>
         
-        <action name="memberview_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="memberview_action" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
-        <action name="export_memberview" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="export_memberview" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
-        <action name="membersearch_action" class="com.hhiregistry.data.actions.MemberActions" method="memberSearchAction">
+        <action name="membersearch_action" class="com.aes.data.actions.MemberActions" method="memberSearchAction">
             <result name="success" type="dispatcher">/memberview_action.action</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
-        <action name="filterResults_action" class="com.hhiregistry.data.actions.MemberActions" method="pagerAction">
+        <action name="filterResults_action" class="com.aes.data.actions.MemberActions" method="pagerAction">
             <result name="success" type="dispatcher">/memberview_action.action</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
-        <action name="membersave_action" class="com.hhiregistry.data.actions.MemberActions" method="memberSave">
+        <action name="membersave_action" class="com.aes.data.actions.MemberActions" method="memberSave">
             <result name="success" type="dispatcher">/membersavesuccess_action.action</result>
             <result name="input">/memberinput_action.action</result>
             <result name="error" type="dispatcher">/member_error.action</result>
         </action>
-        <action name="memberupdate_action" class="com.hhiregistry.data.actions.MemberActions" method="memberUpdate">
+        <action name="memberupdate_action" class="com.aes.data.actions.MemberActions" method="memberUpdate">
             <result name="success" type="dispatcher">/memberupdatesuccess_action.action</result>
             <result name="input">/editmember_action.action</result>
             <result name="error" type="dispatcher">/member_error.action</result>
         </action>
         
-        <action name="memberdelete_action" class="com.hhiregistry.data.actions.MemberActions" method="memberDelete">
+        <action name="memberdelete_action" class="com.aes.data.actions.MemberActions" method="memberDelete">
             <result name="success" type="dispatcher">/memberdeletesuccess_action.action</result>
             <result name="input">/memberview_action</result>
             <result name="error" type="dispatcher">/member_error.action</result>
         </action>
         
-        <action name="member_error" class="com.hhiregistry.data.actions.MemberActions" method="memberAction" >
+        <action name="member_error" class="com.aes.data.actions.MemberActions" method="memberAction" >
             <result name="success">/jsp/members.jsp</result>
              <result name="error">/jsp/members.jsp</result>
             
         </action>
-        <action name="membersavesuccess_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             
         </action>
         
-        <action name="memberupdatesuccess_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+        <action name="memberupdatesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             
         </action>
-    <action name="memberdeletesuccess_action" class="com.hhiregistry.data.actions.MemberActions" method="memberAction">
+    <action name="memberdeletesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             
         </action>
-        <action name="administrationmenu_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="administrationmenu_action" class="com.aes.data.actions.AdminActions" method="groupAction">
             <result name="success">/jsp/administration.jsp</result>
             <result name="error">/jsp/administration.jsp</result>
         </action>
-        <action name="groupsinput_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="userinput_action" class="com.aes.data.actions.AdminActions" method="groupAction">
             <result name="success" >/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result> 
             <result name="error" type="dispatcher">/administration_error.action</result>    
             
         </action>
-        <action name="editgroups_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="editgroups_action" class="com.aes.data.actions.AdminActions" method="groupAction">
         
             <result name="success">/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result>
@@ -189,7 +189,7 @@
         </action>
         
         
-        <action name="groupSMS_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="userSMS_action" class="com.aes.data.actions.AdminActions" method="groupAction">
         
             <result name="success">/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result>
@@ -197,7 +197,7 @@
             
             
         </action>
-        <action name="birthdaySMS_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="birthdaySMS_action" class="com.aes.data.actions.AdminActions" method="groupAction">
         
             <result name="success">/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result>
@@ -206,7 +206,7 @@
             
         </action>
         
-        <action name="individualSMS_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="individualSMS_action" class="com.aes.data.actions.AdminActions" method="groupAction">
         
             <result name="success">/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result>
@@ -216,7 +216,7 @@
         </action>
         
        
-        <action name="messageEmail_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="messageEmail_action" class="com.aes.data.actions.AdminActions" method="groupAction">
         
             <result name="success">/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result>
@@ -225,7 +225,7 @@
             
         </action>
         
-        <action name="sendSMS_action" class="com.hhiregistry.data.actions.AdminActions" method="dispatchSMS">
+        <action name="sendSMS_action" class="com.aes.data.actions.AdminActions" method="dispatchSMS">
         
             <result name="success" type="dispatcher">/smsSendsuccess_action.action</result>
             <result name="input" >/jsp/administration.jsp</result> 
@@ -233,14 +233,14 @@
             
         </action>
         
-         <action name="individualSendSMS_action" class="com.hhiregistry.data.actions.AdminActions" method="dispatchSMS">
+         <action name="individualSendSMS_action" class="com.aes.data.actions.AdminActions" method="dispatchSMS">
         
             <result name="success" type="dispatcher">/smsSendsuccess_action.action</result>
             <result name="input" >/jsp/administration.jsp</result> 
             <result name="error" type="dispatcher">/administration_error.action</result>    
             
         </action>
-         <action name="birthdaySendSMS_action" class="com.hhiregistry.data.actions.AdminActions" method="dispatchSMS">
+         <action name="birthdaySendSMS_action" class="com.aes.data.actions.AdminActions" method="dispatchSMS">
         
             <result name="success" type="dispatcher">/smsSendsuccess_action.action</result>
             <result name="input" >/jsp/administration.jsp</result> 
@@ -248,7 +248,7 @@
             
         </action>
         
-        <action name="sendEmail_action" class="com.hhiregistry.data.actions.AdminActions" method="dispatchEmail">
+        <action name="sendEmail_action" class="com.aes.data.actions.AdminActions" method="dispatchEmail">
         
             <result name="success" type="dispatcher">/emailSendsuccess_action.action</result>
             <result name="input" >/jsp/administration.jsp</result> 
@@ -256,7 +256,7 @@
             
         </action>
         
-        <action name="emailTextFile_action" class="com.hhiregistry.data.actions.AdminActions" method="writeAddresses">
+        <action name="emailTextFile_action" class="com.aes.data.actions.AdminActions" method="writeAddresses">
         
             <result name="success">/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result> 
@@ -264,36 +264,36 @@
             
         </action>
         
-        <action name="smsSendsuccess_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="smsSendsuccess_action" class="com.aes.data.actions.AdminActions" method="groupAction">
             <result name="success" type="dispatcher">/jsp/administration.jsp</result>
             
         </action>
-        <action name="writeAddresssuccess_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="writeAddresssuccess_action" class="com.aes.data.actions.AdminActions" method="groupAction">
             <result name="success" type="dispatcher">/jsp/administration.jsp</result>
             
         </action>
-        <action name="emailSendsuccess_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="emailSendsuccess_action" class="com.aes.data.actions.AdminActions" method="groupAction">
             <result name="success" type="dispatcher">/jsp/administration.jsp</result>
             
         </action>
-        <action name="groupsview_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="rolesview_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
             <interceptor-ref name="validation">
-         		<param name="excludeMethods">groupAction</param>
+         		<param name="excludeMethods">rolesAction</param>
      		</interceptor-ref>
             <result name="success" >/jsp/administration.jsp</result>
             <result name="error" type="dispatcher">/administration_error.action</result>
         </action>
-        <action name="save_group" class="com.hhiregistry.data.actions.AdminActions" method="saveGroup" >
+        <action name="save_group" class="com.aes.data.actions.AdminActions" method="saveGroup" >
             <result name="success" type="dispatcher">/save_groupsuccess.action</result>
-            <result name="input" >/groupsinput_action.action</result>
+            <result name="input" >/userinput_action.action</result>
             <result name="error" type="dispatcher">/administration_error.action</result>   
         </action>
-        <action name="allocategroups_action" class="com.hhiregistry.data.actions.MemberActions" method="allocateGroups" >
+        <action name="allocategroups_action" class="com.aes.data.actions.MemberActions" method="allocateGroups" >
             <result name="success" type="dispatcher">/save_groupsuccess.action</result>
-            <result name="input" >/groupsinput_action.action</result>
+            <result name="input" >/userinput_action.action</result>
             <result name="error" type="dispatcher">/administration_error.action</result>   
         </action>
-        <action name="save_groupsuccess" class="com.hhiregistry.data.actions.AdminActions" method="groupAction" >
+        <action name="save_groupsuccess" class="com.aes.data.actions.AdminActions" method="groupAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">groupAction</param>
      		</interceptor-ref>
@@ -301,13 +301,13 @@
             
         </action>
         
-        <action name="update_group" class="com.hhiregistry.data.actions.AdminActions" method="updateGroup" >
+        <action name="update_group" class="com.aes.data.actions.AdminActions" method="updateGroup" >
             <result name="success" type="dispatcher">/update_groupsuccess.action</result>
             <result name="input" type="dispatcher">/groupsdataedit_action</result>
             <result name="error" type="dispatcher">/administration_error.action</result>   
         </action>
         
-        <action name="update_groupsuccess" class="com.hhiregistry.data.actions.AdminActions" method="groupAction" >
+        <action name="update_groupsuccess" class="com.aes.data.actions.AdminActions" method="groupAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">groupAction</param>
      		</interceptor-ref>
@@ -315,20 +315,20 @@
             
         </action>
         
-        <action name="deletegroup_action" class="com.hhiregistry.data.actions.AdminActions" method="groupDelete">
+        <action name="deletegroup_action" class="com.aes.data.actions.AdminActions" method="groupDelete">
         
             <result name="success">/groupdeletesuccess_action.action</result>
-            <result name="input" >/groupsview_action</result>
+            <result name="input" >/rolesview_action</result>
             <result name="error" type="dispatcher">/group_error.action</result>  
             
             
         </action>
-        <action name="groupmembership_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="rolesmembership_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
             <result name="success" >/jsp/administration.jsp</result>
             <result name="error" type="dispatcher">/administration_error.action</result>
         </action>
         
-        <action name="groupdeletesuccess_action" class="com.hhiregistry.data.actions.AdminActions" method="groupAction">
+        <action name="groupdeletesuccess_action" class="com.aes.data.actions.AdminActions" method="groupAction">
             <result name="success" type="dispatcher">/jsp/administration.jsp</result>
             
         </action>
@@ -339,7 +339,7 @@
         </action>
         
         
-        <action name="administration_error" class="com.hhiregistry.data.actions.AdminActions" method="groupAction" >
+        <action name="administration_error" class="com.aes.data.actions.AdminActions" method="groupAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">groupAction</param>
      		</interceptor-ref>
@@ -349,7 +349,7 @@
             
         </action>
         
-        <action name="signout_action" class="com.hhiregistry.data.actions.AdminActions" method="signOutAction" >
+        <action name="signout_action" class="com.aes.data.actions.AdminActions" method="signOutAction" >
         <interceptor-ref name="validation">
          		<param name="excludeMethods">groupAction</param>
      		</interceptor-ref>

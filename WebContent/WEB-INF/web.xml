@@ -138,7 +138,7 @@
 		<param-value>fifparklands@gmail.com</param-value>
 	</context-param>
 	<listener>
-		<listener-class>com.hhiregistry.listeners.Initializer</listener-class>
+		<listener-class>com.aes.listeners.Initializer</listener-class>
 	</listener>
 	
 	<session-config>

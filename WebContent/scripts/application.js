@@ -533,24 +533,23 @@ function setGroupNameSubmit(chk) {
 	}
 }
 
-function setGroupNameSubmitMembership(chk) {
+function setRoleNameSubmitMembership(chk) {
 
 	var s = "";
-	// alert("Working ffdd");
 	
 	if(chk.checked == true ){
 		var tr = tabl.rows[1];
 
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
-		document.membership.groupIdMembers.value = id;
-		// alert("ID Value"+document.membership.cellgroupNameMembers.value);
+		document.membership.roleId.value = id;
+		alert(id+"ID Value"+document.membership.roleId.value);
 
 		document.membership.submit();
 		
 	}
 	else{
-	var tabl = document.getElementById('groupsdata');
+	var tabl = document.getElementById('rolesdata');
 	for (j = 0; j < chk.length; j++) {
 		if (chk[j].checked == true) {
 
@@ -558,7 +557,7 @@ function setGroupNameSubmitMembership(chk) {
 
 			var cll = tr.cells[1];
 			var id = cll.innerHTML;
-			document.membership.groupIdMembers.value = id;
+			document.membership.roleId.value = id;
 			// alert("ID Value"+document.membership.cellgroupNameMembers.value);
 
 			document.membership.submit();

@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">
-@import url(resources/css/main.css);
+@import url(resources/css/main_aes.css);
 </style>
 <script type="text/javascript" src="scripts/application.js">
 </script>
@@ -31,7 +31,7 @@
 <%@ include file="data/groupSuccessMsg.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent == 'membership' }">
-<%@ include file="data/memberByGroupview.jsp" %>
+<%@ include file="data/usersByRoleview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent == 'sms' }">
 <%@ include file="data/groupsSendSms.jsp" %>
@@ -39,8 +39,8 @@
 <c:when test="${sessionScope.adminContent == 'email' }">
 <%@ include file="data/groupsSendEmail.jsp" %>
 </c:when>
-<c:when test="${sessionScope.adminContent eq initParam.view }">
-<%@ include file="data/groupsview.jsp" %>
+<c:when test="${sessionScope.adminContent eq 'rolesview' }">
+<%@ include file="data/rolesview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.error }">
 <%@ include file="global/error.jsp" %>
