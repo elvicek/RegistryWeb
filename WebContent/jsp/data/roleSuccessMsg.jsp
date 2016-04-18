@@ -31,7 +31,7 @@
 			<td><a href="<s:url action="roleinput_action" namespace="/"/>">Add
 					Another Record</a></td>
 			<td><a
-				href="<s:url action="administrationmenu_action" namespace="/"/>">Roles
+				href="<s:url action="administrationmenu_action" namespace="/"/>">Admin
 					Menu</a></td>
 
 		</tr>
@@ -57,7 +57,7 @@
 			<tr>
 
 				<td><a
-					href="<s:url action="administrationmenu_action" namespace="/"/>">Roles
+					href="<s:url action="administrationmenu_action" namespace="/"/>">Admin
 						Menu</a></td>
 
 			</tr>
@@ -84,7 +84,7 @@
 			<tr>
 
 				<td><a
-					href="<s:url action="administrationmenu_action" namespace="/"/>">Roles
+					href="<s:url action="administrationmenu_action" namespace="/"/>">Admin
 						Menu</a></td>
 
 			</tr>
@@ -111,7 +111,7 @@
 			<tr>
 
 				<td><a
-					href="<s:url action="administrationmenu_action" namespace="/"/>">Roles
+					href="<s:url action="administrationmenu_action" namespace="/"/>">Admin
 						Menu</a></td>
 
 			</tr>
@@ -187,8 +187,8 @@
 		<tr>
 			<td><p>
 					<span style="color: red">Role Record(s) Cannot be Deleted<br />
-						While Users are allocated to it. <br /> Fist Unallocate members to
-						the group(s).Then Proceed
+						While Users are allocated to it. <br /> Fist Unallocate members from
+						the role(s).Then Proceed
 					</span>
 				</p></td>
 	</table>
@@ -200,7 +200,7 @@
 			<tr>
 
 				<td><a
-					href="<s:url action="administrationmenu_action" namespace="/"/>">Group
+					href="<s:url action="administrationmenu_action" namespace="/"/>">Admin
 						Menu</a></td>
 
 			</tr>
@@ -230,7 +230,7 @@
 				<td><a href="<s:url action="rolesview_action" namespace="/"/>">Delete
 						Another Record</a></td>
 				<td><a
-					href="<s:url action="memberdeletesuccess_action" namespace="/"/>">Group
+					href="<s:url action="administrationmenu_action" namespace="/"/>">Admin
 						Menu</a></td>
 
 			</tr>

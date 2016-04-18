@@ -22,7 +22,6 @@ import com.aes.data.domain.Role;
 import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
 import com.aes.exceptions.PersistanceException;
-import com.aes.local.model.PersonUser;
 import com.aes.utils.HibernateUtils;
 import com.hhiregistry.model.Cellgroup;
 import com.hhiregistry.model.Groups;
@@ -833,48 +832,7 @@ public class HhiService {
 	}
 	
 	
-	public static List<PersonUser> getPersonUserInRole(String roleId)
-			throws PersistanceException {
-
-		List<PersonUser> personUsers= new ArrayList<PersonUser>();
-		List<User> users = new ArrayList<User>();
-		try {
-			Session session = getSession();
-			Transaction tx = session.beginTransaction();
-
-			String queryString = "from Role where ROLE_NAME = :roleId";
-			Query query = session.createQuery(queryString);
-			query.setString("roleId", roleId);
-
-			Object obj = query.uniqueResult();
-			Role role;
-
-			if (obj == null) {
-				role = null;
-			} else {
-				role = (Role) obj;
-				users = new ArrayList<User>(role.getUsers());
-				
-				if(isNotNullOrEmpty(users)){
-					for(User aUser : users){
-						
-					}
-					
-				}
-			}
-			
-			
-
-			tx.commit();
-			session.flush();
-			session.close();
-
-			return null;
-		} catch (Exception e) {
-			throw new PersistanceException();
-		}
-	}
-
+	
 	private static boolean isNotNullOrEmpty(List<User> users) {
 		return users != null && !users.isEmpty();
 		
