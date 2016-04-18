@@ -17,7 +17,7 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.aes.business.CellgroupEditData;
 import com.aes.business.MemberEditData;
-import com.aes.exceptions.MemberExistsException;
+import com.aes.exceptions.UsersExistInRoleException;
 import com.aes.exceptions.PersistanceException;
 import com.aes.service.HhiService;
 import com.hhiregistry.model.Cellgroup;
@@ -290,7 +290,7 @@ public class DataActions extends ActionSupport{
 		
 			try {
 				HhiService.deleteCellgroup(id);
-			} catch (MemberExistsException e) {
+			} catch (UsersExistInRoleException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				request.getSession().setAttribute("cellgroupMessage", "cellgroupDeleteError");

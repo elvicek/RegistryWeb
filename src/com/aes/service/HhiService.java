@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,7 +20,7 @@ import com.aes.data.actions.DataActions;
 import com.aes.data.dao.RoleDao;
 import com.aes.data.domain.Role;
 import com.aes.data.domain.User;
-import com.aes.exceptions.MemberExistsException;
+import com.aes.exceptions.UsersExistInRoleException;
 import com.aes.exceptions.PersistanceException;
 import com.aes.local.model.PersonUser;
 import com.aes.utils.HibernateUtils;
@@ -73,10 +74,11 @@ public class HhiService {
 			Session session = getSession();
 			Transaction tx = session.beginTransaction();
 
-			session.update(o);
+			session.saveOrUpdate(o);
+			//session.lock(o, LockMode.NONE);
 
 			tx.commit();
-			// session.flush();
+			//session.flush();
 			session.close();
 
 		} catch (Exception e) {
@@ -415,7 +417,7 @@ public class HhiService {
 	}
 
 	public static void deleteCellgroup(String cellgroupName)
-			throws ConstraintViolationException, MemberExistsException {
+			throws ConstraintViolationException, UsersExistInRoleException {
 
 		Cellgroup cellgroup;
 		Session session = getSession();
@@ -426,7 +428,7 @@ public class HhiService {
 
 			if (cellgroup.getMembers().size() > 0) {
 
-				throw new MemberExistsException(cellgroup.getGroupName());
+				throw new UsersExistInRoleException(cellgroup.getGroupName());
 			}
 
 			session.delete(cellgroup);
@@ -448,7 +450,7 @@ public class HhiService {
 	}
 
 	public static void deleteGroup(String groupName)
-			throws ConstraintViolationException, MemberExistsException {
+			throws ConstraintViolationException, UsersExistInRoleException {
 
 		Groups group;
 		Session session = getSession();
@@ -459,7 +461,7 @@ public class HhiService {
 
 			if (group.getMembers().size() > 0) {
 
-				throw new MemberExistsException(group.getGroupName());
+				throw new UsersExistInRoleException(group.getGroupName());
 			}
 
 			session.delete(group);
@@ -480,28 +482,27 @@ public class HhiService {
 
 	}
 	
-	public static void deleteGroupById(Integer groupId)
-			throws ConstraintViolationException, MemberExistsException {
+	public static void deleteRoleById(String roleId)
+			throws ConstraintViolationException, UsersExistInRoleException {
 
-		Groups group;
+		Role role;
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
+		
+		try {
+			role = getRoleById(roleId);
+			if(role != null && isNotNullOrEmpty(new ArrayList<User>(role.getUsers()))){
+				throw new UsersExistInRoleException("users exist in role ["+role
+						.getRoleName()+"]");
+			}
 
-//		try {
-////			group = getGroupsById(groupId);
-////
-////			session.delete(group);
-//
-//		} catch (ConstraintViolationException e) {
-//			e.printStackTrace();
-//
-//			throw e;
-//		}
-//
-//		catch (PersistanceException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+			session.delete(role);
+		} 
+
+		catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		tx.commit();
 		session.flush();
 		session.close();

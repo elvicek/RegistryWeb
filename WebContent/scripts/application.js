@@ -419,13 +419,13 @@ function setCellgroupToDelete(chk) {
 	document.toDelete.submit();
 }
 
-function setGroupToDelete(chk) {
+function setRoleToDelete(chk) {
 
-	var groups = "";
+	var roles = "";
 	var chkd = 0;
 	var id = "";
 
-	var tabl = document.getElementById('groupsdata');
+	var tabl = document.getElementById('rolesdata');
 	if (chk.length > 1) {
 		for (j = 0; j < chk.length; j++) {
 			if (chk[j].checked == true) {
@@ -435,11 +435,11 @@ function setGroupToDelete(chk) {
 				var cll = tr.cells[1];
 				id = cll.innerHTML;
 				if (chkd == 0) {
-					groups = id;
+					roles = id;
 
 				} else {
 
-					groups = groups + ":" + id;
+					roles = roles + ":" + id;
 
 				}
 				chkd = chkd + 1;
@@ -449,9 +449,9 @@ function setGroupToDelete(chk) {
 			}
 
 		}
-		document.toDelete.groupToDelete.value = groups;
+		document.toDelete.roleToDelete.value = roles;
 	} else {
-		document.toDelete.groupToDelete.value = id;
+		document.toDelete.roleToDelete.value = id;
 	}
 	// alert("Members to Delete"+cellgroups);
 	document.toDelete.submit();
@@ -501,18 +501,18 @@ function setCellgroupNameSubmit(chk) {
 	}
 }
 
-function setGroupNameSubmit(chk) {
+function setRoleNameSubmit(chk) {
 	var s = "";
 	// alert("workings eew");
 
-	var tabl = document.getElementById('groupsdata');
+	var tabl = document.getElementById('rolesdata');
 
 	if (chk == true) {
 		var tr = tabl.rows[1];
 
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
-		document.edit.groupName.value = id;
+		document.edit.roleId.value = id;
 
 		document.edit.submit();
 
@@ -524,7 +524,7 @@ function setGroupNameSubmit(chk) {
 
 				var cll = tr.cells[1];
 				var id = cll.innerHTML;
-				document.edit.groupId.value = id;
+				document.edit.roleId.value = id;
 
 				document.edit.submit();
 			}
@@ -543,7 +543,7 @@ function setRoleNameSubmitMembership(chk) {
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
 		document.membership.roleId.value = id;
-		alert(id+"ID Value"+document.membership.roleId.value);
+		//alert(id+"ID Value"+document.membership.roleId.value);
 
 		document.membership.submit();
 		

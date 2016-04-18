@@ -1,16 +1,16 @@
 package com.aes.exceptions;
 
-public class MemberExistsException extends Exception {
+public class UsersExistInRoleException extends Exception {
 	
 	private String description;
 	
 	
-	public MemberExistsException(){
+	public UsersExistInRoleException(){
 		
 		
 	}
 	
-	public MemberExistsException(String description){
+	public UsersExistInRoleException(String description){
 		this.description = description;
 		
 	}

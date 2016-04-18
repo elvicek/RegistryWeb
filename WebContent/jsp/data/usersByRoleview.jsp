@@ -68,7 +68,7 @@
 
 		</table>
 	</form>
-	<a href="<s:url action="groupsview_action" namespace="/"/>">Back</a>
+	<a href="<s:url action="rolesview_action" namespace="/"/>">Back</a>
 
 
 </div>

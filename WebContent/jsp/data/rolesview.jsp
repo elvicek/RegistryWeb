@@ -8,11 +8,11 @@
 		<tr>
 			<td><table>
 					<tr>
-						<td><s:form action="editroles_action" method="Post"
+						<td><s:form action="editrole_action" method="Post"
 								name="edit">
 								<s:hidden name="roleId" value="" />
 								<input type="submit" id="edit" value="Edit"
-									onClick="setGroupNameSubmit(document.data.select)" />
+									onClick="setRoleNameSubmit(document.data.select)" />
 							</s:form></td>
 						<td><s:form action="rolesmembership_action" method="Post"
 								name="membership">

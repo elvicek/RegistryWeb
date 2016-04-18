@@ -45,6 +45,7 @@ Home</a></li>
     <li><a href="#">Administration</a> 
     <ul>
       <li><a href="<s:url action="rolesview_action" namespace="/"/>">View All Roles</a></li>
+      <li><a href="<s:url action="roleinput_action" namespace="/"/>">Create New Roles</a></li>
       <li><a href="<s:url action="userinput_action" namespace="/"/>">users Input</a></li>
       <li><a href="<s:url action="groupSMS_action" namespace="/"/>">Send SMS to Users</a></li>
       <li><a href="<s:url action="messageEmail_action" namespace="/"/>">Email users</a></li>

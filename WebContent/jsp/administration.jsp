@@ -28,7 +28,7 @@
 <%@ include file="data/administrationmenu.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.success }">
-<%@ include file="data/groupSuccessMsg.jsp" %>
+<%@ include file="data/roleSuccessMsg.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent == 'membership' }">
 <%@ include file="data/usersByRoleview.jsp" %>
@@ -45,14 +45,14 @@
 <c:when test="${sessionScope.adminContent eq initParam.error }">
 <%@ include file="global/error.jsp" %>
 </c:when>
-<c:when test="${sessionScope.adminContent eq initParam.edit }">
-<%@ include file="data/groupsdataedit.jsp" %>
+<c:when test="${sessionScope.adminContent eq 'roleedit' }">
+<%@ include file="data/roledataedit.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.input }">
-<%@ include file="data/groupsdatainput.jsp" %>
+<%@ include file="data/roledatainput.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'write' }">
-<%@ include file="data/groupSuccessMsg.jsp" %>
+<%@ include file="data/roleSuccessMsg.jsp" %>
 </c:when>
 <c:otherwise>
 
