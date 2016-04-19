@@ -9,7 +9,7 @@
 <s:head theme="simple" />
 <style type="text/css">
 
-@import url(resources/css/main.css);
+@import url(resources/css/main_aes.css);
 </style>
 <script type="text/javascript" src="scripts/application.js">
 </script>
@@ -28,7 +28,7 @@
 
 <c:choose>
 <c:when test="${sessionScope.memberContent eq initParam.menu }">
-<%@ include file="data/membermenu.jsp" %>
+<%@ include file="data/clientmenu.jsp" %>
 </c:when>
 <c:when test="${sessionScope.memberContent eq initParam.success }">
 <%@ include file="data/memberSuccessMsg.jsp" %>
@@ -38,6 +38,9 @@
 </c:when>
 <c:when test="${sessionScope.memberContent eq initParam.view }">
 <%@ include file="data/memberview.jsp" %>
+</c:when>
+<c:when test="${sessionScope.memberContent eq 'userview' }">
+<%@ include file="data/userview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.memberContent eq initParam.error }">
 <%@ include file="global/error.jsp" %>

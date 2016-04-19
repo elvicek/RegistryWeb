@@ -108,7 +108,7 @@ function CheckClickMember(chk) {
 		document.getElementById("delete").disabled = false;
 	}
 
-	// For Edit And Member Ship Button
+	// For Edit And MemberShip Button
 	if (chkd == 1) {
 		document.getElementById("edit").disabled = false;
 		document.getElementById("membershipview").disabled = false;

@@ -20,6 +20,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.aes.business.MemberEditData;
+import com.aes.data.domain.Dbsettings;
 import com.aes.exceptions.PersistanceException;
 import com.aes.service.HhiService;
 import com.hhiregistry.model.Address;
@@ -164,12 +165,12 @@ public String memberAction(){
 			session.setAttribute("memberContent", "error");
 			
 		}
-		
+/*		
 		else if (path.contains("view")){
 			session.setAttribute("memberContent", "view");
 			
 			try {
-				members = HhiService.getAllMembers();
+				members = HhiService.getAllUsers();
 				//setting = HhiService.getHhiSettingDescription(HhiService.PAGER_OPTION);
 			} catch (PersistanceException e) {
 				// TODO Auto-generated catch block
@@ -198,7 +199,7 @@ public String memberAction(){
 			}
 			
 			
-		}
+		}*/
 		else {
 			session.setAttribute("memberContent", "input");
 			
@@ -208,15 +209,15 @@ public String memberAction(){
 		return Action.SUCCESS;
 	}
 	
-	public List<Hhisettings> getTitles(){
+	public List<Dbsettings> getTitles(){
 		
-		List<Hhisettings> titles = null;
+		List<Dbsettings> titles = null;
 		try {
 			if(this.editTitle == null){
-			titles = HhiService.getHhiSetting(HhiService.TITLES);
+			titles = HhiService.getDbSetting(HhiService.TITLES);
 			}
 			else{
-				titles = HhiService.getHhiSetting(HhiService.TITLES,editTitle);
+				titles = HhiService.getDbSetting(HhiService.TITLES,editTitle);
 				
 			
 			}
@@ -238,7 +239,7 @@ public String memberAction(){
 		ServletContext ctx = request.getSession().getServletContext();
 		try {
 			
-			setting = HhiService.getHhiSettingDescription(HhiService.PAGER_OPTION);
+			setting = HhiService.getDbSettingDescription(HhiService.PAGER_OPTION);
 			
 			
 		} catch (PersistanceException e) {
@@ -270,7 +271,7 @@ public String memberAction(){
 		//System.out.println("::: Updating Pager "+pageSizeOption);
 		
 		try {
-			HhiService.updateHhiSetting(HhiService.PAGER_OPTION, pageSizeOption);
+			HhiService.updateDbSetting(HhiService.PAGER_OPTION, pageSizeOption);
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -548,11 +549,11 @@ public String allocateGroups(){
 }
 
 	
-public List<Member> getMembers(){
+/*public List<Member> getMembers(){
 		
 		List<Member> members = null;
 		try {
-			members = HhiService.getAllMembers();
+			members = HhiService.getAllUsers();
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -560,27 +561,27 @@ public List<Member> getMembers(){
 		
 		return members;
 		
-	}
+	}*/
 
-public List<Hhisettings> getHhisettings(){
+public List<Dbsettings> getDbsettings(){
 	
-	List<Hhisettings> hhisettings = HhiService.getHhiSettings();
+	List<Dbsettings> settings = HhiService.getDbSettings();
 	
-	return hhisettings;
+	return settings;
 	
 }
 
 
 	
-public List<Hhisettings> getStatus(){
+public List<Dbsettings> getStatus(){
 		
-		List<Hhisettings> status = null;
+		List<Dbsettings> status = null;
 		try {
 			if(this.editEmploymentStatus == null){
-				status = HhiService.getHhiSetting(HhiService.EMPLOYMENT_STATUS);
+				status = HhiService.getDbSetting(HhiService.EMPLOYMENT_STATUS);
 			}
 			else{
-				status = HhiService.getHhiSetting(HhiService.EMPLOYMENT_STATUS,editEmploymentStatus);
+				status = HhiService.getDbSetting(HhiService.EMPLOYMENT_STATUS,editEmploymentStatus);
 			}
 			
 		} catch (PersistanceException e) {
@@ -592,15 +593,15 @@ public List<Hhisettings> getStatus(){
 	}
 
 
-public List<Hhisettings> getMaritalStatus(){
+public List<Dbsettings> getMaritalStatus(){
 	
-	List<Hhisettings> maritalStatus = null;
+	List<Dbsettings> maritalStatus = null;
 	try {
 		if(this.editMaritalStatus == null){
-			maritalStatus = HhiService.getHhiSetting(HhiService.MARITAL_STATUS);
+			maritalStatus = HhiService.getDbSetting(HhiService.MARITAL_STATUS);
 		}
 		else{
-			maritalStatus = HhiService.getHhiSetting(HhiService.MARITAL_STATUS,editMaritalStatus);
+			maritalStatus = HhiService.getDbSetting(HhiService.MARITAL_STATUS,editMaritalStatus);
 		}
 		
 	} catch (PersistanceException e) {
@@ -610,11 +611,11 @@ public List<Hhisettings> getMaritalStatus(){
 	
 	return maritalStatus;
 }
-public List<Hhisettings> getSexes(){
+public List<Dbsettings> getSexes(){
 	
-	List<Hhisettings> sexes = null;
+	List<Dbsettings> sexes = null;
 	try {
-		sexes = HhiService.getHhiSetting(HhiService.SEX);
+		sexes = HhiService.getDbSetting(HhiService.SEX);
 	} catch (PersistanceException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -624,15 +625,15 @@ public List<Hhisettings> getSexes(){
 }
 
 
-public List<Hhisettings> getBaptism(){
+public List<Dbsettings> getBaptism(){
 	
-	List<Hhisettings> baptism = null;
+	List<Dbsettings> baptism = null;
 	try {
 		if(editBaptised == null){
-			baptism = HhiService.getHhiSetting(HhiService.WATERBAPTISED);
+			baptism = HhiService.getDbSetting(HhiService.WATERBAPTISED);
 		}
 		else{
-			baptism = HhiService.getHhiSetting(HhiService.WATERBAPTISED,editBaptised);
+			baptism = HhiService.getDbSetting(HhiService.WATERBAPTISED,editBaptised);
 		}
 		
 		

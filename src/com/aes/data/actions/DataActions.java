@@ -312,27 +312,27 @@ public class DataActions extends ActionSupport{
 	}
 	
 	
-	public List<Member> getMembers(){
-		
-		List<Member> members = null;
-		
-		try {
-			
-			if(this.editMemberId == null){
-			members = HhiService.getAllMembers();
-			}
-			else{
-				members = HhiService.getAllMembers(Integer.valueOf(editMemberId));
-			}
-			
-		} catch (PersistanceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return members;
-		
-	}
+//	public List<Member> getMembers(){
+//		
+//		List<Member> members = null;
+//		
+//		try {
+//			
+//			if(this.editMemberId == null){
+//			members = HhiService.getAllUsers();
+//			}
+//			else{
+//				members = HhiService.getAllMembers(Integer.valueOf(editMemberId));
+//			}
+//			
+//		} catch (PersistanceException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return members;
+//		
+//	}
 	
 	public void validate(){
 		

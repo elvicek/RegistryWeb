@@ -28,10 +28,10 @@ Home</a></td>
 <ul> 
     <li><a href="<s:url action="home_action" namespace="/"/>">
 Home</a></li> 
-    <li><a href="#">Members</a> 
+    <li><a href="#">Clients</a> 
       <ul> 
-        <li><a href="<s:url action="memberview_action" namespace="/"/>">View All</a></li> 
-        <li><a href="<s:url action="memberinput_action" namespace="/"/>">Member Input</a></li> 
+        <li><a href="<s:url action="clientview_action" namespace="/"/>">View All</a></li> 
+        <li><a href="<s:url action="clientinput_action" namespace="/"/>">Member Input</a></li> 
       </ul> 
     </li> 
     <li><a href="#">Maintenance</a> 
@@ -46,7 +46,8 @@ Home</a></li>
     <ul>
       <li><a href="<s:url action="rolesview_action" namespace="/"/>">View All Roles</a></li>
       <li><a href="<s:url action="roleinput_action" namespace="/"/>">Create New Roles</a></li>
-      <li><a href="<s:url action="userinput_action" namespace="/"/>">users Input</a></li>
+      <li><a href="<s:url action="usersview_action" namespace="/"/>">View Users</a></li>
+      <li><a href="<s:url action="userinput_action" namespace="/"/>">Input Users</a></li>
       <li><a href="<s:url action="groupSMS_action" namespace="/"/>">Send SMS to Users</a></li>
       <li><a href="<s:url action="messageEmail_action" namespace="/"/>">Email users</a></li>
       <li><a href="<s:url action="emailTextFile_action" namespace="/"/>">Email Text File</a></li>

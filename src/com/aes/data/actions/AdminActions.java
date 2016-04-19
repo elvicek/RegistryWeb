@@ -39,6 +39,7 @@ import org.marre.sms.SmsException;
 
 import com.aes.business.CellgroupEditData;
 import com.aes.business.SendSMS;
+import com.aes.data.domain.Client;
 import com.aes.data.domain.Role;
 import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
@@ -77,6 +78,9 @@ public class AdminActions extends ActionSupport {
 	private String groupSms;
 	private String message;
 	private Integer tab;
+	private String stringToSearch;
+	private String pageSizeOption;
+	
 
 	private Logger logger = Logger.getLogger(AdminActions.class.getName());
 
@@ -197,6 +201,52 @@ public class AdminActions extends ActionSupport {
 		return Action.SUCCESS;
 
 	}
+	
+	public String viewUsers(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		List<User> users = null;
+		HttpSession session = request.getSession();
+		session.setAttribute("memberContent", "userview");
+		String setting;
+		
+		try {
+			users = HhiService.getAllUsers();
+			setting = HhiService.getDbSettingDescription(HhiService.PAGER_OPTION);
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			session.setAttribute("memberContent", "error");
+			e.printStackTrace();
+			return Action.ERROR;
+		}
+		session.setAttribute("pageSize", setting);
+		//If a search was initiated from the search bar;
+		if(this.stringToSearch == null ||!(this.stringToSearch.trim().length()> 0 )){
+			request.setAttribute("users", users);
+		}else{
+			//System.out.println("::::::::::::::::::Executed NOT NULL::::::::::::::::::::"+stringToSearch);
+			List<User> trimmedMembers = new ArrayList<User> () ;
+			
+			
+			for(User matchUser: users){
+				if(matchUser.getPerson().getName().toUpperCase().contains(stringToSearch.toUpperCase())||matchUser.getPerson().getSurname().toUpperCase().contains(stringToSearch.toUpperCase()) ){
+					trimmedMembers.add(matchUser);
+				}
+			}
+			
+			request.setAttribute("users", trimmedMembers);
+		}
+		return Action.SUCCESS;
+	}
+	
+	public String exportUsers(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		session.setAttribute("memberContent", "error");
+		return Action.SUCCESS;
+	}
+	
 
 	public String saveRole() {
 
@@ -317,6 +367,8 @@ public class AdminActions extends ActionSupport {
 
 		return groups;
 	}
+	
+	
 
 	public String dispatchSMS() {
 		Set<String> uniqueNumbers = new HashSet<String>();
@@ -527,7 +579,7 @@ public class AdminActions extends ActionSupport {
 
 			if (groupsToSend.contains("all")) {
 
-				allMembers = HhiService.getAllMembers();
+			//	allMembers = HhiService.getAllUsers();
 
 			} else {
 
@@ -671,11 +723,6 @@ public class AdminActions extends ActionSupport {
 					;
 				{
 
-					// groups = HhiService.getRoleById(Integer.valueOf(ids[i]));
-					// if (groups.getMembers().size() > 0){
-					// return ids[i];
-					// }
-
 				}
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
@@ -699,7 +746,7 @@ public class AdminActions extends ActionSupport {
 		ServletContext ctx = request.getSession().getServletContext();
 		try {
 
-			setting = HhiService.getHhiSettingDescription(HhiService.PAGER_OPTION);
+			setting = HhiService.getDbSettingDescription(HhiService.PAGER_OPTION);
 
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
@@ -707,21 +754,34 @@ public class AdminActions extends ActionSupport {
 		}
 		return Integer.valueOf(setting);
 	}
+	
+	public String pagerAction(){
+		
+		
+		try {
+			HhiService.updateDbSetting(HhiService.PAGER_OPTION, pageSizeOption);
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return Action.SUCCESS;
+	}
 
 	public String writeAddresses() {
 
 		ServletContext ctx = ServletActionContext.getServletContext();
 		HttpSession session = ServletActionContext.getRequest().getSession();
 		try {
-			List<Member> members = HhiService.getAllMembers();
+			List<Client> clients = HhiService.getAllClients();
 			FileWriter outFile = new FileWriter(HhiService.EMAIL_ADDRESSES_TEXT_FILE);
 			PrintWriter out = new PrintWriter(outFile);
 
-			for (Member member : members) {
+			for (Client client : clients) {
 
-				if (member.getEmail() != null) {
+				if (client.getPerson().getEmail() != null) {
 
-					out.println(member.getEmail());
+					out.println(client.getPerson().getEmail());
 				}
 
 			}
@@ -839,56 +899,51 @@ public class AdminActions extends ActionSupport {
 
 	}
 
-	public List<Member> getMembers() {
+	public List<User> getUsers() {
 
-		List<Member> members = null;
+		List<User> users = null;
 		try {
-			members = HhiService.getAllMembers();
+			users = HhiService.getAllUsers();
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return members;
+		return users;
 
 	}
 
 	public List<BirthdayCalendar> getBirthdayCalendar() {
 
-		List<Member> members = null;
+		List<User> users = null;
 		List<BirthdayCalendar> birthdayCalendar = new ArrayList<BirthdayCalendar>();
 		try {
-			members = HhiService.getAllMembers();
+			users = HhiService.getAllUsers();
 
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		for (Member member : members) {
+		for (User user : users) {
 
-			DateTime birthdate = new DateTime(member.getBirthday());
+			DateTime birthdate = new DateTime(user.getPerson().getBirthday());
 			DateTime currentDate = new DateTime();
 
-			if (member.getBirthday() != null && (birthdate.getMonthOfYear() == currentDate.getMonthOfYear())
+			if (user.getPerson().getBirthday() != null && (birthdate.getMonthOfYear() == currentDate.getMonthOfYear())
 					&& (0 <= (birthdate.getDayOfMonth() - currentDate.getDayOfMonth())
 							&& (birthdate.getDayOfMonth() - currentDate.getDayOfMonth()) <= 7)) {
 				// int diff =
 				// birthdate.getDayOfMonth()-currentDate.getDayOfMonth();
-				System.out.println("Member Qualified Bithday " + member.getName() + " " + member.getSurname() + " "
-						+ member.getBirthday());
+				System.out.println("Member Qualified Bithday " + user.getPerson().getName() + " " + user.getPerson().getSurname() + " "
+						+ user.getPerson().getBirthday());
 				Calendar birthday = Calendar.getInstance();
-				birthday.setTime(member.getBirthday());
+				birthday.setTime(user.getPerson().getBirthday());
 				int oldYear = birthday.YEAR;
 				String years = String.valueOf(birthday.get(Calendar.YEAR));
 				int age = currentDate.getYear() - new Integer(years);
 				int margin = (birthdate.getDayOfMonth() - currentDate.getDayOfMonth());
-				// System.out.println("birth day using jod
-				// "+birthdate.toString()+"using calendar "+oldYear+" New year
-				// "+years);
-				// System.out.println("current year "+currentDate.getYear());
-				// System.out.println("age "+age);
-
+			
 				String day = "";
 				DateTime actualBirthDay = birthdate.monthOfYear().addToCopy(12 * age);
 				DateTime.Property pDoW = actualBirthDay.dayOfWeek();
@@ -901,7 +956,7 @@ public class AdminActions extends ActionSupport {
 				String month = birthdate.monthOfYear().getAsText();
 				String year = currentDate.year().getAsText();
 
-				BirthdayCalendar calendar = new BirthdayCalendar(member, day, month, year, birthdate, age, margin);
+				BirthdayCalendar calendar = new BirthdayCalendar(user, day, month, year, birthdate, age, margin);
 				birthdayCalendar.add(calendar);
 
 			}
@@ -1072,5 +1127,25 @@ public class AdminActions extends ActionSupport {
 	public void setGroupSms(String groupSms) {
 		this.groupSms = groupSms;
 	}
+
+	public String getStringToSearch() {
+		return stringToSearch;
+	}
+
+	public void setStringToSearch(String stringToSearch) {
+		this.stringToSearch = stringToSearch;
+	}
+
+	public String getPageSizeOption() {
+		return pageSizeOption;
+	}
+
+	public void setPageSizeOption(String pageSizeOption) {
+		this.pageSizeOption = pageSizeOption;
+	}
+	
+	
+	
+	
 
 }

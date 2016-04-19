@@ -18,6 +18,8 @@ import org.hibernate.exception.ConstraintViolationException;
 
 import com.aes.data.actions.DataActions;
 import com.aes.data.dao.RoleDao;
+import com.aes.data.domain.Client;
+import com.aes.data.domain.Dbsettings;
 import com.aes.data.domain.Role;
 import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
@@ -25,7 +27,6 @@ import com.aes.exceptions.PersistanceException;
 import com.aes.utils.HibernateUtils;
 import com.hhiregistry.model.Cellgroup;
 import com.hhiregistry.model.Groups;
-import com.hhiregistry.model.Hhisettings;
 import com.hhiregistry.model.Member;
 import com.hhiregistry.model.MemberGroups;
 
@@ -36,7 +37,7 @@ public class HhiService {
 	public static int WATERBAPTISED = 3;
 	public static int EMPLOYMENT_STATUS = 4;
 	public static int MARITAL_STATUS = 5;
-	public static int PAGER_OPTION = 6;
+	public static int PAGER_OPTION = 8;
 	public static final String MESSAGE_TEMPLATE = "./app-config/template.html";
 	public static final String EMAIL_ADDRESSES_TEXT_FILE = "./app-config/allAddresses.txt";
 	public static String NEW_MEMBER_GROUP = "NEW MEMBERS";
@@ -87,7 +88,7 @@ public class HhiService {
 
 	}
 	
-	public static void updateHhiSetting(int type, String description)
+	public static void updateDbSetting(int type, String description)
 			throws PersistanceException {
 
 		try {
@@ -95,19 +96,19 @@ public class HhiService {
 			Transaction tx = session.beginTransaction();
 
 			// String queryString = "from HhiSettings where type = :type";
-			String queryString = "from Hhisettings where type = :type";
+			String queryString = "from Dbsettings where type = :type";
 			Query query = session.createQuery(queryString);
 			query.setInteger("type", type);
 
 			
-			Hhisettings hhiSetting = (Hhisettings) query.uniqueResult();
+			Dbsettings dbsetting = (Dbsettings) query.uniqueResult();
 			
 			tx.commit();
 			session.flush();
 			session.close();
 
-			hhiSetting.setDescription(description);
-			update(hhiSetting);
+			dbsetting.setDescription(description);
+			update(dbsetting);
 
 		} catch (Exception e) {
 
@@ -276,22 +277,45 @@ public class HhiService {
 
 	}
 
-	public static List<Member> getAllMembers() throws PersistanceException {
+	public static List<User> getAllUsers() throws PersistanceException {
 
 		try {
 			Session session = getSession();
 			Transaction tx = session.beginTransaction();
 
-			String queryString = "from Member";
+			String queryString = "from User";
 			Query query = session.createQuery(queryString);
 
-			List<Member> members = (List<Member>) query.list();
+			List<User> users = (List<User>) query.list();
 
 			tx.commit();
 			session.flush();
 			session.close();
 
-			return members;
+			return users;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new PersistanceException();
+		}
+
+	}
+	
+	public static List<Client> getAllClients() throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Client";
+			Query query = session.createQuery(queryString);
+
+			List<Client> clients = (List<Client>) query.list();
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return clients;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new PersistanceException();
@@ -571,7 +595,7 @@ public class HhiService {
 
 	}
 
-	public static List<Hhisettings> getHhiSetting(int type)
+	public static List<Dbsettings> getDbSetting(int type)
 			throws PersistanceException {
 
 		try {
@@ -579,11 +603,11 @@ public class HhiService {
 			Transaction tx = session.beginTransaction();
 
 			// String queryString = "from HhiSettings where type = :type";
-			String queryString = "from Hhisettings where type = :type";
+			String queryString = "from Dbsettings where type = :type";
 			Query query = session.createQuery(queryString);
 			query.setInteger("type", type);
 
-			List<Hhisettings> settings = (List<Hhisettings>) query.list();
+			List<Dbsettings> settings = (List<Dbsettings>) query.list();
 
 			tx.commit();
 			session.flush();
@@ -598,7 +622,7 @@ public class HhiService {
 
 	}
 
-	public static String getHhiSettingDescription(int type)
+	public static String getDbSettingDescription(int type)
 			throws PersistanceException {
 
 		try {
@@ -606,17 +630,17 @@ public class HhiService {
 			Transaction tx = session.beginTransaction();
 
 			// String queryString = "from HhiSettings where type = :type";
-			String queryString = "from Hhisettings where type = :type";
+			String queryString = "from Dbsettings where type = :type";
 			Query query = session.createQuery(queryString);
 			query.setInteger("type", type);
 
 			
-			Hhisettings hhiSetting = (Hhisettings) query.uniqueResult();
+			Dbsettings dbSetting = (Dbsettings) query.uniqueResult();
 			tx.commit();
 			session.flush();
 			session.close();
 
-			return hhiSetting.getDescription();
+			return dbSetting.getDescription();
 
 		} catch (Exception e) {
 
@@ -625,20 +649,20 @@ public class HhiService {
 
 	}
 
-	public static List<Hhisettings> getHhiSetting(int type, String description)
+	public static List<Dbsettings> getDbSetting(int type, String description)
 			throws PersistanceException {
 
 		try {
 			Session session = getSession();
 			Transaction tx = session.beginTransaction();
 
-			// String queryString = "from HhiSettings where type = :type";
-			String queryString = "from Hhisettings where type = :type and description != :description";
+			// String queryString = "from Dbsettings where type = :type";
+			String queryString = "from dbsettings where type = :type and description != :description";
 			Query query = session.createQuery(queryString);
 			query.setInteger("type", type);
 			query.setString("description", description);
 
-			List<Hhisettings> settings = (List<Hhisettings>) query.list();
+			List<Dbsettings> settings = (List<Dbsettings>) query.list();
 
 			tx.commit();
 			session.flush();
@@ -653,7 +677,7 @@ public class HhiService {
 
 	}
 
-	public static List<Hhisettings> getHhiSettings() {
+	public static List<Dbsettings> getDbSettings() {
 
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
@@ -663,7 +687,7 @@ public class HhiService {
 		Query query = session.createQuery(queryString);
 		// query.setInteger("type", type);
 
-		List<Hhisettings> settings = (List<Hhisettings>) query.list();
+		List<Dbsettings> settings = (List<Dbsettings>) query.list();
 
 		tx.commit();
 		session.flush();

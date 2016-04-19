@@ -27,7 +27,7 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>ResponseOverrideFilter</filter-name>
-    <url-pattern>/export_memberview.action</url-pattern>
+    <url-pattern>/export_userview.action</url-pattern>
   </filter-mapping>
   
     <filter>
@@ -72,17 +72,17 @@
 		<param-value>menu</param-value>
 	</context-param>
 	<context-param>
-	   <description>Parameter used to control page center contet</description>
+	   <description>Parameter used to control page center content</description>
 		<param-name>view</param-name>
 		<param-value>view</param-value>
 	</context-param>
 	<context-param>
-	<description>Parameter used to control page center contet</description>
+	<description>Parameter used to control page center content</description>
 		<param-name>input</param-name>
 		<param-value>input</param-value>
 	</context-param>
 	<context-param>
-	<description>Parameter used to control page center contet</description>
+	<description>Parameter used to control page center content</description>
 		<param-name>edit</param-name>
 		<param-value>edit</param-value>
 	</context-param>
@@ -92,7 +92,7 @@
 		<param-value>success</param-value>
 	</context-param>
 	<context-param>
-	<description>Parameter used to control page center contet</description>
+	<description>Parameter used to control page center content</description>
 		<param-name>error</param-name>
 		<param-value>error</param-value>
 	</context-param>
@@ -137,9 +137,9 @@
 		<param-name>from</param-name>
 		<param-value>fifparklands@gmail.com</param-value>
 	</context-param>
-	<listener>
+	<!--  listener>
 		<listener-class>com.aes.listeners.Initializer</listener-class>
-	</listener>
+	</listener -->
 	
 	<session-config>
         <session-timeout>30</session-timeout>

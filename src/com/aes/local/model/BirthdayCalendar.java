@@ -4,12 +4,13 @@ import java.util.Date;
 
 import org.joda.time.DateTime;
 
+import com.aes.data.domain.User;
 import com.hhiregistry.model.Member;
 
 public class BirthdayCalendar {
 	
 	
-	private Member member;
+	private User user;
 	private String day;
 	private String month;
 	private String year;
@@ -18,17 +19,16 @@ public class BirthdayCalendar {
 	private int dayOfMonth;
 	private String compositeDay;
 	public Integer dueTime;
-	private Integer memberId;
 	
 	
 	
 	
 	
-	public BirthdayCalendar(Member member, String day, String month,
+	
+	public BirthdayCalendar(User user, String day, String month,
 			String year, DateTime dateTime, int age, Integer dueTime) {
 		super();
-		this.member = member;
-		this.memberId = member.getMemberId();
+		this.user = user;
 		this.day = day;
 		this.month = month;
 		this.year = year;
@@ -42,13 +42,13 @@ public class BirthdayCalendar {
 		
 	}
 	
-	public Member getMember() {
-		return member;
+	public User getUSer() {
+		return user;
 	}
 
 
-	public void setMember(Member member) {
-		this.member = member;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
@@ -109,14 +109,7 @@ public class BirthdayCalendar {
 		this.dueTime = dueTime;
 	}
 
-	public Integer getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(Integer memberId) {
-		this.memberId = memberId;
-	}
-
+	
 	public int getDayOfMonth() {
 		return dayOfMonth;
 	}

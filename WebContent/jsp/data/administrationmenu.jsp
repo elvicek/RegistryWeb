@@ -12,6 +12,7 @@
 <tr><th align="left">Action</th><th align="left">Description</th></tr>
 <tr><td><a href="<s:url action="rolesview_action" namespace="/"/>">View All Roles</a></td><td>List Of All Roles Created in Database</td></tr>
 <tr><td><a href="<s:url action="roleinput_action" namespace="/"/>">Create New Roles</a></td><td>Creates New Roles</td></tr>
+<tr><td><a href="<s:url action="usersview_action" namespace="/"/>">View Users</a></td><td>View users in application</td></tr>
 <tr><td><a href="<s:url action="userinput_action" namespace="/"/>">User Input</a></td><td>Add users to Application</td></tr>
 <tr><td><a href="<s:url action="userSMS_action" namespace="/"/>">Send SMS to Users</a></td><td>Send SMS to Registry Members</td></tr>
 <tr><td><a href="<s:url action="messageEmail_action" namespace="/"/>">Email users</a></td><td>Send Emails to Registry Members</td></tr>

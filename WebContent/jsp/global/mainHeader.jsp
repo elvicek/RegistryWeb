@@ -33,11 +33,11 @@
 		<td align="right"><a href="<s:url action="home_action" namespace="/"/>">
 Home</a>
 		|
-		<a href="<s:url action="membersmenu_action" namespace="/"/>">Members</a>
-		| 
-		<a href="#">Maintenance</a>
+		<a href="<s:url action="membersmenu_action" namespace="/"/>">Users</a>
 		|
-		<a href="<s:url action="cellgroupmenu_action" namespace="/"/>">Cell Groups</a>
+		<a href="<s:url action="clientsmenu_action" namespace="/"/>">Clients</a>
+		|
+		<a href="<s:url action="surveysmenu_action" namespace="/"/>">Surveys</a>
 		|
 		<a href="<s:url action="administrationmenu_action" namespace="/"/>">Administration</a> 
 		|

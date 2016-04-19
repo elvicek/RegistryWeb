@@ -87,6 +87,15 @@
         <action name="help_action">
             <result>/jsp/helpMain.jsp</result>
         </action>
+        
+        <action name="usersview_action" class="com.aes.data.actions.AdminActions" method="viewUsers">
+        	
+            <result name="success">/jsp/members.jsp</result>
+            <result name="error">/jsp/members.jsp</result>
+        </action>
+        <action name="help_action">
+            <result>/jsp/helpMain.jsp</result>
+        </action>
          
         
         <action name="memberinput_action" class="com.aes.data.actions.MemberActions" method="memberAction">
@@ -122,7 +131,7 @@
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
-        <action name="export_memberview" class="com.aes.data.actions.MemberActions" method="memberAction">
+        <action name="export_userview" class="com.aes.data.actions.AdminActions" method="exportUsers">
             <result name="success" type="dispatcher">/jsp/members.jsp</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
@@ -131,6 +140,10 @@
             <result name="error">/jsp/members.jsp</result>
         </action>
         <action name="filterResults_action" class="com.aes.data.actions.MemberActions" method="pagerAction">
+            <result name="success" type="dispatcher">/memberview_action.action</result>
+            <result name="error">/jsp/members.jsp</result>
+        </action>
+         <action name="filterUserResults_action" class="com.aes.data.actions.AdminActions" method="pagerAction">
             <result name="success" type="dispatcher">/memberview_action.action</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
