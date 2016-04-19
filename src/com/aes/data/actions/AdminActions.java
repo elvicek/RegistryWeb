@@ -243,7 +243,7 @@ public class AdminActions extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
-		session.setAttribute("memberContent", "error");
+		session.setAttribute("memberContent", "userview");
 		return Action.SUCCESS;
 	}
 	
