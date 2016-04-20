@@ -393,10 +393,14 @@ public String saveUser(){
 		Date localsavedDate = null;
 		Role inputRole = null;
 		
-		this.user.setCreatedBy(request.getUserPrincipal().getName());
-		this.user.setCreatedDate(new Date());
-		this.person.setCreatedBy(request.getUserPrincipal().getName());
-		this.person.setCreatedDate(new Date());
+		String principal = request.getUserPrincipal().getName();
+		this.user.setCreatedBy(principal);
+		Date date = new Date();
+		this.user.setCreatedDate(date);
+		this.person.setCreatedBy(principal);
+		this.person.setCreatedDate(date);
+		this.address.setCreatedBy(principal);
+		this.address.setCreatedDate(date);
 		
 		try {
 			
@@ -426,6 +430,12 @@ public String saveUser(){
 		
 		return Action.SUCCESS;
 	}
+
+public String saveSuccessAction(){
+	logger.log(Level.INFO,"Saved Record successfully");
+	return Action.SUCCESS;
+	
+}
 
 	public List<Groups> getOptions() {
 
@@ -1009,8 +1019,8 @@ public List<Role> getRoles(){
 
 			}
 		}
-		if (!request.getRequestURI().contains("groupsinput")
-				&& request.getParameterMap().containsKey("validationRequest")) { // Prevent
+		logger.log(Level.INFO, "request.getRequestURI() "+ request.getRequestURI()+" request.getParameterMap() "+request.getParameterMap().entrySet());
+		if (request.getRequestURI().contains("usersave")) { // Prevent
 																					// Error
 																					// forward
 																					// from
@@ -1018,20 +1028,20 @@ public List<Role> getRoles(){
 																					// again
 
 			try {
-				String groupName = request.getParameter("groups.groupName");
-				Groups group = HhiService.getGroupsByName(groupName);
+				String username = request.getParameter("user.username");
+				User user = HhiService.getUserByUserName(username);
 
-				if ((group != null && !(request.getParameterMap().containsKey("groupsedit")))) {
+				if (user != null) {
 
 					logger.log(Level.SEVERE, "Validating Condition Errorror:::::::::::::::::::: "
-							+ request.getParameter("groups.groupName"));
-					addFieldError("groups.groupName",
-							"'" + group.getGroupName() + "' has been taken and aready exists in Database.");
+							+ request.getParameter("user.username"));
+					addFieldError("user.username",
+							"'" + user.getUsername() + "' has been taken and aready exists in Database.");
 				}
 
 			} catch (PersistanceException e) {
-				// TODO Auto-generated catch block
-
+				
+				logger.log(Level.SEVERE,e.getMessage());
 			}
 		}
 

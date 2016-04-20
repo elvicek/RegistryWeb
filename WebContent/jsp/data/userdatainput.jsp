@@ -4,12 +4,14 @@
 <font class="heading">Members Input</font>
 <div id="center">
 <s:form action = "usersave_action" method="POST">
-	
+	<input type="checkbox" name="validationRequest"
+				value="validateRequest" checked="checked" style="display: none;" />
+			<table>
 	<table>
 	<tr>
 	<td colspan="2"><s:textfield label="User Name" name="user.username" size="30" required="true"/></td>
-	<td colspan="2"><s:textfield label="Password" name="user.password" size="30" required="true"/></td>
-	<td colspan="2"><s:textfield label="Confirm Password" name="confirm" size="30" required="true"/></td>
+	<td colspan="3"><s:password label="Password" name="user.password" size="30" required="true"/><s:actionerror/></td>
+	<td colspan="2"><s:password label="Confirm Password" name="confirm" size="30" required="true"/></td>
 	<td colspan="2"><s:select name="roleId" label="Role" headerKey=" " headerValue="[Select a Role]" list="roles" listKey="roleName" listValue="roleName" required="true"/></td>
 	<td colspan="3"><hr/></td>
 	<td colspan="2"><s:textfield label="First Name" name="person.name" size="30" required="true"/></td>
@@ -33,5 +35,6 @@
 	
 
 </s:form>
+
 
 </div>

@@ -857,6 +857,37 @@ public class HhiService {
 		}
 	}
 	
+	public static User getUserByUserName(String username)
+			throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from User where username = :username";
+			Query query = session.createQuery(queryString);
+			query.setString("username", username);
+
+			Object obj = query.uniqueResult();
+			User user;
+
+			if (obj == null) {
+				user = null;
+			} else {
+				user = (User) obj;
+
+			}
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return user;
+		} catch (Exception e) {
+			throw new PersistanceException();
+		}
+	}
+	
 	
 	
 	private static boolean isNotNullOrEmpty(List<User> users) {

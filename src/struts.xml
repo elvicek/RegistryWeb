@@ -4,394 +4,486 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-    <!-- remove these constant elements in production -->
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
-    <package name="com.registry.actions" extends="struts-default">
-        <action name="home_action">
-            <result>/jsp/welcome.jsp</result>
-        </action>
-        <action name="cellgroupmenu_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
-            <result name="success">/jsp/cellgroups.jsp</result>
-            <result name="error">/jsp/cellgroups.jsp</result>
-        </action>
-        <action name="cellgroupinput_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
-            <result name="success" >/jsp/cellgroups.jsp</result>
-            <result name="input" >/jsp/cellgroups.jsp</result> 
-            <result name="error" type="dispatcher">/cellgroup_error.action</result>    
-            
-        </action>
-        <action name="cellgroupview_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
-            <interceptor-ref name="validation">
-         		<param name="excludeMethods">cellGroupAction</param>
-     		</interceptor-ref>
-            <result name="success" >/jsp/cellgroups.jsp</result>
-            <result name="error" type="dispatcher">/cellgroup_error.action</result>
-        </action>
-        <action name="cellgroupmembership_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
-            <result name="success" >/jsp/cellgroups.jsp</result>
-            <result name="error" type="dispatcher">/cellgroup_error.action</result>
-        </action>
-        <action name="save_cellgroup" class="com.aes.data.actions.DataActions" method="saveCellGroup" >
-            <result name="success" type="dispatcher">/save_cellgroupsuccess.action</result>
-            <result name="input" >/cellgroupinput_action.action</result>
-            <result name="error" type="dispatcher">/cellgroup_error.action</result>   
-        </action>
-        <action name="update_cellgroup" class="com.aes.data.actions.DataActions" method="updateCellGroup" >
-            <result name="success" type="dispatcher">/update_cellgroupsuccess.action</result>
-            <result name="input" type="dispatcher">/editcellgroup_action.action</result>
-            <result name="error" type="dispatcher">/cellgroup_error.action</result>   
-        </action>
-        <action name="save_cellgroupsuccess" class="com.aes.data.actions.DataActions" method="cellGroupAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">cellGroupAction</param>
-     		</interceptor-ref>
-            <result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
-            
-        </action>
-        
-        <action name="update_cellgroupsuccess" class="com.aes.data.actions.DataActions" method="cellGroupAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">cellGroupAction</param>
-     		</interceptor-ref>
-            <result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
-            
-        </action>
-        <action name="cellgroupdeletesuccess_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
-            <result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
-            
-        </action>
-        <action name="cellgroup_error" class="com.aes.data.actions.DataActions" method="cellGroupAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">cellGroupAction</param>
-     		</interceptor-ref>
-          
-            <result name="success">/jsp/cellgroups.jsp</result>
-            <result name="error">/jsp/cellgroups.jsp</result>
-            
-        </action>
-        <action name="saveCellSuccess.do">
-            <result>/jsp/cellgroups.jsp</result>
-        </action>
-        <action name="administration_action">
-            <result>/jsp/administration.jsp</result>
-        </action>
-        <action name="maintenance_action">
-            <result>/jsp/maintenance.jsp</result>
-        </action>
-        <action name="membersmenu_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-        	
-            <result name="success">/jsp/members.jsp</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-        <action name="help_action">
-            <result>/jsp/helpMain.jsp</result>
-        </action>
-        
-        <action name="usersview_action" class="com.aes.data.actions.AdminActions" method="viewUsers">
-        	
-            <result name="success">/jsp/members.jsp</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-        <action name="help_action">
-            <result>/jsp/helpMain.jsp</result>
-        </action>
-         
-        
-        <action name="memberinput_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" >/jsp/members.jsp</result>
-            <result name="input" >/jsp/members.jsp</result>
-            
-            
-        </action>
-        <action name="editcellgroup_action" class="com.aes.data.actions.DataActions" method="cellGroupAction">
-        
-            <result name="success">/jsp/cellgroups.jsp</result>
-            <result name="input" >/jsp/cellgroups.jsp</result>
-            <result name="error">/jsp/cellgroups.jsp</result>
-            
-            
-        </action>
-        <action name="deletecellgroup_action" class="com.aes.data.actions.DataActions" method="cellgroupDelete">
-        
-            <result name="success">/cellgroupdeletesuccess_action.action</result>
-            <result name="input" >/cellgroupview_action</result>
-            <result name="error" type="dispatcher">/cellgroup_error.action</result>  
-            
-            
-        </action>
-        <action name="editmember_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" >/jsp/members.jsp</result>
-            <result name="input" >/jsp/members.jsp</result>
-            
-            
-        </action>
-        
-        <action name="memberview_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" type="dispatcher">/jsp/members.jsp</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-        <action name="export_userview" class="com.aes.data.actions.AdminActions" method="exportUsers">
-            <result name="success" type="dispatcher">/jsp/members.jsp</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-        <action name="membersearch_action" class="com.aes.data.actions.MemberActions" method="memberSearchAction">
-            <result name="success" type="dispatcher">/memberview_action.action</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-        <action name="filterResults_action" class="com.aes.data.actions.MemberActions" method="pagerAction">
-            <result name="success" type="dispatcher">/memberview_action.action</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-         <action name="filterUserResults_action" class="com.aes.data.actions.AdminActions" method="pagerAction">
-            <result name="success" type="dispatcher">/usersview_action.action</result>
-            <result name="error">/jsp/members.jsp</result>
-        </action>
-        <action name="membersave_action" class="com.aes.data.actions.MemberActions" method="memberSave">
-            <result name="success" type="dispatcher">/membersavesuccess_action.action</result>
-            <result name="input">/memberinput_action.action</result>
-            <result name="error" type="dispatcher">/member_error.action</result>
-        </action>
-        <action name="usersave_action" class="com.aes.data.actions.AdminActions" method="saveUser">
-            <result name="success" type="dispatcher">/membersavesuccess_action.action</result>
-            <result name="input">/memberinput_action.action</result>
-            <result name="error" type="dispatcher">/member_error.action</result>
-        </action>
-        <action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" type="dispatcher">/jsp/members.jsp</result>
-            
-        </action>
-        <action name="memberupdate_action" class="com.aes.data.actions.MemberActions" method="memberUpdate">
-            <result name="success" type="dispatcher">/memberupdatesuccess_action.action</result>
-            <result name="input">/editmember_action.action</result>
-            <result name="error" type="dispatcher">/member_error.action</result>
-        </action>
-        
-        <action name="memberdelete_action" class="com.aes.data.actions.MemberActions" method="memberDelete">
-            <result name="success" type="dispatcher">/memberdeletesuccess_action.action</result>
-            <result name="input">/memberview_action</result>
-            <result name="error" type="dispatcher">/member_error.action</result>
-        </action>
-        
-        <action name="member_error" class="com.aes.data.actions.MemberActions" method="memberAction" >
-            <result name="success">/jsp/members.jsp</result>
-             <result name="error">/jsp/members.jsp</result>
-            
-        </action>
-        <action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" type="dispatcher">/jsp/members.jsp</result>
-            
-        </action>
-        
-        <action name="memberupdatesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" type="dispatcher">/jsp/members.jsp</result>
-            
-        </action>
-    <action name="memberdeletesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
-            <result name="success" type="dispatcher">/jsp/members.jsp</result>
-            
-        </action>
-        <action name="administrationmenu_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="error">/jsp/administration.jsp</result>
-        </action>
-        <action name="userinput_action" class="com.aes.data.actions.AdminActions" method="userInput">
-            <result name="success" >/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-        <action name="roleinput_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success" >/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-        <action name="editrole_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-        
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result>
-            <result name="error">/administration_error.action</result>
-            
-            
-        </action>
-        
-        
-        <action name="userSMS_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-        
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result>
-            <result name="error">/administration_error.action</result>
-            
-            
-        </action>
-        <action name="birthdaySMS_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-        
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result>
-            <result name="error">/administration_error.action</result>
-            
-            
-        </action>
-        
-        <action name="individualSMS_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-        
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result>
-            <result name="error">/administration_error.action</result>
-            
-            
-        </action>
-        
-       
-        <action name="messageEmail_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-        
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result>
-            <result name="error">/administration_error.action</result>
-            
-            
-        </action>
-        
-        <action name="sendSMS_action" class="com.aes.data.actions.AdminActions" method="dispatchSMS">
-        
-            <result name="success" type="dispatcher">/smsSendsuccess_action.action</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-        
-         <action name="individualSendSMS_action" class="com.aes.data.actions.AdminActions" method="dispatchSMS">
-        
-            <result name="success" type="dispatcher">/smsSendsuccess_action.action</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-         <action name="birthdaySendSMS_action" class="com.aes.data.actions.AdminActions" method="dispatchSMS">
-        
-            <result name="success" type="dispatcher">/smsSendsuccess_action.action</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-        
-        <action name="sendEmail_action" class="com.aes.data.actions.AdminActions" method="dispatchEmail">
-        
-            <result name="success" type="dispatcher">/emailSendsuccess_action.action</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-        
-        <action name="emailTextFile_action" class="com.aes.data.actions.AdminActions" method="writeAddresses">
-        
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="input" >/jsp/administration.jsp</result> 
-            <result name="error" type="dispatcher">/administration_error.action</result>    
-            
-        </action>
-        
-        <action name="smsSendsuccess_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success" type="dispatcher">/jsp/administration.jsp</result>
-            
-        </action>
-        <action name="writeAddresssuccess_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success" type="dispatcher">/jsp/administration.jsp</result>
-            
-        </action>
-        <action name="emailSendsuccess_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success" type="dispatcher">/jsp/administration.jsp</result>
-            
-        </action>
-        <action name="rolesview_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <interceptor-ref name="validation">
-         		<param name="excludeMethods">rolesAction</param>
-     		</interceptor-ref>
-            <result name="success" >/jsp/administration.jsp</result>
-            <result name="error" type="dispatcher">/administration_error.action</result>
-        </action>
-        <action name="save_role" class="com.aes.data.actions.AdminActions" method="saveRole" >
-            <result name="success" type="dispatcher">/save_rolesuccess.action</result>
-            <result name="input" >/userinput_action.action</result>
-            <result name="error" type="dispatcher">/administration_error.action</result>   
-        </action>
-        <action name="allocategroups_action" class="com.aes.data.actions.MemberActions" method="allocateGroups" >
-            <result name="success" type="dispatcher">/save_groupsuccess.action</result>
-            <result name="input" >/userinput_action.action</result>
-            <result name="error" type="dispatcher">/administration_error.action</result>   
-        </action>
-        <action name="save_rolesuccess" class="com.aes.data.actions.AdminActions" method="rolesAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">rolesAction</param>
-     		</interceptor-ref>
-            <result name="success" type="dispatcher">/jsp/administration.jsp</result>
-            
-        </action>
-        
-        <action name="update_role" class="com.aes.data.actions.AdminActions" method="updateRole" >
-            <result name="success" type="dispatcher">/update_rolesuccess.action</result>
-            <result name="input" type="dispatcher">/groupsdataedit_action</result>
-            <result name="error" type="dispatcher">/administration_error.action</result>   
-        </action>
-        
-        <action name="update_rolesuccess" class="com.aes.data.actions.AdminActions" method="rolesAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">rolesAction</param>
-     		</interceptor-ref>
-            <result name="success" type="dispatcher">/jsp/administration.jsp</result>
-            
-        </action>
-        
-        <action name="deleterole_action" class="com.aes.data.actions.AdminActions" method="roleDelete">
-        
-            <result name="success">/roledeletesuccess_action.action</result>
-            <result name="input" >/rolesview_action</result>
-            <result name="error" type="dispatcher">/group_error.action</result>  
-            
-            
-        </action>
-        <action name="rolesmembership_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success" >/jsp/administration.jsp</result>
-            <result name="error" type="dispatcher">/administration_error.action</result>
-        </action>
-        
-        <action name="roledeletesuccess_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
-            <result name="success" type="dispatcher">/jsp/administration.jsp</result>
-            
-        </action>
-        
-        <action name="termsOfUse_action">
-            <result>/jsp/termsOfUse.jsp</result>
-            
-        </action>
-        
-        
-        <action name="administration_error" class="com.aes.data.actions.AdminActions" method="rolesAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">rolesAction</param>
-     		</interceptor-ref>
-          
-            <result name="success">/jsp/administration.jsp</result>
-            <result name="error">/jsp/administration.jsp</result>
-            
-        </action>
-        
-        <action name="signout_action" class="com.aes.data.actions.AdminActions" method="signOutAction" >
-        <interceptor-ref name="validation">
-         		<param name="excludeMethods">rolesAction</param>
-     		</interceptor-ref>
-          
-            <result name="success">/jsp/home/logout.jsp</result>
-            <result name="error">/jsp/administration.jsp</result>
-            
-        </action>
-    
-    
-</package>
-    
-    
-    
-    
+	<!-- remove these constant elements in production -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<package name="com.aes.data.actions" extends="struts-default">
+		<action name="home_action">
+			<result>/jsp/welcome.jsp</result>
+		</action>
+		<action name="cellgroupmenu_action" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<result name="success">/jsp/cellgroups.jsp</result>
+			<result name="error">/jsp/cellgroups.jsp</result>
+		</action>
+		<action name="cellgroupinput_action" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<result name="success">/jsp/cellgroups.jsp</result>
+			<result name="input">/jsp/cellgroups.jsp</result>
+			<result name="error" type="dispatcher">/cellgroup_error.action</result>
+
+		</action>
+		<action name="cellgroupview_action" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">cellGroupAction</param>
+			</interceptor-ref>
+			<result name="success">/jsp/cellgroups.jsp</result>
+			<result name="error" type="dispatcher">/cellgroup_error.action</result>
+		</action>
+		<action name="cellgroupmembership_action" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<result name="success">/jsp/cellgroups.jsp</result>
+			<result name="error" type="dispatcher">/cellgroup_error.action</result>
+		</action>
+		<action name="save_cellgroup" class="com.aes.data.actions.DataActions"
+			method="saveCellGroup">
+			<result name="success" type="dispatcher">/save_cellgroupsuccess.action
+			</result>
+			<result name="input">/cellgroupinput_action.action</result>
+			<result name="error" type="dispatcher">/cellgroup_error.action</result>
+		</action>
+		<action name="update_cellgroup" class="com.aes.data.actions.DataActions"
+			method="updateCellGroup">
+			<result name="success" type="dispatcher">/update_cellgroupsuccess.action
+			</result>
+			<result name="input" type="dispatcher">/editcellgroup_action.action
+			</result>
+			<result name="error" type="dispatcher">/cellgroup_error.action</result>
+		</action>
+		<action name="save_cellgroupsuccess" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">cellGroupAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
+
+		</action>
+
+		<action name="update_cellgroupsuccess" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">cellGroupAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
+
+		</action>
+		<action name="cellgroupdeletesuccess_action" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<result name="success" type="dispatcher">/jsp/cellgroups.jsp</result>
+
+		</action>
+		<action name="cellgroup_error" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">cellGroupAction</param>
+			</interceptor-ref>
+
+			<result name="success">/jsp/cellgroups.jsp</result>
+			<result name="error">/jsp/cellgroups.jsp</result>
+
+		</action>
+		<action name="saveCellSuccess.do">
+			<result>/jsp/cellgroups.jsp</result>
+		</action>
+		<action name="administration_action">
+			<result>/jsp/administration.jsp</result>
+		</action>
+		<action name="maintenance_action">
+			<result>/jsp/maintenance.jsp</result>
+		</action>
+		<action name="membersmenu_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+
+			<result name="success">/jsp/members.jsp</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="help_action">
+			<result>/jsp/helpMain.jsp</result>
+		</action>
+
+		<action name="usersview_action" class="com.aes.data.actions.AdminActions"
+			method="viewUsers">
+
+			<result name="success">/jsp/members.jsp</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="help_action">
+			<result>/jsp/helpMain.jsp</result>
+		</action>
+
+
+		<action name="memberinput_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success">/jsp/members.jsp</result>
+			<result name="input">/jsp/members.jsp</result>
+
+
+		</action>
+		<action name="editcellgroup_action" class="com.aes.data.actions.DataActions"
+			method="cellGroupAction">
+
+			<result name="success">/jsp/cellgroups.jsp</result>
+			<result name="input">/jsp/cellgroups.jsp</result>
+			<result name="error">/jsp/cellgroups.jsp</result>
+
+
+		</action>
+		<action name="deletecellgroup_action" class="com.aes.data.actions.DataActions"
+			method="cellgroupDelete">
+
+			<result name="success">/cellgroupdeletesuccess_action.action</result>
+			<result name="input">/cellgroupview_action</result>
+			<result name="error" type="dispatcher">/cellgroup_error.action</result>
+
+
+		</action>
+		<action name="editmember_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success">/jsp/members.jsp</result>
+			<result name="input">/jsp/members.jsp</result>
+
+
+		</action>
+
+		<action name="memberview_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success" type="dispatcher">/jsp/members.jsp</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="export_userview" class="com.aes.data.actions.AdminActions"
+			method="exportUsers">
+			<result name="success" type="dispatcher">/jsp/members.jsp</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="membersearch_action" class="com.aes.data.actions.MemberActions"
+			method="memberSearchAction">
+			<result name="success" type="dispatcher">/memberview_action.action</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="filterResults_action" class="com.aes.data.actions.MemberActions"
+			method="pagerAction">
+			<result name="success" type="dispatcher">/memberview_action.action</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="filterUserResults_action" class="com.aes.data.actions.AdminActions"
+			method="pagerAction">
+			<result name="success" type="dispatcher">/usersview_action.action</result>
+			<result name="error">/jsp/members.jsp</result>
+		</action>
+		<action name="membersave_action" class="com.aes.data.actions.MemberActions"
+			method="memberSave">
+			<result name="success" type="dispatcher">/membersavesuccess_action.action
+			</result>
+			<result name="input">/memberinput_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+		<action name="usersave_action" class="com.aes.data.actions.AdminActions"
+			method="saveUser">
+			<result name="success" type="dispatcher">/usersavesuccess_action.action</result>
+			<result name="input">/userinput_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+
+		<action name="usersavesuccess_action" class="com.aes.data.actions.AdminActions"
+			method="saveSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">saveSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+		<action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success" type="dispatcher">/jsp/members.jsp</result>
+
+		</action>
+		<action name="memberupdate_action" class="com.aes.data.actions.MemberActions"
+			method="memberUpdate">
+			<result name="success" type="dispatcher">/memberupdatesuccess_action.action
+			</result>
+			<result name="input">/editmember_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+
+		<action name="memberdelete_action" class="com.aes.data.actions.MemberActions"
+			method="memberDelete">
+			<result name="success" type="dispatcher">/memberdeletesuccess_action.action
+			</result>
+			<result name="input">/memberview_action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+
+		<action name="member_error" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success">/jsp/members.jsp</result>
+			<result name="error">/jsp/members.jsp</result>
+
+		</action>
+		<action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success" type="dispatcher">/jsp/members.jsp</result>
+
+		</action>
+
+		<action name="memberupdatesuccess_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success" type="dispatcher">/jsp/members.jsp</result>
+
+		</action>
+		<action name="memberdeletesuccess_action" class="com.aes.data.actions.MemberActions"
+			method="memberAction">
+			<result name="success" type="dispatcher">/jsp/members.jsp</result>
+
+		</action>
+		<action name="administrationmenu_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="error">/jsp/administration.jsp</result>
+		</action>
+		<action name="userinput_action" class="com.aes.data.actions.AdminActions"
+			method="userInput">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">userInput</param>
+			</interceptor-ref>
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+		<action name="roleinput_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+		<action name="editrole_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error">/administration_error.action</result>
+
+
+		</action>
+
+
+		<action name="userSMS_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error">/administration_error.action</result>
+
+
+		</action>
+		<action name="birthdaySMS_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error">/administration_error.action</result>
+
+
+		</action>
+
+		<action name="individualSMS_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error">/administration_error.action</result>
+
+
+		</action>
+
+
+		<action name="messageEmail_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error">/administration_error.action</result>
+
+
+		</action>
+
+		<action name="sendSMS_action" class="com.aes.data.actions.AdminActions"
+			method="dispatchSMS">
+
+			<result name="success" type="dispatcher">/smsSendsuccess_action.action
+			</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+
+		<action name="individualSendSMS_action" class="com.aes.data.actions.AdminActions"
+			method="dispatchSMS">
+
+			<result name="success" type="dispatcher">/smsSendsuccess_action.action
+			</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+		<action name="birthdaySendSMS_action" class="com.aes.data.actions.AdminActions"
+			method="dispatchSMS">
+
+			<result name="success" type="dispatcher">/smsSendsuccess_action.action
+			</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+
+		<action name="sendEmail_action" class="com.aes.data.actions.AdminActions"
+			method="dispatchEmail">
+
+			<result name="success" type="dispatcher">/emailSendsuccess_action.action
+			</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+
+		<action name="emailTextFile_action" class="com.aes.data.actions.AdminActions"
+			method="writeAddresses">
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="input">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+
+		<action name="smsSendsuccess_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+		<action name="writeAddresssuccess_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+		<action name="emailSendsuccess_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+		<action name="rolesview_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">rolesAction</param>
+			</interceptor-ref>
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+		<action name="save_role" class="com.aes.data.actions.AdminActions"
+			method="saveRole">
+			<result name="success" type="dispatcher">/save_rolesuccess.action</result>
+			<result name="input">/userinput_action.action</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+		<action name="allocategroups_action" class="com.aes.data.actions.MemberActions"
+			method="allocateGroups">
+			<result name="success" type="dispatcher">/save_groupsuccess.action</result>
+			<result name="input">/userinput_action.action</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+		<action name="save_rolesuccess" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">rolesAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+
+		<action name="update_role" class="com.aes.data.actions.AdminActions"
+			method="updateRole">
+			<result name="success" type="dispatcher">/update_rolesuccess.action
+			</result>
+			<result name="input" type="dispatcher">/groupsdataedit_action</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+
+		<action name="update_rolesuccess" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">rolesAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+
+		<action name="deleterole_action" class="com.aes.data.actions.AdminActions"
+			method="roleDelete">
+
+			<result name="success">/roledeletesuccess_action.action</result>
+			<result name="input">/rolesview_action</result>
+			<result name="error" type="dispatcher">/group_error.action</result>
+
+
+		</action>
+		<action name="rolesmembership_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+
+		<action name="roledeletesuccess_action" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+
+		</action>
+
+		<action name="termsOfUse_action">
+			<result>/jsp/termsOfUse.jsp</result>
+
+		</action>
+
+
+		<action name="administration_error" class="com.aes.data.actions.AdminActions"
+			method="rolesAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">rolesAction</param>
+			</interceptor-ref>
+
+			<result name="success">/jsp/administration.jsp</result>
+			<result name="error">/jsp/administration.jsp</result>
+
+		</action>
+
+		<action name="signout_action" class="com.aes.data.actions.AdminActions"
+			method="signOutAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">rolesAction</param>
+			</interceptor-ref>
+
+			<result name="success">/jsp/home/logout.jsp</result>
+			<result name="error">/jsp/administration.jsp</result>
+
+		</action>
+
+
+	</package>
+
+
+
+
 
 </struts>
