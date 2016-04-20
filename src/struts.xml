@@ -144,13 +144,22 @@
             <result name="error">/jsp/members.jsp</result>
         </action>
          <action name="filterUserResults_action" class="com.aes.data.actions.AdminActions" method="pagerAction">
-            <result name="success" type="dispatcher">/memberview_action.action</result>
+            <result name="success" type="dispatcher">/usersview_action.action</result>
             <result name="error">/jsp/members.jsp</result>
         </action>
         <action name="membersave_action" class="com.aes.data.actions.MemberActions" method="memberSave">
             <result name="success" type="dispatcher">/membersavesuccess_action.action</result>
             <result name="input">/memberinput_action.action</result>
             <result name="error" type="dispatcher">/member_error.action</result>
+        </action>
+        <action name="usersave_action" class="com.aes.data.actions.AdminActions" method="saveUser">
+            <result name="success" type="dispatcher">/membersavesuccess_action.action</result>
+            <result name="input">/memberinput_action.action</result>
+            <result name="error" type="dispatcher">/member_error.action</result>
+        </action>
+        <action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions" method="memberAction">
+            <result name="success" type="dispatcher">/jsp/members.jsp</result>
+            
         </action>
         <action name="memberupdate_action" class="com.aes.data.actions.MemberActions" method="memberUpdate">
             <result name="success" type="dispatcher">/memberupdatesuccess_action.action</result>
@@ -186,7 +195,7 @@
             <result name="success">/jsp/administration.jsp</result>
             <result name="error">/jsp/administration.jsp</result>
         </action>
-        <action name="userinput_action" class="com.aes.data.actions.AdminActions" method="rolesAction">
+        <action name="userinput_action" class="com.aes.data.actions.AdminActions" method="userInput">
             <result name="success" >/jsp/administration.jsp</result>
             <result name="input" >/jsp/administration.jsp</result> 
             <result name="error" type="dispatcher">/administration_error.action</result>    

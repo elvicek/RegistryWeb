@@ -14,6 +14,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.rmi.RemoteException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -39,7 +41,10 @@ import org.marre.sms.SmsException;
 
 import com.aes.business.CellgroupEditData;
 import com.aes.business.SendSMS;
+import com.aes.data.domain.Address;
 import com.aes.data.domain.Client;
+import com.aes.data.domain.Dbsettings;
+import com.aes.data.domain.Person;
 import com.aes.data.domain.Role;
 import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
@@ -62,6 +67,11 @@ public class AdminActions extends ActionSupport {
 	private String groupName;
 	private String cellgroupName;
 	private Role role;
+	private User user;
+	private Person person;
+	private String editTitle;
+	private Address address;
+	private String birthday;
 	private Boolean validationRequest;
 	private String groupNameMembers;
 	private String roleToDelete;
@@ -80,9 +90,14 @@ public class AdminActions extends ActionSupport {
 	private Integer tab;
 	private String stringToSearch;
 	private String pageSizeOption;
+	private String editMaritalStatus;
+	private String confirm;
+	
 	
 
 	private Logger logger = Logger.getLogger(AdminActions.class.getName());
+	
+	
 
 	public String rolesAction() {
 
@@ -200,6 +215,14 @@ public class AdminActions extends ActionSupport {
 
 		return Action.SUCCESS;
 
+	}
+	
+	public String userInput(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		session.setAttribute("adminContent", "user_input");
+		return Action.SUCCESS;
 	}
 	
 	public String viewUsers(){
@@ -357,6 +380,52 @@ public class AdminActions extends ActionSupport {
 
 		return groups;
 	}
+	
+public String saveUser(){
+		
+		
+		//this.member.setSex(sex);
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		
+		Date localBirthday = null;
+		Date localsavedDate = null;
+		Role inputRole = null;
+		
+		this.user.setCreatedBy(request.getUserPrincipal().getName());
+		this.user.setCreatedDate(new Date());
+		this.person.setCreatedBy(request.getUserPrincipal().getName());
+		this.person.setCreatedDate(new Date());
+		
+		try {
+			
+			localBirthday= sdf.parse(this.birthday);
+			inputRole = HhiService.getRoleById(roleId);
+			this.person.setBirthday(localBirthday);
+			this.user.getRoles().add(inputRole);
+			HhiService.save(address);
+			person.setAddress(address);
+			HhiService.save(person);
+			user.setPerson(person);
+			HhiService.save(user);
+		} catch (PersistanceException e1) {
+			logger.log(Level.SEVERE,"Database Error Occures. Please ensure you have connection to database or record does not exist");
+			e1.printStackTrace();
+			return Action.ERROR;
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return Action.ERROR;
+		}
+		
+
+		request.getSession().setAttribute("memberMessage", "saveRecord");
+		request.getSession().setAttribute("adminContent", "user_success");
+		
+		return Action.SUCCESS;
+	}
 
 	public List<Groups> getOptions() {
 
@@ -368,7 +437,76 @@ public class AdminActions extends ActionSupport {
 		return groups;
 	}
 	
+public List<Dbsettings> getTitles(){
+		
+		List<Dbsettings> titles = null;
+		try {
+			if(this.editTitle == null){
+			titles = HhiService.getDbSetting(HhiService.TITLES);
+			}
+			else{
+				titles = HhiService.getDbSetting(HhiService.TITLES,editTitle);
+				
+			
+			}
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return titles;
+	}
+
+
+public List<Dbsettings> getMaritalStatus(){
 	
+	List<Dbsettings> maritalStatus = null;
+	try {
+		if(this.editMaritalStatus == null){
+			maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS);
+		}
+		else{
+			maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS,editMaritalStatus);
+		}
+		
+	} catch (PersistanceException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return maritalStatus;
+}
+public List<Dbsettings> getSexes(){
+	
+	List<Dbsettings> sexes = null;
+	try {
+		sexes = HhiService.getDbSetting(HhiService.SEX);
+	} catch (PersistanceException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return sexes;
+}
+
+
+public List<Role> getRoles(){
+	
+	List<Role> roles = null;
+	try {	
+		
+			roles = HhiService.getAllRoles();
+		
+	} catch (PersistanceException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return roles;
+}
+
+
 
 	public String dispatchSMS() {
 		Set<String> uniqueNumbers = new HashSet<String>();
@@ -1142,6 +1280,63 @@ public class AdminActions extends ActionSupport {
 
 	public void setPageSizeOption(String pageSizeOption) {
 		this.pageSizeOption = pageSizeOption;
+	}
+
+	public String getEditTitle() {
+		return editTitle;
+	}
+
+	public void setEditTitle(String editTitle) {
+		this.editTitle = editTitle;
+	}
+
+	public String getEditMaritalStatus() {
+		return editMaritalStatus;
+	}
+
+	public void setEditMaritalStatus(String editMaritalStatus) {
+		this.editMaritalStatus = editMaritalStatus;
+	}
+
+	
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public String getConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
 	}
 	
 	

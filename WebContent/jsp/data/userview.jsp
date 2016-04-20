@@ -25,7 +25,7 @@
 									onClick="setUserIdToDelete(document.data.select)" />
 							</s:form></td>
 						<td><a
-							href="<s:url action="userview_action" namespace="/"/>">View
+							href="<s:url action="usersview_action" namespace="/"/>">View
 								All</a></td>
 					</tr>
 				</table></td>

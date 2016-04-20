@@ -59,7 +59,7 @@
 	<context-param>
 	   <description>Parameter used to control display rows</description>
 		<param-name>count</param-name>
-		<param-value>15,45,100,300</param-value>
+		<param-value>15,20,30,50</param-value>
 	</context-param>
 	<context-param>
 	   <description>Parameter used to determine the number of days a member should have new member status</description>
@@ -137,9 +137,9 @@
 		<param-name>from</param-name>
 		<param-value>fifparklands@gmail.com</param-value>
 	</context-param>
-	<!--  listener>
+	<listener>
 		<listener-class>com.aes.listeners.Initializer</listener-class>
-	</listener -->
+	</listener>
 	
 	<session-config>
         <session-timeout>30</session-timeout>

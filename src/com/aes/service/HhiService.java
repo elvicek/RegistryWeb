@@ -34,9 +34,11 @@ public class HhiService {
 
 	public static int TITLES = 1;
 	public static int SEX = 2;
-	public static int WATERBAPTISED = 3;
-	public static int EMPLOYMENT_STATUS = 4;
-	public static int MARITAL_STATUS = 5;
+	public static int ROLES = 3;
+	public static int SURVEY_TYPE = 4;
+	public static int SURVEY_STATUS = 5;
+	public static int UNIT = 6;
+	public static int UNIT_TYPE = 7;
 	public static int PAGER_OPTION = 8;
 	public static final String MESSAGE_TEMPLATE = "./app-config/template.html";
 	public static final String EMAIL_ADDRESSES_TEXT_FILE = "./app-config/allAddresses.txt";

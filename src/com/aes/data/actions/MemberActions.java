@@ -578,10 +578,10 @@ public List<Dbsettings> getStatus(){
 		List<Dbsettings> status = null;
 		try {
 			if(this.editEmploymentStatus == null){
-				status = HhiService.getDbSetting(HhiService.EMPLOYMENT_STATUS);
+				status = HhiService.getDbSetting(HhiService.SURVEY_TYPE);
 			}
 			else{
-				status = HhiService.getDbSetting(HhiService.EMPLOYMENT_STATUS,editEmploymentStatus);
+				status = HhiService.getDbSetting(HhiService.SURVEY_TYPE,editEmploymentStatus);
 			}
 			
 		} catch (PersistanceException e) {
@@ -598,10 +598,10 @@ public List<Dbsettings> getMaritalStatus(){
 	List<Dbsettings> maritalStatus = null;
 	try {
 		if(this.editMaritalStatus == null){
-			maritalStatus = HhiService.getDbSetting(HhiService.MARITAL_STATUS);
+			maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS);
 		}
 		else{
-			maritalStatus = HhiService.getDbSetting(HhiService.MARITAL_STATUS,editMaritalStatus);
+			maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS,editMaritalStatus);
 		}
 		
 	} catch (PersistanceException e) {
@@ -630,10 +630,10 @@ public List<Dbsettings> getBaptism(){
 	List<Dbsettings> baptism = null;
 	try {
 		if(editBaptised == null){
-			baptism = HhiService.getDbSetting(HhiService.WATERBAPTISED);
+			baptism = HhiService.getDbSetting(HhiService.ROLES);
 		}
 		else{
-			baptism = HhiService.getDbSetting(HhiService.WATERBAPTISED,editBaptised);
+			baptism = HhiService.getDbSetting(HhiService.ROLES,editBaptised);
 		}
 		
 		

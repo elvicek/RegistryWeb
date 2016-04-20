@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="sx" uri="/struts-dojo-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<sx:head/>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <style type="text/css">
 @import url(resources/css/main_aes.css);
@@ -50,6 +53,12 @@
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.input }">
 <%@ include file="data/roledatainput.jsp" %>
+</c:when>
+<c:when test="${sessionScope.adminContent eq 'user_input' }">
+<%@ include file="data/userdatainput.jsp" %>
+</c:when>
+<c:when test="${sessionScope.adminContent eq 'user_success' }">
+<%@ include file="data/userSuccessMsg.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'write' }">
 <%@ include file="data/roleSuccessMsg.jsp" %>
