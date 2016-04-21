@@ -14,6 +14,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.rmi.RemoteException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import org.joda.time.Days;
 import org.marre.sms.SmsException;
 
 import com.aes.business.CellgroupEditData;
+import com.aes.business.MemberEditData;
 import com.aes.business.SendSMS;
 import com.aes.data.domain.Address;
 import com.aes.data.domain.Client;
@@ -64,6 +66,7 @@ public class AdminActions extends ActionSupport {
 
 	// private Integer groupId;
 	private String roleId;
+	private String username;
 	private String groupName;
 	private String cellgroupName;
 	private Role role;
@@ -92,12 +95,8 @@ public class AdminActions extends ActionSupport {
 	private String pageSizeOption;
 	private String editMaritalStatus;
 	private String confirm;
-	
-	
 
 	private Logger logger = Logger.getLogger(AdminActions.class.getName());
-	
-	
 
 	public String rolesAction() {
 
@@ -105,7 +104,6 @@ public class AdminActions extends ActionSupport {
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
 
-		
 		if (path.contains("menu")) {
 			session.setAttribute("adminContent", "menu");
 
@@ -209,15 +207,11 @@ public class AdminActions extends ActionSupport {
 
 		}
 
-		// System.out.println("Size of Members "+members.size());
-
-		// request.getSession().setAttribute("selectMembers", selectMembers);
-
 		return Action.SUCCESS;
 
 	}
-	
-	public String userInput(){
+
+	public String userInput() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
@@ -225,14 +219,53 @@ public class AdminActions extends ActionSupport {
 		return Action.SUCCESS;
 	}
 	
-	public String viewUsers(){
+	public String userEdit() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		User userToEdit = retrieveUserToEdit();
+		request.setAttribute("user", userToEdit);
+		session.setAttribute("user", userToEdit);
+		session.setAttribute("adminContent", "user_edit");
+		return Action.SUCCESS;
+	}
+
+	private User retrieveUserToEdit() {
+		User user = null;
+		DateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		try {
+			user = HhiService.getUserByUserName(username);
+			Person person = user.getPerson();
+			
+		this.editTitle = person.getTitle();
+		
+		this.roleId = ((Role)user.getRoles().toArray()[0]).getRoleName();
+		
+		this.birthday = sdf.format(person.getBirthday());
+		
+		
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	 catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		
+		
+	}
+	
+		return user;
+	}
+
+	public String viewUsers() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		List<User> users = null;
 		HttpSession session = request.getSession();
 		session.setAttribute("memberContent", "userview");
 		String setting;
-		
+
 		try {
 			users = HhiService.getAllUsers();
 			setting = HhiService.getDbSettingDescription(HhiService.PAGER_OPTION);
@@ -243,33 +276,33 @@ public class AdminActions extends ActionSupport {
 			return Action.ERROR;
 		}
 		session.setAttribute("pageSize", setting);
-		//If a search was initiated from the search bar;
-		if(this.stringToSearch == null ||!(this.stringToSearch.trim().length()> 0 )){
+		// If a search was initiated from the search bar;
+		if (this.stringToSearch == null || !(this.stringToSearch.trim().length() > 0)) {
 			request.setAttribute("users", users);
-		}else{
-			//System.out.println("::::::::::::::::::Executed NOT NULL::::::::::::::::::::"+stringToSearch);
-			List<User> trimmedMembers = new ArrayList<User> () ;
-			
-			
-			for(User matchUser: users){
-				if(matchUser.getPerson().getName().toUpperCase().contains(stringToSearch.toUpperCase())||matchUser.getPerson().getSurname().toUpperCase().contains(stringToSearch.toUpperCase()) ){
+		} else {
+			// System.out.println("::::::::::::::::::Executed NOT
+			// NULL::::::::::::::::::::"+stringToSearch);
+			List<User> trimmedMembers = new ArrayList<User>();
+
+			for (User matchUser : users) {
+				if (matchUser.getPerson().getName().toUpperCase().contains(stringToSearch.toUpperCase())
+						|| matchUser.getPerson().getSurname().toUpperCase().contains(stringToSearch.toUpperCase())) {
 					trimmedMembers.add(matchUser);
 				}
 			}
-			
+
 			request.setAttribute("users", trimmedMembers);
 		}
 		return Action.SUCCESS;
 	}
-	
-	public String exportUsers(){
+
+	public String exportUsers() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
 		session.setAttribute("memberContent", "userview");
 		return Action.SUCCESS;
 	}
-	
 
 	public String saveRole() {
 
@@ -281,7 +314,8 @@ public class AdminActions extends ActionSupport {
 		try {
 			HhiService.save(role);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE,"Database Error Occured. Please ensure you have connection to database or record does not exist");
+			logger.log(Level.SEVERE,
+					"Database Error Occured. Please ensure you have connection to database or record does not exist");
 			return Action.ERROR;
 
 		}
@@ -380,19 +414,19 @@ public class AdminActions extends ActionSupport {
 
 		return groups;
 	}
+
 	
-public String saveUser(){
-		
-		
-		//this.member.setSex(sex);
+	public String saveUser() {
+
+		// this.member.setSex(sex);
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-		
+
 		Date localBirthday = null;
 		Date localsavedDate = null;
 		Role inputRole = null;
-		
+
 		String principal = request.getUserPrincipal().getName();
 		this.user.setCreatedBy(principal);
 		Date date = new Date();
@@ -401,10 +435,10 @@ public String saveUser(){
 		this.person.setCreatedDate(date);
 		this.address.setCreatedBy(principal);
 		this.address.setCreatedDate(date);
-		
+
 		try {
-			
-			localBirthday= sdf.parse(this.birthday);
+
+			localBirthday = sdf.parse(this.birthday);
 			inputRole = HhiService.getRoleById(roleId);
 			this.person.setBirthday(localBirthday);
 			this.user.getRoles().add(inputRole);
@@ -414,28 +448,28 @@ public String saveUser(){
 			user.setPerson(person);
 			HhiService.save(user);
 		} catch (PersistanceException e1) {
-			logger.log(Level.SEVERE,"Database Error Occures. Please ensure you have connection to database or record does not exist");
+			logger.log(Level.SEVERE,
+					"Database Error Occures. Please ensure you have connection to database or record does not exist");
 			e1.printStackTrace();
 			return Action.ERROR;
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return Action.ERROR;
 		}
-		
 
 		request.getSession().setAttribute("memberMessage", "saveRecord");
 		request.getSession().setAttribute("adminContent", "user_success");
-		
+
 		return Action.SUCCESS;
 	}
 
-public String saveSuccessAction(){
-	logger.log(Level.INFO,"Saved Record successfully");
-	return Action.SUCCESS;
-	
-}
+	public String saveSuccessAction() {
+		logger.log(Level.INFO, "Saved Record successfully");
+		return Action.SUCCESS;
+
+	}
 
 	public List<Groups> getOptions() {
 
@@ -446,77 +480,70 @@ public String saveSuccessAction(){
 
 		return groups;
 	}
-	
-public List<Dbsettings> getTitles(){
-		
+
+	public List<Dbsettings> getTitles() {
+
 		List<Dbsettings> titles = null;
 		try {
-			if(this.editTitle == null){
-			titles = HhiService.getDbSetting(HhiService.TITLES);
-			}
-			else{
-				titles = HhiService.getDbSetting(HhiService.TITLES,editTitle);
-				
-			
+			if (this.editTitle == null) {
+				titles = HhiService.getDbSetting(HhiService.TITLES);
+			} else {
+				titles = HhiService.getDbSetting(HhiService.TITLES, editTitle);
+
 			}
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return titles;
 	}
 
+	public List<Dbsettings> getMaritalStatus() {
 
-public List<Dbsettings> getMaritalStatus(){
-	
-	List<Dbsettings> maritalStatus = null;
-	try {
-		if(this.editMaritalStatus == null){
-			maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS);
+		List<Dbsettings> maritalStatus = null;
+		try {
+			if (this.editMaritalStatus == null) {
+				maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS);
+			} else {
+				maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS, editMaritalStatus);
+			}
+
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		else{
-			maritalStatus = HhiService.getDbSetting(HhiService.SURVEY_STATUS,editMaritalStatus);
+
+		return maritalStatus;
+	}
+
+	public List<Dbsettings> getSexes() {
+
+		List<Dbsettings> sexes = null;
+		try {
+			sexes = HhiService.getDbSetting(HhiService.SEX);
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-	} catch (PersistanceException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-	return maritalStatus;
-}
-public List<Dbsettings> getSexes(){
-	
-	List<Dbsettings> sexes = null;
-	try {
-		sexes = HhiService.getDbSetting(HhiService.SEX);
-	} catch (PersistanceException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-	return sexes;
-}
 
+		return sexes;
+	}
 
-public List<Role> getRoles(){
-	
-	List<Role> roles = null;
-	try {	
-		
+	public List<Role> getRoles() {
+
+		List<Role> roles = null;
+		try {
+
 			roles = HhiService.getAllRoles();
-		
-	} catch (PersistanceException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return roles;
 	}
-	
-	return roles;
-}
-
-
 
 	public String dispatchSMS() {
 		Set<String> uniqueNumbers = new HashSet<String>();
@@ -727,7 +754,7 @@ public List<Role> getRoles(){
 
 			if (groupsToSend.contains("all")) {
 
-			//	allMembers = HhiService.getAllUsers();
+				// allMembers = HhiService.getAllUsers();
 
 			} else {
 
@@ -902,17 +929,16 @@ public List<Role> getRoles(){
 		}
 		return Integer.valueOf(setting);
 	}
-	
-	public String pagerAction(){
-		
-		
+
+	public String pagerAction() {
+
 		try {
 			HhiService.updateDbSetting(HhiService.PAGER_OPTION, pageSizeOption);
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return Action.SUCCESS;
 	}
 
@@ -1019,13 +1045,14 @@ public List<Role> getRoles(){
 
 			}
 		}
-		logger.log(Level.INFO, "request.getRequestURI() "+ request.getRequestURI()+" request.getParameterMap() "+request.getParameterMap().entrySet());
+		logger.log(Level.INFO, "request.getRequestURI() " + request.getRequestURI() + " request.getParameterMap() "
+				+ request.getParameterMap().entrySet());
 		if (request.getRequestURI().contains("usersave")) { // Prevent
-																					// Error
-																					// forward
-																					// from
-																					// validating
-																					// again
+															// Error
+															// forward
+															// from
+															// validating
+															// again
 
 			try {
 				String username = request.getParameter("user.username");
@@ -1036,12 +1063,12 @@ public List<Role> getRoles(){
 					logger.log(Level.SEVERE, "Validating Condition Errorror:::::::::::::::::::: "
 							+ request.getParameter("user.username"));
 					addFieldError("user.username",
-							"'" + user.getUsername() + "' has been taken and aready exists in Database.");
+							"User name" + "'" + user.getUsername() + "' has been taken and aready exists in Database.");
 				}
 
 			} catch (PersistanceException e) {
-				
-				logger.log(Level.SEVERE,e.getMessage());
+
+				logger.log(Level.SEVERE, e.getMessage());
 			}
 		}
 
@@ -1083,15 +1110,15 @@ public List<Role> getRoles(){
 							&& (birthdate.getDayOfMonth() - currentDate.getDayOfMonth()) <= 7)) {
 				// int diff =
 				// birthdate.getDayOfMonth()-currentDate.getDayOfMonth();
-				System.out.println("Member Qualified Bithday " + user.getPerson().getName() + " " + user.getPerson().getSurname() + " "
-						+ user.getPerson().getBirthday());
+				System.out.println("Member Qualified Bithday " + user.getPerson().getName() + " "
+						+ user.getPerson().getSurname() + " " + user.getPerson().getBirthday());
 				Calendar birthday = Calendar.getInstance();
 				birthday.setTime(user.getPerson().getBirthday());
 				int oldYear = birthday.YEAR;
 				String years = String.valueOf(birthday.get(Calendar.YEAR));
 				int age = currentDate.getYear() - new Integer(years);
 				int margin = (birthdate.getDayOfMonth() - currentDate.getDayOfMonth());
-			
+
 				String day = "";
 				DateTime actualBirthDay = birthdate.monthOfYear().addToCopy(12 * age);
 				DateTime.Property pDoW = actualBirthDay.dayOfWeek();
@@ -1308,7 +1335,6 @@ public List<Role> getRoles(){
 		this.editMaritalStatus = editMaritalStatus;
 	}
 
-	
 	public Address getAddress() {
 		return address;
 	}
@@ -1348,9 +1374,13 @@ public List<Role> getRoles(){
 	public void setConfirm(String confirm) {
 		this.confirm = confirm;
 	}
-	
-	
-	
-	
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 }

@@ -16,7 +16,7 @@
 								name="edit">
 								<s:hidden name="userId" value="" />
 								<input type="submit" id="edit" value="Edit"
-									onClick="setUserIdSubmit(document.data.select)" />
+									onClick="setIdForEdit(document.data.select,'userdata')" />
 							</s:form></td>
 						<td><s:form action="userdelete_action" method="Post"
 								name="toDelete">
@@ -83,7 +83,7 @@
 	<form name="data" action="post">
 
 		<display:table name="users" pagesize="${pageSize}" class="data"
-			requestURI="export_userview.action" id="memberdata" export="true">
+			requestURI="export_userview.action" id="userdata" export="true">
 			<display:column media="html">
 				<input type="checkbox" name="select"
 					onClick="CheckClickMember(document.data.select)" />

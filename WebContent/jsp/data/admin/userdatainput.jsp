@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<font class="heading">Members Input</font>
+<font class="heading">User Input</font>
 <div id="center">
 <s:form action = "usersave_action" method="POST">
 	<input type="checkbox" name="validationRequest"
@@ -9,8 +9,12 @@
 			<table>
 	<table>
 	<tr>
+	<s:if test="getFieldErrors().get('user.username')">
+       <div id="operror"><s:actionerror /></div>
+</s:if>
+	
 	<td colspan="2"><s:textfield label="User Name" name="user.username" size="30" required="true"/></td>
-	<td colspan="3"><s:password label="Password" name="user.password" size="30" required="true"/><s:actionerror/></td>
+	<td colspan="3"><s:password label="Password" name="user.password" size="30" required="true"/></td>
 	<td colspan="2"><s:password label="Confirm Password" name="confirm" size="30" required="true"/></td>
 	<td colspan="2"><s:select name="roleId" label="Role" headerKey=" " headerValue="[Select a Role]" list="roles" listKey="roleName" listValue="roleName" required="true"/></td>
 	<td colspan="3"><hr/></td>

@@ -154,6 +154,40 @@ function setMemberIdSubmit(chk) {
 	}
 }
 
+function setIdForEdit(chk,ObjId) {
+
+	var s = "";
+	var tabl = document.getElementById(ObjId);
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+		// alert(id);
+		document.edit.memberId.value = id;
+
+		document.edit.submit();
+
+	} else {
+
+		for (j = 0; j < chk.length; j++) {
+			if (chk[j].checked == true) {
+
+				var tr = tabl.rows[j + 1];
+
+				var cll = tr.cells[1];
+				var id = cll.innerHTML;
+				document.edit.memberId.value = id;
+
+				document.edit.submit();
+			}
+
+		}
+	}
+}
+
+
 function setMemberIdSubmitIndividual(chk) {
 
 	var s = "";

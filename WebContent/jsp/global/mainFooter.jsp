@@ -14,4 +14,4 @@
 	</tr>
 	</table>
 </center>
-<center><font class="faint">Copyright Church Registry (c) 2011</font></center>
+<center><font class="faint">Copyright AESy (c) 2016</font></center>

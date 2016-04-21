@@ -87,7 +87,7 @@
 			<result>/jsp/cellgroups.jsp</result>
 		</action>
 		<action name="administration_action">
-			<result>/jsp/administration.jsp</result>
+			<result>/jsp/admin/administration.jsp</result>
 		</action>
 		<action name="maintenance_action">
 			<result>/jsp/maintenance.jsp</result>
@@ -184,13 +184,20 @@
 			<result name="input">/userinput_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
+		
+		<action name="userupdate_action" class="com.aes.data.actions.AdminActions"
+			method="updateUser">
+			<result name="success" type="dispatcher">/userupdatesuccess_action.action</result>
+			<result name="input">/useredit_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
 
 		<action name="usersavesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="saveSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">saveSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 		<action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions"
@@ -238,24 +245,30 @@
 		</action>
 		<action name="administrationmenu_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="error">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="error">/jsp/admin/administration.jsp</result>
 		</action>
 		<action name="userinput_action" class="com.aes.data.actions.AdminActions"
 			method="userInput">
-			<interceptor-ref name="validation">
-				<param name="excludeMethods">userInput</param>
-			</interceptor-ref>
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+		
+		<action name="useredit_action" class="com.aes.data.actions.AdminActions"
+			method="userEdit">
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
 		</action>
 		<action name="roleinput_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
@@ -263,8 +276,8 @@
 		<action name="editrole_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error">/administration_error.action</result>
 
 
@@ -274,8 +287,8 @@
 		<action name="userSMS_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error">/administration_error.action</result>
 
 
@@ -283,8 +296,8 @@
 		<action name="birthdaySMS_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error">/administration_error.action</result>
 
 
@@ -293,8 +306,8 @@
 		<action name="individualSMS_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error">/administration_error.action</result>
 
 
@@ -304,8 +317,8 @@
 		<action name="messageEmail_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error">/administration_error.action</result>
 
 
@@ -316,7 +329,7 @@
 
 			<result name="success" type="dispatcher">/smsSendsuccess_action.action
 			</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
@@ -327,7 +340,7 @@
 
 			<result name="success" type="dispatcher">/smsSendsuccess_action.action
 			</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
@@ -337,7 +350,7 @@
 
 			<result name="success" type="dispatcher">/smsSendsuccess_action.action
 			</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
@@ -348,7 +361,7 @@
 
 			<result name="success" type="dispatcher">/emailSendsuccess_action.action
 			</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
@@ -357,8 +370,8 @@
 		<action name="emailTextFile_action" class="com.aes.data.actions.AdminActions"
 			method="writeAddresses">
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="input">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="input">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 
@@ -366,17 +379,17 @@
 
 		<action name="smsSendsuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 		<action name="writeAddresssuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 		<action name="emailSendsuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 		<action name="rolesview_action" class="com.aes.data.actions.AdminActions"
@@ -384,7 +397,7 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">rolesAction</param>
 			</interceptor-ref>
-			<result name="success">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
@@ -407,7 +420,7 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">rolesAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 
@@ -425,7 +438,7 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">rolesAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 
@@ -440,14 +453,14 @@
 		</action>
 		<action name="rolesmembership_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
 
 		<action name="roledeletesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/admin/administration.jsp</result>
 
 		</action>
 
@@ -463,8 +476,8 @@
 				<param name="excludeMethods">rolesAction</param>
 			</interceptor-ref>
 
-			<result name="success">/jsp/administration.jsp</result>
-			<result name="error">/jsp/administration.jsp</result>
+			<result name="success">/jsp/admin/administration.jsp</result>
+			<result name="error">/jsp/admin/administration.jsp</result>
 
 		</action>
 
@@ -475,7 +488,7 @@
 			</interceptor-ref>
 
 			<result name="success">/jsp/home/logout.jsp</result>
-			<result name="error">/jsp/administration.jsp</result>
+			<result name="error">/jsp/admin/administration.jsp</result>
 
 		</action>
 

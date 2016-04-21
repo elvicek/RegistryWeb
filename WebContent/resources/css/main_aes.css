@@ -89,9 +89,9 @@ body {
 #operror {
   background: 	#FDEEF4;
   clear: both;
-  width: 60%;
+  width: 80%;
   height: 100px;
-  border: 1px solid #81d742;
+  border: 1px solid red;
 }
 #breadcrumbs {
   float: left;

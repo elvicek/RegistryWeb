@@ -19,49 +19,52 @@
 </head>
 <body onload="setFunctions()">
 <div id="header">
-<%@include file="global/mainHeader.jsp" %>
+<%@include file="../../global/mainHeader.jsp" %>
 </div>
 <div id="leftcol">
-<%@include file="global/leftmenu.jsp"%>
+<%@include file="../../global/leftmenu.jsp"%>
 </div>
 <div id="content">
 
 <c:choose>
 <c:when test="${sessionScope.adminContent eq initParam.menu }">
-<%@ include file="data/administrationmenu.jsp" %>
+<%@ include file="administrationmenu.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.success }">
-<%@ include file="data/roleSuccessMsg.jsp" %>
+<%@ include file="roleSuccessMsg.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent == 'membership' }">
-<%@ include file="data/usersByRoleview.jsp" %>
+<%@ include file="usersByRoleview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent == 'sms' }">
-<%@ include file="data/groupsSendSms.jsp" %>
+<%@ include file="groupsSendSms.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent == 'email' }">
-<%@ include file="data/groupsSendEmail.jsp" %>
+<%@ include file="groupsSendEmail.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'rolesview' }">
-<%@ include file="data/rolesview.jsp" %>
+<%@ include file="rolesview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.error }">
-<%@ include file="global/error.jsp" %>
+<%@ include file="../../global/error.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'roleedit' }">
-<%@ include file="data/roledataedit.jsp" %>
+<%@ include file="roledataedit.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq initParam.input }">
-<%@ include file="data/roledatainput.jsp" %>
+<%@ include file="roledatainput.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'user_input' }">
-<%@ include file="data/userdatainput.jsp" %>
+<%@ include file="userdatainput.jsp" %>
+</c:when>
+<c:when test="${sessionScope.adminContent eq 'user_edit' }">
+<%@ include file="userdataedit.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'user_success' }">
-<%@ include file="data/userSuccessMsg.jsp" %>
+<%@ include file="userSuccessMsg.jsp" %>
 </c:when>
 <c:when test="${sessionScope.adminContent eq 'write' }">
-<%@ include file="data/roleSuccessMsg.jsp" %>
+<%@ include file="roleSuccessMsg.jsp" %>
 </c:when>
 <c:otherwise>
 
@@ -71,7 +74,7 @@
 
 <div id="footer">
 
-<%@include file="global/mainFooter.jsp" %>
+<%@include file="../../global/mainFooter.jsp" %>
 </div>
 </body>
 </html>

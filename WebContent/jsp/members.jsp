@@ -28,7 +28,7 @@
 
 <c:choose>
 <c:when test="${sessionScope.memberContent eq initParam.menu }">
-<%@ include file="data/clientmenu.jsp" %>
+<%@ include file="data/clients/clientmenu.jsp" %>
 </c:when>
 <c:when test="${sessionScope.memberContent eq initParam.success }">
 <%@ include file="data/memberSuccessMsg.jsp" %>
@@ -40,7 +40,7 @@
 <%@ include file="data/memberview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.memberContent eq 'userview' }">
-<%@ include file="data/userview.jsp" %>
+<%@ include file="data/admin/userview.jsp" %>
 </c:when>
 <c:when test="${sessionScope.memberContent eq initParam.error }">
 <%@ include file="global/error.jsp" %>
