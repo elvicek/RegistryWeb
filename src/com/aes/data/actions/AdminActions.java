@@ -218,14 +218,14 @@ public class AdminActions extends ActionSupport {
 		session.setAttribute("adminContent", "user_input");
 		return Action.SUCCESS;
 	}
-	
+
 	public String userEdit() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
 		User userToEdit = retrieveUserToEdit();
 		request.setAttribute("user", userToEdit);
-		session.setAttribute("user", userToEdit);
+		request.setAttribute("roleId", ((Role) userToEdit.getRoles().toArray()[0]).getRoleName());
 		session.setAttribute("adminContent", "user_edit");
 		return Action.SUCCESS;
 	}
@@ -236,25 +236,24 @@ public class AdminActions extends ActionSupport {
 		try {
 			user = HhiService.getUserByUserName(username);
 			Person person = user.getPerson();
-			
-		this.editTitle = person.getTitle();
-		
-		this.roleId = ((Role)user.getRoles().toArray()[0]).getRoleName();
-		
-		this.birthday = sdf.format(person.getBirthday());
-		
-		
+
+			this.editTitle = person.getTitle();
+
+			this.roleId = ((Role) user.getRoles().toArray()[0]).getRoleName();
+
+			if (person.getBirthday() != null) {
+				this.birthday = sdf.format(person.getBirthday());
+			}
+
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+
 		}
-	 catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		
-		
-	}
-	
+
 		return user;
 	}
 
@@ -415,7 +414,6 @@ public class AdminActions extends ActionSupport {
 		return groups;
 	}
 
-	
 	public String saveUser() {
 
 		// this.member.setSex(sex);
@@ -424,17 +422,9 @@ public class AdminActions extends ActionSupport {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 
 		Date localBirthday = null;
-		Date localsavedDate = null;
 		Role inputRole = null;
 
-		String principal = request.getUserPrincipal().getName();
-		this.user.setCreatedBy(principal);
-		Date date = new Date();
-		this.user.setCreatedDate(date);
-		this.person.setCreatedBy(principal);
-		this.person.setCreatedDate(date);
-		this.address.setCreatedBy(principal);
-		this.address.setCreatedDate(date);
+		setUserAuditData(request);
 
 		try {
 
@@ -442,9 +432,7 @@ public class AdminActions extends ActionSupport {
 			inputRole = HhiService.getRoleById(roleId);
 			this.person.setBirthday(localBirthday);
 			this.user.getRoles().add(inputRole);
-			HhiService.save(address);
 			person.setAddress(address);
-			HhiService.save(person);
 			user.setPerson(person);
 			HhiService.save(user);
 		} catch (PersistanceException e1) {
@@ -463,6 +451,45 @@ public class AdminActions extends ActionSupport {
 		request.getSession().setAttribute("adminContent", "user_success");
 
 		return Action.SUCCESS;
+	}
+	
+	public String updateUser() {
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		Date localBirthday = null;
+		Role inputRole = null;
+		setUserAuditData(request);
+		
+		this.person.setBirthday(localBirthday);
+		this.user.getRoles().clear();
+		this.user.getRoles().add(inputRole);
+		person.setAddress(address);
+		user.setPerson(person);
+
+		try {
+			localBirthday = sdf.parse(this.birthday);
+			inputRole = HhiService.getRoleById(roleId);
+			HhiService.update(user);
+		} catch (Exception e) {
+			return Action.ERROR;
+
+		}
+
+		request.getSession().setAttribute("roleMessage", "updateRecord");
+		return Action.SUCCESS;
+
+	}
+
+	private void setUserAuditData(HttpServletRequest request) {
+		String principal = request.getUserPrincipal().getName();
+		this.user.setCreatedBy(principal);
+		Date date = new Date();
+		this.user.setCreatedDate(date);
+		this.person.setCreatedBy(principal);
+		this.person.setCreatedDate(date);
+		this.address.setCreatedBy(principal);
+		this.address.setCreatedDate(date);
 	}
 
 	public String saveSuccessAction() {

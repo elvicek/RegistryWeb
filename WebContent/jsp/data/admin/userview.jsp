@@ -12,11 +12,11 @@
 			<td><table>
 					<tr>
 
-						<td><s:form action="edituser_action" method="Post"
+						<td><s:form action="useredit_action" method="Post"
 								name="edit">
-								<s:hidden name="userId" value="" />
+								<s:hidden name="username" value="" />
 								<input type="submit" id="edit" value="Edit"
-									onClick="setIdForEdit(document.data.select,'userdata')" />
+									onClick="setUserNameForEdit(document.data.select,'userdata')" />
 							</s:form></td>
 						<td><s:form action="userdelete_action" method="Post"
 								name="toDelete">

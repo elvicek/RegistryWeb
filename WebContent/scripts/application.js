@@ -154,10 +154,10 @@ function setMemberIdSubmit(chk) {
 	}
 }
 
-function setIdForEdit(chk,ObjId) {
+function setUserNameForEdit(chk) {
 
 	var s = "";
-	var tabl = document.getElementById(ObjId);
+	var tabl = document.getElementById('userdata');
 	if (chk.checked == true) {
 
 		var tr = tabl.rows[1];
@@ -165,7 +165,7 @@ function setIdForEdit(chk,ObjId) {
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
 		// alert(id);
-		document.edit.memberId.value = id;
+		document.edit.username.value = id;
 
 		document.edit.submit();
 
@@ -178,7 +178,7 @@ function setIdForEdit(chk,ObjId) {
 
 				var cll = tr.cells[1];
 				var id = cll.innerHTML;
-				document.edit.memberId.value = id;
+				document.edit.username.value = id;
 
 				document.edit.submit();
 			}

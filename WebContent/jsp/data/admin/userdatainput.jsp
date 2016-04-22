@@ -9,9 +9,8 @@
 			<table>
 	<table>
 	<tr>
-	<s:if test="getFieldErrors().get('user.username')">
-       <div id="operror"><s:actionerror /></div>
-</s:if>
+	
+       <s:actionerror />
 	
 	<td colspan="2"><s:textfield label="User Name" name="user.username" size="30" required="true"/></td>
 	<td colspan="3"><s:password label="Password" name="user.password" size="30" required="true"/></td>
