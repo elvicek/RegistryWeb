@@ -14,7 +14,7 @@
 				<tr>
 
 					<td><s:textfield label="Role Name" labelposition="left"
-							id="role.roleName" name="role.roleName" required="true"
+							id="role.roleName" name="role.roleName" 
 							size="30" value="%{#session.role.roleName}" readonly="true" /></td>
 
 				</tr>

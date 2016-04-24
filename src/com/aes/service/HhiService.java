@@ -373,37 +373,17 @@ public class HhiService {
 
 	}
 
-	public static void deleteMember(Integer memberId) {
+	public static void deleteUser(String userName) {
 
 		Session session = getSession();
 		Transaction tx = session.beginTransaction();
-		Member member;
+		User user;
 		
-		
-		
-
-		//List<MemberGroups> members = (List<MemberGroups>) query.list();
-		
-
 		try {
 			
 			
-			member = getMemberById(memberId);
-			
-			//List<MemberGroups> groups = getMemberGroupsByMemberId(member.getMemberId());
-			String queryString = "Delete from MemberGroups where MEMBER_ID = :memberId";
-			if(member.getGroups()!=null){
-			session.createQuery(queryString).setInteger("memberId", member.getMemberId()).executeUpdate();
-			}
-			/*List<MemberGroups> memberGroups = (List<MemberGroups>) query.list();
-			System.out.println("Number of groups "+memberGroups.size());
-			if(memberGroups.size() > 0){
-			for(MemberGroups mgroups: memberGroups){
-				session.delete(mgroups);
-				
-			}
-			}*/
-			session.delete(member);
+			user = getUserByUserName(userName);
+			session.delete(user);
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -659,7 +639,7 @@ public class HhiService {
 			Transaction tx = session.beginTransaction();
 
 			// String queryString = "from Dbsettings where type = :type";
-			String queryString = "from dbsettings where type = :type and description != :description";
+			String queryString = "from Dbsettings where type = :type and description != :description";
 			Query query = session.createQuery(queryString);
 			query.setInteger("type", type);
 			query.setString("description", description);
@@ -888,7 +868,67 @@ public class HhiService {
 		}
 	}
 	
+	public static Client getClientByClientName(String clientName)
+			throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Client where clientName = :clientName";
+			Query query = session.createQuery(queryString);
+			query.setString("clientName", clientName);
+
+			Object obj = query.uniqueResult();
+			Client client;
+
+			if (obj == null) {
+				client = null;
+			} else {
+				client = (Client) obj;
+
+			}
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return client;
+		} catch (Exception e) {
+			throw new PersistanceException();
+		}
+	}
 	
+	public static Client getClientById(Integer clientId)
+			throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Client where CLIENT_ID = :clientId";
+			Query query = session.createQuery(queryString);
+			query.setInteger("clientId", clientId);
+
+			Object obj = query.uniqueResult();
+			Client client;
+
+			if (obj == null) {
+				client = null;
+			} else {
+				client = (Client) obj;
+
+			}
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return client;
+		} catch (Exception e) {
+			throw new PersistanceException();
+		}
+	}
 	
 	private static boolean isNotNullOrEmpty(List<User> users) {
 		return users != null && !users.isEmpty();

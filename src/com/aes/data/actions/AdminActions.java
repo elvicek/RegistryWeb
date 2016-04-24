@@ -69,6 +69,7 @@ public class AdminActions extends ActionSupport {
 	private String username;
 	private String groupName;
 	private String cellgroupName;
+	private String userIdToDelete;
 	private Role role;
 	private User user;
 	private Person person;
@@ -224,8 +225,11 @@ public class AdminActions extends ActionSupport {
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
 		User userToEdit = retrieveUserToEdit();
+		this.person = userToEdit.getPerson();
+		this.address = person.getAddress();
+		this.roleId = ((Role) userToEdit.getRoles().toArray()[0]).getRoleName();
 		request.setAttribute("user", userToEdit);
-		request.setAttribute("roleId", ((Role) userToEdit.getRoles().toArray()[0]).getRoleName());
+		request.setAttribute("roleId", roleId);
 		session.setAttribute("adminContent", "user_edit");
 		return Action.SUCCESS;
 	}
@@ -452,7 +456,7 @@ public class AdminActions extends ActionSupport {
 
 		return Action.SUCCESS;
 	}
-	
+
 	public String updateUser() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -460,25 +464,55 @@ public class AdminActions extends ActionSupport {
 		Date localBirthday = null;
 		Role inputRole = null;
 		setUserAuditData(request);
-		
-		this.person.setBirthday(localBirthday);
+
 		this.user.getRoles().clear();
-		this.user.getRoles().add(inputRole);
+		
 		person.setAddress(address);
 		user.setPerson(person);
 
 		try {
 			localBirthday = sdf.parse(this.birthday);
+			this.person.setBirthday(localBirthday);
+			User aUser = HhiService.getUserByUserName(user.getUsername());
+			person.setPersonId(aUser.getPerson().getPersonId());
+			address.setAddressId(aUser.getPerson().getAddress().getAddressId());
 			inputRole = HhiService.getRoleById(roleId);
+			this.user.getRoles().add(inputRole);
 			HhiService.update(user);
 		} catch (Exception e) {
 			return Action.ERROR;
 
 		}
 
-		request.getSession().setAttribute("roleMessage", "updateRecord");
+		request.getSession().setAttribute("memberMessage", "updateRecord");
+		request.getSession().setAttribute("adminContent", "user_success");
 		return Action.SUCCESS;
 
+	}
+
+	public String deleteUser() {
+		String[] usersToDelete = null;
+
+		if (userIdToDelete.split(":").length == 0) {
+
+			usersToDelete[0] = userIdToDelete;
+
+		} else {
+
+			usersToDelete = userIdToDelete.split(":");
+
+		}
+
+		for (String id : usersToDelete) {
+
+			HhiService.deleteUser(id);
+
+		}
+		// request.getSession().setAttribute("savedMember", member);
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.getSession().setAttribute("memberMessage", "deleteRecord");
+		request.getSession().setAttribute("adminContent", "user_success");
+		return Action.SUCCESS;
 	}
 
 	private void setUserAuditData(HttpServletRequest request) {
@@ -494,6 +528,18 @@ public class AdminActions extends ActionSupport {
 
 	public String saveSuccessAction() {
 		logger.log(Level.INFO, "Saved Record successfully");
+		return Action.SUCCESS;
+
+	}
+	
+	public String deleteSuccessAction() {
+		logger.log(Level.INFO, "Deleted Record successfully");
+		return Action.SUCCESS;
+
+	}
+
+	public String updateSuccessAction() {
+		logger.log(Level.INFO, "Updated Record successfully");
 		return Action.SUCCESS;
 
 	}
@@ -561,8 +607,13 @@ public class AdminActions extends ActionSupport {
 
 		List<Role> roles = null;
 		try {
-
-			roles = HhiService.getAllRoles();
+			
+			if(roleId == null){
+				roles = HhiService.getAllRoles();
+			}
+			else{
+				roles = removeEditRole();
+			}
 
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
@@ -570,6 +621,24 @@ public class AdminActions extends ActionSupport {
 		}
 
 		return roles;
+	}
+
+	private List<Role> removeEditRole() {
+		List<Role> trimmedList = new ArrayList<Role>();
+		try{
+			List<Role> fullList = HhiService.getAllRoles();
+			
+			for(Role role : fullList){
+				if(!role.getRoleName().equalsIgnoreCase(roleId)){
+					trimmedList.add(role);
+				}
+			}
+			
+		}
+		catch (PersistanceException e){
+			e.printStackTrace();
+		}
+		return trimmedList;
 	}
 
 	public String dispatchSMS() {
@@ -1408,6 +1477,14 @@ public class AdminActions extends ActionSupport {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getUserIdToDelete() {
+		return userIdToDelete;
+	}
+
+	public void setUserIdToDelete(String userIdToDelete) {
+		this.userIdToDelete = userIdToDelete;
 	}
 
 }

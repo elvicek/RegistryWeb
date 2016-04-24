@@ -36,7 +36,7 @@ public class MemberActions  extends ActionSupport{
 	
 	
 	private Member member;
-	private Address address;
+	private Address addresstle;
 	private Cellgroup cellgroup;
 	private String title;
 	private Character sex;
@@ -58,6 +58,7 @@ public class MemberActions  extends ActionSupport{
 	private String groupsAllocated;
 	private String leftNumber;
 	private String stringToSearch;
+	private Address address;
 	
 
 	public String getBirthday() {
@@ -484,7 +485,7 @@ public String memberDelete(){
 	
 	for(String id : membersToDelete){
 		
-		HhiService.deleteMember(Integer.valueOf(id));
+	//	HhiService.deleteUser(Integer.valueOf(id));
 		
 		
 	}

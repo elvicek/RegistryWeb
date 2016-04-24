@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="person.name">
+		<field-validator type="requiredstring">
+			<message>Please enter a The user's name</message>
+		</field-validator>
+	</field>
+	<field name="person.surname">
+		<field-validator type="requiredstring">
+			<message>Please enter a Surname</message>
+		</field-validator>
+	</field>
+	<field name="person.title">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>Please enter Select a Title</message>
+		</field-validator>
+	</field>
+	<field name="person.sex">
+		<field-validator type="required">
+			<message>Please Select sex</message>
+		</field-validator>
+	</field>
+	<field name="address.addressline1">
+		<field-validator type="requiredstring">
+			<message>Please enter Address Line 1</message>
+		</field-validator>
+	</field>
+	<field name="address.addressline2">
+		<field-validator type="requiredstring">
+			<message>Please enter AddressLine 2</message>
+		</field-validator>
+	</field>
+	<field name="person.cellphone">
+		<field-validator type="requiredstring">
+			<message>Please enter a Cell phone Number</message>
+		</field-validator>
+	</field>
+	<field name="roleId">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>Please Allocate a Role</message>
+		</field-validator>
+	</field>
+	<field name="person.email">
+
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>Please provide an email address</message>
+		</field-validator>
+		<field-validator type="email">
+			<message>Please provide valid email address</message>
+		</field-validator>
+		
+	</field>
+	
+	<field name="user.password">
+		<field-validator type="requiredstring">
+			<message>Password is required </message>
+		</field-validator>
+
+		<field-validator type="stringlength">
+			<param name="minLength">6</param>
+			<message>Password must contain at least ${minLength} characters</message>
+		</field-validator>
+	</field>
+	<validator type="expression">
+		<param name="expression">user.password == confirm</param>
+		<message>Password and confirm password do not match!</message>
+	</validator>
+</validators>

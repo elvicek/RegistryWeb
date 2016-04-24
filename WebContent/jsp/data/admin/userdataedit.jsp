@@ -6,10 +6,11 @@
 <s:form action="userupdate_action" method="POST">
 	<table>
 	<tr>
-	<td colspan="2"><s:textfield label="User Name" name="user.username" size="30" required="true" value="%{#request.user.username}"/></td>
-	<td colspan="3"><s:password label="Password" name="user.password" size="30" required="true" value="%{#request.user.password}"/></td>
-	<td colspan="2"><s:password label="Confirm Password" name="confirm" size="30" required="true" value="%{#request.user.password}"/></td>
-	<td colspan="2"><s:select name="roleId" label="Role" headerKey="%{#request.user.roleId}" headerValue="%{#request.user.roleId}" list="roles" listKey="roleName" listValue="roleName" required="true" value="roleId"/></td>
+	<td colspan="2"><s:textfield label="User Name" name="user.username" size="30" value="%{#request.user.username}" readonly="true" /></td>
+	<td colspan="3"><s:password label="Password" name="user.password" size="30" required="true" value="%{#request.user.password}" showPassword="true" /></td>
+	<td colspan="2"><s:password label="Confirm Password" name="confirm" size="30" required="true" value="%{#request.user.password}" showPassword="true" 
+	/></td>
+	<td colspan="2"><s:select name="roleId" label="Role" headerKey="%{#request.roleId}" headerValue="%{#request.roleId}" list="roles" listKey="roleName" listValue="roleName" required="true" value="roleId"/></td>
 	<td colspan="3"><hr/></td>
 	<td colspan="2"><s:textfield label="First Name" name="person.name" size="30" required="true" value="%{#request.user.person.name}"/></td>
 	<td colspan="2"><s:textfield label="Last Name" name="person.surname" size="30" required="true" value="%{#request.user.person.surname}"/></td>

@@ -306,14 +306,14 @@ function setSearchString(val) {
 
 }
 
-function setMemberIdToDelete(chk) {
+function setUserIdToDelete(chk) {
 	// alert("Working");
 
-	var members = "";
+	var users = "";
 	var chkd = 0;
 	var id = "";
 
-	var tabl = document.getElementById('memberdata');
+	var tabl = document.getElementById('userdata');
 
 	if (chk.checked == true) {
 
@@ -322,7 +322,7 @@ function setMemberIdToDelete(chk) {
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
 
-		document.toDelete.memberIdToDelete.value = id;
+		document.toDelete.userIdToDelete.value = id;
 		document.toDelete.submit();
 
 	} else {
@@ -336,11 +336,11 @@ function setMemberIdToDelete(chk) {
 					var cll = tr.cells[1];
 					id = cll.innerHTML;
 					if (chkd == 0) {
-						members = id;
+						users = id;
 						// alert("ID "+id);
 					} else {
 
-						members = members + ":" + id;
+						users = users + ":" + id;
 
 					}
 					chkd = chkd + 1;
@@ -350,11 +350,11 @@ function setMemberIdToDelete(chk) {
 				}
 
 			}
-			document.toDelete.memberIdToDelete.value = members;
+			document.toDelete.userIdToDelete.value = users;
 		}
 
 		else {
-			document.toDelete.memberIdToDelete.value = id;
+			document.toDelete.userIdToDelete.value = id;
 		}
 	}
 	document.toDelete.submit();

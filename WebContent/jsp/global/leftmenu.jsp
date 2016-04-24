@@ -31,17 +31,11 @@ Home</a></li>
     <li><a href="#">Clients</a> 
       <ul> 
         <li><a href="<s:url action="clientview_action" namespace="/"/>">View All</a></li> 
-        <li><a href="<s:url action="clientinput_action" namespace="/"/>">Member Input</a></li> 
+        <li><a href="<s:url action="clientinput_action" namespace="/"/>">Client Input</a></li> 
       </ul> 
     </li> 
     <li><a href="#">Maintenance</a> 
     </li>
-    <li><a href="#">Cell Groups</a> 
-      <ul> 
-        <li><a href="<s:url action="cellgroupview_action" namespace="/"/>">View All</a></li> 
-        <li><a href="<s:url action="cellgroupinput_action" namespace="/"/>">Cell Group Input</a></li> 
-      </ul> 
-    </li> 
     <li><a href="#">Administration</a> 
     <ul>
       <li><a href="<s:url action="rolesview_action" namespace="/"/>">View All Roles</a></li>

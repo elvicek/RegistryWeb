@@ -9,17 +9,17 @@
 		<tr>
 			<td><table>
 					<tr>
-						<td><s:form action="editmember_action" method="Post"
+						<td><s:form action="useredit_action" method="Post"
 								name="edit">
-								<s:hidden name="memberId" value="" />
+								<s:hidden name="username" value="" />
 								<input type="submit" id="edit" value="Edit"
-									onClick="setMemberIdSubmit(document.data.select)" />
+									onClick="setUserNameForEdit(document.data.select)" />
 							</s:form></td>
-						<td><s:form action="memberdelete_action" method="Post"
+						<td><s:form action="userdelete_action" method="Post"
 								name="toDelete">
-								<s:hidden name="memberIdToDelete" value="" />
+								<s:hidden name="userIdToDelete" value="" />
 								<input type="submit" id="delete" value="Delete"
-									onClick="setMemberIdToDelete(document.data.select)" />
+									onClick="setUserIdToDelete(document.data.select)" />
 							</s:form></td>
 						<td>
 					</tr>
@@ -27,7 +27,7 @@
 		</tr>
 	</table>
 	<form name="data" action="post">
-		<table class="data" id="memberdata">
+		<table class="data" id="userdata">
 
 			<tr>
 				<th><input type="checkbox" name="selectAll"

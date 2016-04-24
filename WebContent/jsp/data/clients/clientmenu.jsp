@@ -10,8 +10,8 @@
 <div id="center">
 <table class="menu">
 <tr><th align="left">Action</th><th align="left">Description</th></tr>
-<tr><td><a href="<s:url action="clientview_action" namespace="/"/>">View All</a></td><td>List Of All Members Entered in Database</td></tr>
-<tr><td><a href="<s:url action="clientinput_action" namespace="/"/>">Member Input</a></td><td>Add members to Registry</td></tr>
+<tr><td><a href="<s:url action="clientview_action" namespace="/"/>">View All</a></td><td>List Of All Clients Entered in Database</td></tr>
+<tr><td><a href="<s:url action="clientinput_action" namespace="/"/>">Client Input</a></td><td>Add clients to Data base</td></tr>
 
 </table>
 </div>

@@ -185,10 +185,24 @@
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 		
+		<action name="clientsave_action" class="com.aes.data.actions.ClientActions"
+			method="saveClient">
+			<result name="success" type="dispatcher">/clientsavesuccess_action.action</result>
+			<result name="input">/clientinput_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+		
 		<action name="userupdate_action" class="com.aes.data.actions.AdminActions"
 			method="updateUser">
 			<result name="success" type="dispatcher">/userupdatesuccess_action.action</result>
 			<result name="input">/useredit_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+		
+		<action name="userdelete_action" class="com.aes.data.actions.AdminActions"
+			method="deleteUser">
+			<result name="success" type="dispatcher">/userdeletesuccess_action.action</result>
+			<result name="input">/usersview_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 
@@ -196,6 +210,32 @@
 			method="saveSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">saveSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+
+		</action>
+		
+		<action name="clientsavesuccess_action" class="com.aes.data.actions.ClientActions"
+			method="saveSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">saveSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
+
+		</action>
+		<action name="userdeletesuccess_action" class="com.aes.data.actions.AdminActions"
+			method="deleteSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">deleteSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+
+		</action>
+	
+		<action name="userupdatesuccess_action" class="com.aes.data.actions.AdminActions"
+			method="updateSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">updateSuccessAction</param>
 			</interceptor-ref>
 			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
 
@@ -248,11 +288,24 @@
 			<result name="success">/jsp/data/admin/administration.jsp</result>
 			<result name="error">/jsp/data/admin/administration.jsp</result>
 		</action>
+		<action name="clientsmenu_action" class="com.aes.data.actions.ClientActions"
+			method="menuAction">
+			<result name="success">/jsp/data/clients/clients.jsp</result>
+			<result name="error">/jsp/data/clients/clients.jsp</result>
+		</action>
 		<action name="userinput_action" class="com.aes.data.actions.AdminActions"
 			method="userInput">
 			<result name="success">/jsp/data/admin/administration.jsp</result>
 			<result name="input">/jsp/data/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+
+		</action>
+		<action name="clientinput_action" class="com.aes.data.actions.ClientActions"
+			method="clientInput">
+			<result name="success">/jsp/data/clients/clients.jsp</result>
+			<result name="input">/jsp/data/clients/clients.jsp</result>
+			<result name="error" type="dispatcher">/clients_error.action
 			</result>
 
 		</action>
@@ -401,6 +454,17 @@
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
+		<action name="clientview_action" class="com.aes.data.actions.ClientActions"
+			method="viewClients">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">viewClients</param>
+			</interceptor-ref>
+			<result name="success">/jsp/data/clients/clients.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+		
+		
 		<action name="save_role" class="com.aes.data.actions.AdminActions"
 			method="saveRole">
 			<result name="success" type="dispatcher">/save_rolesuccess.action</result>
