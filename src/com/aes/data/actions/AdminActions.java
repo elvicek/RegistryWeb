@@ -228,8 +228,8 @@ public class AdminActions extends ActionSupport {
 		this.person = userToEdit.getPerson();
 		this.address = person.getAddress();
 		this.roleId = ((Role) userToEdit.getRoles().toArray()[0]).getRoleName();
-		request.setAttribute("user", userToEdit);
-		request.setAttribute("roleId", roleId);
+		session.setAttribute("user", userToEdit);
+		session.setAttribute("roleId", roleId);
 		session.setAttribute("adminContent", "user_edit");
 		return Action.SUCCESS;
 	}

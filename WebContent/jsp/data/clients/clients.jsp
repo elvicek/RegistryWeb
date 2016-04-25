@@ -43,6 +43,9 @@
 <c:when test="${sessionScope.clientContent eq initParam.view }">
 <%@ include file="clientsview.jsp" %>
 </c:when>
+<c:when test="${sessionScope.clientContent eq initParam.edit }">
+<%@ include file="clientdataedit.jsp" %>
+</c:when>
 
 <c:otherwise>
 

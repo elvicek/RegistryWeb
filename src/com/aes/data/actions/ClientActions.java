@@ -64,10 +64,9 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class ClientActions extends ActionSupport {
 
-	
-	private String username;
+	private String clientName;
 	private String groupName;
-	private String userIdToDelete;
+	private String clientNameToDelete;
 	private Role role;
 	private Client client;
 	private Person person;
@@ -76,8 +75,7 @@ public class ClientActions extends ActionSupport {
 	private String birthday;
 	private Boolean validationRequest;
 	private Address clientAddress;
-	
-	
+
 	private Integer tab;
 	private String stringToSearch;
 	private String pageSizeOption;
@@ -86,17 +84,15 @@ public class ClientActions extends ActionSupport {
 
 	private Logger logger = Logger.getLogger(ClientActions.class.getName());
 
-	public String menuAction(){
+	public String menuAction() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
 		session.setAttribute("clientContent", "menu");
-		
+
 		return Action.SUCCESS;
 	}
-	
-	
-	
+
 	public String clientInput() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
@@ -109,24 +105,26 @@ public class ClientActions extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
-		User userToEdit = retrieveUserToEdit();
-		this.person = userToEdit.getPerson();
+		Client clientToEdit = retrieveClientToEdit();
+		this.person = clientToEdit.getPerson();
 		this.address = person.getAddress();
-		request.setAttribute("client", userToEdit);
-		//request.setAttribute("roleId", roleId);
-		session.setAttribute("adminContent", "user_edit");
+		this.clientAddress = clientToEdit.getAddress();
+		
+		session.setAttribute("client", clientToEdit);
+		
+		
+		session.setAttribute("clientContent", "edit");
 		return Action.SUCCESS;
 	}
 
-	private User retrieveUserToEdit() {
-		User user = null;
+	private Client retrieveClientToEdit() {
+		Client client = null;
 		DateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		try {
-			user = HhiService.getUserByUserName(username);
-			Person person = user.getPerson();
+			client = HhiService.getClientByClientName(clientName);
+			Person person = client.getPerson();
 
 			this.editTitle = person.getTitle();
-
 
 			if (person.getBirthday() != null) {
 				this.birthday = sdf.format(person.getBirthday());
@@ -141,7 +139,7 @@ public class ClientActions extends ActionSupport {
 
 		}
 
-		return user;
+		return client;
 	}
 
 	public String viewUsers() {
@@ -190,27 +188,7 @@ public class ClientActions extends ActionSupport {
 		return Action.SUCCESS;
 	}
 
-	public String saveRole() {
 
-		HttpServletRequest request = ServletActionContext.getRequest();
-		// Set<Member> members = new HashSet<Member>();
-
-		this.role.setCreatedBy(request.getRemoteUser());
-		this.role.setCreatedDate(new Date());
-		try {
-			HhiService.save(role);
-		} catch (Exception e) {
-			logger.log(Level.SEVERE,
-					"Database Error Occured. Please ensure you have connection to database or record does not exist");
-			return Action.ERROR;
-
-		}
-
-		// request.getSession().setAttribute("savedCellGroup", cellgroup);
-		request.getSession().setAttribute("roleMessage", "saveRecord");
-		return Action.SUCCESS;
-
-	}
 
 	public String signOutAction() {
 
@@ -221,69 +199,6 @@ public class ClientActions extends ActionSupport {
 
 	}
 
-	public String updateRole() {
-
-		HttpServletRequest request = ServletActionContext.getRequest();
-
-		this.role.setCreatedBy(request.getRemoteUser());
-		this.role.setCreatedDate(new Date());
-
-		try {
-			HhiService.update(role);
-		} catch (Exception e) {
-			// logger.log(Level.SEVERE,"Database Error Occured. Please ensure
-			// you have connection to database or record does not exist");
-			return Action.ERROR;
-
-		}
-
-		// request.getSession().setAttribute("savedCellGroup", cellgroup);
-		request.getSession().setAttribute("roleMessage", "updateRecord");
-		return Action.SUCCESS;
-
-	}
-
-	public String roleDelete() {
-
-		String[] rolesToDelete = null;
-		// this.member.setSex(sex);
-
-		// HttpServletRequest request = ServletActionContext.getRequest();
-		HttpServletRequest request = ServletActionContext.getRequest();
-	/*	if (roleToDelete.split(":").length == 0) {
-
-			rolesToDelete[0] = roleToDelete;
-
-		} else {
-
-			rolesToDelete = roleToDelete.split(":");
-
-		}*/
-		try {
-			for (String id : rolesToDelete) {
-
-				try {
-					HhiService.deleteRoleById(id);
-				} catch (UsersExistInRoleException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					request.getSession().setAttribute("roleMessage", "roleDeleteError");
-
-					return Action.SUCCESS;
-				}
-
-			}
-		} catch (ConstraintViolationException e) {
-			request.getSession().setAttribute("roleMessage", "roleDeleteError");
-			return Action.SUCCESS;
-		}
-		// request.getSession().setAttribute("savedMember", member);
-
-		request.getSession().setAttribute("roleMessage", "deleteRecord");
-		return Action.SUCCESS;
-	}
-
-	
 	public String saveClient() {
 
 		// this.member.setSex(sex);
@@ -321,7 +236,6 @@ public class ClientActions extends ActionSupport {
 		return Action.SUCCESS;
 	}
 
-	
 	public String viewClients() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String path = request.getRequestURI();
@@ -344,7 +258,7 @@ public class ClientActions extends ActionSupport {
 		if (this.stringToSearch == null || !(this.stringToSearch.trim().length() > 0)) {
 			request.setAttribute("clients", clients);
 		} else {
-			
+
 			List<Client> trimmedClients = new ArrayList<Client>();
 
 			for (Client matchClient : clients) {
@@ -359,17 +273,16 @@ public class ClientActions extends ActionSupport {
 		return Action.SUCCESS;
 	}
 
-	public String updateUser() {
+	public String updateClient() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		Date localBirthday = null;
-		Role inputRole = null;
 		setClientAuditData(request);
 
-		
 		person.setAddress(address);
 		client.setPerson(person);
+		client.setAddress(clientAddress);
 
 		try {
 			localBirthday = sdf.parse(this.birthday);
@@ -377,6 +290,7 @@ public class ClientActions extends ActionSupport {
 			Client aClient = HhiService.getClientByClientName(client.getClientName());
 			person.setPersonId(aClient.getPerson().getPersonId());
 			address.setAddressId(aClient.getPerson().getAddress().getAddressId());
+			client.setClientId(aClient.getClientId());
 			HhiService.update(client);
 		} catch (Exception e) {
 			return Action.ERROR;
@@ -384,33 +298,33 @@ public class ClientActions extends ActionSupport {
 		}
 
 		request.getSession().setAttribute("memberMessage", "updateRecord");
-		request.getSession().setAttribute("adminContent", "user_success");
+		request.getSession().setAttribute("clientContent", "success");
 		return Action.SUCCESS;
 
 	}
 
-	public String deleteUser() {
-		String[] usersToDelete = null;
+	public String deleteClient() {
+		String[] clientsToDelete = null;
 
-		if (userIdToDelete.split(":").length == 0) {
+		if (clientNameToDelete.split(":").length == 0) {
 
-			usersToDelete[0] = userIdToDelete;
+			clientsToDelete[0] = clientNameToDelete;
 
 		} else {
 
-			usersToDelete = userIdToDelete.split(":");
+			clientsToDelete = clientNameToDelete.split(":");
 
 		}
 
-		for (String id : usersToDelete) {
+		for (String name : clientsToDelete) {
 
-			HhiService.deleteUser(id);
+			HhiService.deleteClient(name);
 
 		}
-		// request.getSession().setAttribute("savedMember", member);
+
 		HttpServletRequest request = ServletActionContext.getRequest();
 		request.getSession().setAttribute("memberMessage", "deleteRecord");
-		request.getSession().setAttribute("adminContent", "user_success");
+		request.getSession().setAttribute("clientContent", "success");
 		return Action.SUCCESS;
 	}
 
@@ -430,7 +344,7 @@ public class ClientActions extends ActionSupport {
 		return Action.SUCCESS;
 
 	}
-	
+
 	public String deleteSuccessAction() {
 		logger.log(Level.INFO, "Deleted Record successfully");
 		return Action.SUCCESS;
@@ -502,9 +416,6 @@ public class ClientActions extends ActionSupport {
 		return sexes;
 	}
 
-	
-	
-	
 	private List<Member> getAllSelectedMembers(String[] ids) {
 		List<Member> members = null;
 		List<Member> allMembers = new ArrayList<Member>();
@@ -522,7 +433,6 @@ public class ClientActions extends ActionSupport {
 
 				// if(groups.getMembers().size() > 1){
 				members = new ArrayList<Member>(groups.getMembers());
-				
 
 				for (Member memberAdd : members) {
 					if (memberAdd.getEmail() != null) {
@@ -535,7 +445,7 @@ public class ClientActions extends ActionSupport {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 
 		return allMembers;
@@ -632,8 +542,9 @@ public class ClientActions extends ActionSupport {
 	public void validate() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
-		
-try {
+		if (request.getRequestURI().contains("clientsave")) {
+
+			try {
 				String clientName = request.getParameter("client.clientName");
 				Client client = HhiService.getClientByClientName(clientName);
 
@@ -641,8 +552,8 @@ try {
 
 					logger.log(Level.SEVERE, "Validating Condition Errorror:::::::::::::::::::: "
 							+ request.getParameter("client.clientName"));
-					addFieldError("client.clientName",
-							"Client" + "'" + client.getClientName() + "' has been taken and aready exists in Database.");
+					addFieldError("client.clientName", "Client" + "'" + client.getClientName()
+							+ "' has been taken and aready exists in Database.");
 				}
 
 			} catch (PersistanceException e) {
@@ -650,8 +561,7 @@ try {
 				logger.log(Level.SEVERE, e.getMessage());
 			}
 		}
-
-	
+	}
 
 	public List<User> getUsers() {
 
@@ -746,7 +656,6 @@ try {
 		this.groupName = groupName;
 	}
 
-	
 	public Integer getTab() {
 		return tab;
 	}
@@ -754,8 +663,6 @@ try {
 	public void setTab(Integer tab) {
 		this.tab = tab;
 	}
-
-	
 
 	public String getStringToSearch() {
 		return stringToSearch;
@@ -813,7 +720,6 @@ try {
 		this.birthday = birthday;
 	}
 
-	
 	public Person getPerson() {
 		return person;
 	}
@@ -830,32 +736,28 @@ try {
 		this.confirm = confirm;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getClientNameToDelete() {
+		return clientNameToDelete;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setClientNameToDelete(String clientNameToDelete) {
+		this.clientNameToDelete = clientNameToDelete;
 	}
-
-	public String getUserIdToDelete() {
-		return userIdToDelete;
-	}
-
-	public void setUserIdToDelete(String userIdToDelete) {
-		this.userIdToDelete = userIdToDelete;
-	}
-
-
 
 	public Address getClientAddress() {
 		return clientAddress;
 	}
 
-
-
 	public void setClientAddress(Address clientAddress) {
 		this.clientAddress = clientAddress;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
 	}
 
 }

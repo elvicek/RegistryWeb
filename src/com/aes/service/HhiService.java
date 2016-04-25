@@ -394,6 +394,27 @@ public class HhiService {
 		session.close();
 	}
 
+	public static void deleteClient(String clientName) {
+
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		Client client;
+		
+		try {
+			
+			
+			client = getClientByClientName(clientName);
+			session.delete(client);
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		tx.commit();
+		session.flush();
+		session.close();
+	}
+
 	public static void clearGroups(Integer memberId) {
 
 		Session session = getSession();

@@ -188,21 +188,33 @@
 		<action name="clientsave_action" class="com.aes.data.actions.ClientActions"
 			method="saveClient">
 			<result name="success" type="dispatcher">/clientsavesuccess_action.action</result>
-			<result name="input">/clientinput_action.action</result>
+			<result name="input">/jsp/data/clients/clients.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 		
 		<action name="userupdate_action" class="com.aes.data.actions.AdminActions"
 			method="updateUser">
 			<result name="success" type="dispatcher">/userupdatesuccess_action.action</result>
-			<result name="input">/useredit_action.action</result>
+			<result name="input" type="dispatcher">/useredit_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+			</action>
+		<action name="clientupdate_action" class="com.aes.data.actions.ClientActions"
+			method="updateClient">
+			<result name="success" type="dispatcher">/clientupdatesuccess_action.action</result>
+			<result name="input">/clientedit_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
-		
 		<action name="userdelete_action" class="com.aes.data.actions.AdminActions"
 			method="deleteUser">
 			<result name="success" type="dispatcher">/userdeletesuccess_action.action</result>
 			<result name="input">/usersview_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+		
+		<action name="clientdelete_action" class="com.aes.data.actions.ClientActions"
+			method="deleteClient">
+			<result name="success" type="dispatcher">/clientdeletesuccess_action.action</result>
+			<result name="input">/clientview_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 
@@ -231,6 +243,14 @@
 			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
 
 		</action>
+		<action name="clientdeletesuccess_action" class="com.aes.data.actions.ClientActions"
+			method="deleteSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">deleteSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
+
+		</action>
 	
 		<action name="userupdatesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="updateSuccessAction">
@@ -238,6 +258,14 @@
 				<param name="excludeMethods">updateSuccessAction</param>
 			</interceptor-ref>
 			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+
+		</action>
+		<action name="clientupdatesuccess_action" class="com.aes.data.actions.ClientActions"
+			method="updateSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">updateSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
 
 		</action>
 		<action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions"
@@ -316,7 +344,13 @@
 			<result name="input">/jsp/data/admin/administration.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
-
+		</action>
+		<action name="clientedit_action" class="com.aes.data.actions.ClientActions"
+			method="clientEdit">
+			<result name="success">/jsp/data/clients/clients.jsp</result>
+			<result name="input">/jsp/data/clients/clients.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
 		</action>
 		<action name="roleinput_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">

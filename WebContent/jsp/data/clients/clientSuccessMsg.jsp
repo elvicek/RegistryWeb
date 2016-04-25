@@ -20,7 +20,7 @@
 		<table>
 			<tr>
 
-				<td><a href="<s:url action="userinput_action" namespace="/"/>">Add
+				<td><a href="<s:url action="clientinput_action" namespace="/"/>">Add
 						Another Record</a></td>
 				<td><a
 					href="<s:url action="clientsmenu_action" namespace="/"/>">Clients
@@ -48,7 +48,7 @@
 	<table>
 		<tr>
 
-			<td><a href="<s:url action="usersview_action" namespace="/"/>">Update
+			<td><a href="<s:url action="clientview_action" namespace="/"/>">Update
 					Another Record</a></td>
 			<td><a
 				href="<s:url action="clientsmenu_action" namespace="/"/>">Clients
@@ -78,7 +78,7 @@
 		<table>
 			<tr>
 
-				<td><a href="<s:url action="clientsview_action" namespace="/"/>">Delete
+				<td><a href="<s:url action="clientview_action" namespace="/"/>">Delete
 						Another Record</a></td>
 				<td><a
 					href="<s:url action="clientsmenu_action" namespace="/"/>">Clients

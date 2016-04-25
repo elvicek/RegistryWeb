@@ -393,7 +393,7 @@ function setUserIdToDelete(chk) {
 	document.toDelete.submit();
 }
 
-function clientNameToDelete(chk) {
+function setClientNameToDelete(chk) {
 	// alert("Working");
 
 	var clients = "";
