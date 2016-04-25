@@ -14,15 +14,15 @@
 
 						<td><s:form action="clientedit_action" method="Post"
 								name="edit">
-								<s:hidden name="clientId" value="" />
+								<s:hidden name="clientName" value="" />
 								<input type="submit" id="edit" value="Edit"
-									onClick="setUserNameForEdit(document.data.select,'userdata')" />
+									onClick="setClientNameForEdit(document.data.select)" />
 							</s:form></td>
 						<td><s:form action="clientdelete_action" method="Post"
 								name="toDelete">
-								<s:hidden name="clientIdToDelete" value="" />
+								<s:hidden name="clientNameToDelete" value="" />
 								<input type="submit" id="delete" value="Delete"
-									onClick="setUserIdToDelete(document.data.select)" />
+									onClick="setClientNameToDelete(document.data.select)" />
 							</s:form></td>
 						<td><a
 							href="<s:url action="surveysview_action" namespace="/"/>">View

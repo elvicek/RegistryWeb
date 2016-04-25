@@ -300,9 +300,7 @@ public class ClientActions extends ActionSupport {
 			localBirthday = sdf.parse(this.birthday);
 			this.person.setBirthday(localBirthday);
 			person.setAddress(address);
-			//HhiService.save(clientAddress);
 			client.setAddress(this.clientAddress);
-			//HhiService.save(person);
 			client.setPerson(person);
 			HhiService.save(client);
 		} catch (PersistanceException e1) {
@@ -634,17 +632,17 @@ public class ClientActions extends ActionSupport {
 	public void validate() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
-		List<Member> allMembers = new ArrayList<Member>();
+		
 try {
-				String username = request.getParameter("user.username");
-				User user = HhiService.getUserByUserName(username);
+				String clientName = request.getParameter("client.clientName");
+				Client client = HhiService.getClientByClientName(clientName);
 
-				if (user != null) {
+				if (client != null) {
 
 					logger.log(Level.SEVERE, "Validating Condition Errorror:::::::::::::::::::: "
-							+ request.getParameter("user.username"));
-					addFieldError("user.username",
-							"User name" + "'" + user.getUsername() + "' has been taken and aready exists in Database.");
+							+ request.getParameter("client.clientName"));
+					addFieldError("client.clientName",
+							"Client" + "'" + client.getClientName() + "' has been taken and aready exists in Database.");
 				}
 
 			} catch (PersistanceException e) {

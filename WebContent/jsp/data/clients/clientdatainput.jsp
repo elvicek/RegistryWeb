@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
-<font class="heading">User Input</font>
+<font class="heading">Client Capture</font>
 <div id="center">
 <s:form action = "clientsave_action" method="POST">
 	<input type="checkbox" name="validationRequest"

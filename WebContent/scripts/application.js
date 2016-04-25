@@ -187,6 +187,39 @@ function setUserNameForEdit(chk) {
 	}
 }
 
+function setClientNameForEdit(chk) {
+
+	var s = "";
+	var tabl = document.getElementById('clientdata');
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+		// alert(id);
+		document.edit.clientName.value = id;
+
+		document.edit.submit();
+
+	} else {
+
+		for (j = 0; j < chk.length; j++) {
+			if (chk[j].checked == true) {
+
+				var tr = tabl.rows[j + 1];
+
+				var cll = tr.cells[1];
+				var id = cll.innerHTML;
+				document.edit.clientName.value = id;
+
+				document.edit.submit();
+			}
+
+		}
+	}
+}
+
 
 function setMemberIdSubmitIndividual(chk) {
 
@@ -360,6 +393,57 @@ function setUserIdToDelete(chk) {
 	document.toDelete.submit();
 }
 
+function clientNameToDelete(chk) {
+	// alert("Working");
+
+	var clients = "";
+	var chkd = 0;
+	var id = "";
+
+	var tabl = document.getElementById('clientdata');
+
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+
+		document.toDelete.clientNameToDelete.value = id;
+		document.toDelete.submit();
+
+	} else {
+
+		if (chk.length > 1) {
+			for (j = 0; j < chk.length; j++) {
+				if (chk[j].checked == true) {
+
+					var tr = tabl.rows[j + 1];
+
+					var cll = tr.cells[1];
+					id = cll.innerHTML;
+					if (chkd == 0) {
+						clients = id;
+						// alert("ID "+id);
+					} else {
+
+						clients = clients + ":" + id;
+
+					}
+					chkd = chkd + 1;
+					
+				}
+
+			}
+			document.toDelete.clientNameToDelete.value = clients;
+		}
+
+		else {
+			document.toDelete.clientNameToDelete.value = id;
+		}
+	}
+	document.toDelete.submit();
+}
 
 function setMemberIds(chk) {
 	// alert("Working");
