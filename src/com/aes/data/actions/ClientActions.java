@@ -190,14 +190,6 @@ public class ClientActions extends ActionSupport {
 
 
 
-	public String signOutAction() {
-
-		HttpServletRequest request = ServletActionContext.getRequest();
-		request.getSession().invalidate();
-
-		return Action.SUCCESS;
-
-	}
 
 	public String saveClient() {
 

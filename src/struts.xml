@@ -191,6 +191,12 @@
 			<result name="input">/jsp/data/clients/clients.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
+		<action name="surveysave_action" class="com.aes.data.actions.SurveyActions"
+			method="saveSurvey">
+			<result name="success" type="dispatcher">/surveysavesuccess_action.action</result>
+			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
 		
 		<action name="userupdate_action" class="com.aes.data.actions.AdminActions"
 			method="updateUser">
@@ -234,7 +240,16 @@
 			</interceptor-ref>
 			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
 
+		</action><action name="surveysavesuccess_action" class="com.aes.data.actions.SurveyActions"
+			method="saveSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">saveSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp</result>
+
 		</action>
+		
+		
 		<action name="userdeletesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="deleteSuccessAction">
 			<interceptor-ref name="validation">
@@ -329,6 +344,17 @@
 			</result>
 
 		</action>
+		
+		<action name="createsurveys_action" class="com.aes.data.actions.SurveyActions"
+			method="createSurvey">
+			<result name="success">/jsp/data/surveys/surveys.jsp</result>
+			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/member_error.action
+			</result>
+
+		</action>
+		
+		
 		<action name="clientinput_action" class="com.aes.data.actions.ClientActions"
 			method="clientInput">
 			<result name="success">/jsp/data/clients/clients.jsp</result>

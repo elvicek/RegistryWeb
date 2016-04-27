@@ -34,6 +34,14 @@ Home</a></li>
         <li><a href="<s:url action="clientinput_action" namespace="/"/>">Client Input</a></li> 
       </ul> 
     </li> 
+    <li><a href="#">Surveys</a> 
+      <ul> 
+        <li><a href="<s:url action="allsurveysview_action" namespace="/"/>">View All Surveys</a></li> 
+        <li><a href="<s:url action="createsurveys_action" namespace="/"/>">Create Surveys</a></li> 
+        <li><a href="<s:url action="mysurveysview_action" namespace="/"/>">Survey Jobs</a></li> 
+        <li><a href="<s:url action="surveyauth_action" namespace="/"/>">Authosise Surveys</a></li> 
+      </ul> 
+    </li> 
     <li><a href="#">Maintenance</a> 
     </li>
     <li><a href="#">Administration</a> 

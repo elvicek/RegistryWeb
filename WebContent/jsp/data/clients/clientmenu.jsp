@@ -3,7 +3,7 @@
 
 <table class="heading">
 <tr>
-<td colspan="2" align="left">Welcome to Membership Information Center. Select Option Of Action You Desire Below </td>
+<td colspan="2" align="left">Welcome to Clients Information Center. Select Option Of Action You Desire Below </td>
 </tr>
 </table>
 <br/>

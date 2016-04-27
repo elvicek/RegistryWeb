@@ -1,7 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<font class="heading">User Edit</font>
+<font class="heading">Client Edit</font>
 <div id="center">
 <s:form action="clientupdate_action" method="POST">
 	<table>
