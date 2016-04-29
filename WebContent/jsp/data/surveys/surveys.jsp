@@ -27,23 +27,23 @@
 <div id="content">
 
 <c:choose>
-<c:when test="${sessionScope.clientContent eq initParam.menu }">
+<c:when test="${sessionScope.surveyContent eq initParam.menu }">
 <%@ include file="surveysmenu.jsp" %>
 </c:when>
 
-<c:when test="${sessionScope.clientContent eq initParam.error }">
+<c:when test="${sessionScope.surveyContent eq initParam.error }">
 <%@ include file="../../global/error.jsp" %>
 </c:when>
-<c:when test="${sessionScope.clientContent eq initParam.input }">
+<c:when test="${sessionScope.surveyContent eq initParam.input }">
 <%@ include file="surveysdatainput.jsp" %>
 </c:when>
-<c:when test="${sessionScope.clientContent eq initParam.success }">
+<c:when test="${sessionScope.surveyContent eq initParam.success }">
 <%@ include file="surveysSuccessMsg.jsp" %>
 </c:when>
-<c:when test="${sessionScope.clientContent eq initParam.view }">
+<c:when test="${sessionScope.surveyContent eq initParam.view }">
 <%@ include file="surveysview.jsp" %>
 </c:when>
-<c:when test="${sessionScope.clientContent eq initParam.edit }">
+<c:when test="${sessionScope.surveyContent eq initParam.edit }">
 <%@ include file="surveydataedit.jsp" %>
 </c:when>
 

@@ -1,12 +1,99 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<font class="heading">Message</font>
+<div id="center">
 
-</body>
-</html>
+
+	<div id="savedrecord">
+		<c:choose>
+			<c:when test="${sessionScope.memberMessage == 'saveRecord'}">
+				<table class="messages">
+					<tr>
+						<td><p>
+								New Survey Record Saved Successfully<br /> To Add Another Record
+								Click on link to Add another Record below<br /> For Other
+								Options Use the Menu Navigation
+							</p></td>
+				</table>
+	</div>
+	<span class="internal">
+		<table>
+			<tr>
+
+				<td><a href="<s:url action="userinput_action" namespace="/"/>">Add
+						Another Record</a></td>
+				<td><a
+					href="<s:url action="surveysmenu_action" namespace="/"/>">Survey
+						Menu</a></td>
+
+			</tr>
+
+
+
+
+		</table>
+	</span>
+	</c:when>
+	<c:when test="${sessionScope.memberMessage == 'updateRecord'}">
+		<table class="messages">
+			<tr>
+				<td><p>
+						User Record Has been Updated Successfully<br /> To Add Another
+						Record Click on link to select another Record to Delete below<br />
+						For Other Options Use the Menu Navigation
+					</p></td>
+		</table>
+</div>
+<span class="internal">
+	<table>
+		<tr>
+
+			<td><a href="<s:url action="surveysview_action" namespace="/"/>">Update
+					Another Record</a></td>
+			<td><a
+				href="<s:url action="surveysmenu_action" namespace="/"/>">Survey
+					Menu</a></td>
+
+		</tr>
+
+
+
+
+	</table>
+</span>
+</c:when>
+<c:otherwise>
+	<table class="messages">
+		<tr>
+			<td><p>
+					User Record(s) Has been Deleted Successfully<br /> To Delete
+					Another Record Click on link to Delete another Record below<br />
+					For Other Options Use the Menu Navigation
+				</p></td>
+	</table>
+
+
+	</div>
+	<span class="internal">
+		<table>
+			<tr>
+
+				<td><a href="<s:url action="surveysview_action" namespace="/"/>">Delete
+						Another Record</a></td>
+				<td><a
+					href="<s:url action="surveysmenu_action" namespace="/"/>">Survey
+						Menu</a></td>
+
+			</tr>
+
+
+
+
+		</table>
+	</span>
+</c:otherwise>
+</c:choose>
+
+
+
+</div>

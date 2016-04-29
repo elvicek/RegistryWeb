@@ -330,6 +330,8 @@ public class ClientActions extends ActionSupport {
 		this.address.setCreatedBy(principal);
 		this.address.setCreatedDate(date);
 	}
+	
+	
 
 	public String saveSuccessAction() {
 		logger.log(Level.INFO, "Saved Record successfully");
