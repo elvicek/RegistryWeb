@@ -15,6 +15,5 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/HHIRegistryModel"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

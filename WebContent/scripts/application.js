@@ -154,6 +154,40 @@ function setMemberIdSubmit(chk) {
 	}
 }
 
+
+function setSurveyNameForEdit(chk) {
+
+	var s = "";
+	var tabl = document.getElementById('surveydata');
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+		 
+		document.edit.surveyName.value = id;
+
+		document.edit.submit();
+
+	} else {
+
+		for (j = 0; j < chk.length; j++) {
+			if (chk[j].checked == true) {
+
+				var tr = tabl.rows[j + 1];
+
+				var cll = tr.cells[1];
+				var id = cll.innerHTML;
+				document.edit.surveyName.value = id;
+				
+				document.edit.submit();
+			}
+
+		}
+	}
+}
+
 function setUserNameForEdit(chk) {
 
 	var s = "";
@@ -393,6 +427,9 @@ function setUserIdToDelete(chk) {
 	document.toDelete.submit();
 }
 
+
+
+
 function setClientNameToDelete(chk) {
 	// alert("Working");
 
@@ -440,6 +477,59 @@ function setClientNameToDelete(chk) {
 
 		else {
 			document.toDelete.clientNameToDelete.value = id;
+		}
+	}
+	document.toDelete.submit();
+}
+
+
+function setSurveyNameToDelete(chk) {
+	// alert("Working");
+
+	var surveys = "";
+	var chkd = 0;
+	var id = "";
+
+	var tabl = document.getElementById('surveydata');
+
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+
+		document.toDelete.surveyNameToDelete.value = id;
+		document.toDelete.submit();
+
+	} else {
+
+		if (chk.length > 1) {
+			for (j = 0; j < chk.length; j++) {
+				if (chk[j].checked == true) {
+
+					var tr = tabl.rows[j + 1];
+
+					var cll = tr.cells[1];
+					id = cll.innerHTML;
+					if (chkd == 0) {
+						surveys = id;
+						// alert("ID "+id);
+					} else {
+
+						surveys = surveys + ":" + id;
+
+					}
+					chkd = chkd + 1;
+					
+				}
+
+			}
+			document.toDelete.surveyNameToDelete.value = surveys;
+		}
+
+		else {
+			document.toDelete.surveyNameToDelete.value = id;
 		}
 	}
 	document.toDelete.submit();

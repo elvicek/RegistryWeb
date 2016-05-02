@@ -125,17 +125,17 @@
 	<context-param>
 	<description> Gmail SMTP username</description>
 		<param-name>user</param-name>
-		<param-value>fifparklands@gmail.com</param-value>
+		<param-value>aesadm8@gmail.com</param-value>
 	</context-param>
 	<context-param>
 	<description>Gmail SMTP password</description>
 		<param-name>pass</param-name>
-		<param-value>fifparklands01</param-value>
+		<param-value>welcome1#</param-value>
 	</context-param>
 	<context-param>
 	<description>Gmail SMTP from</description>
 		<param-name>from</param-name>
-		<param-value>fifparklands@gmail.com</param-value>
+		<param-value>no-reply-aes@gmail.com</param-value>
 	</context-param>
 	<listener>
 		<listener-class>com.aes.listeners.Initializer</listener-class>
@@ -171,6 +171,9 @@
 	</security-role>
 	<security-role>
 	 <role-name>engineer</role-name>
+	</security-role>
+	<security-role>
+	 <role-name>director</role-name>
 	</security-role>
 	
 	

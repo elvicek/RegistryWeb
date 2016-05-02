@@ -19,7 +19,7 @@
 	<td colspan="2"><s:textfield label="First Name" name="person.name" size="30" required="true" value="%{#session.client.person.name}"/></td>
 	<td colspan="2"><s:textfield label="Last Name" name="person.surname" size="30" required="true" value="%{#session.client.person.surname}"/></td>
 	<td colspan="2"><s:select name="person.title" label="Title" headerKey="%{#session.client.person.title}" headerValue="%{#session.client.person.title}" list="titles" listKey="description" listValue="description" required="true" value="%{#session.client.person.title}"/></td>
-	<s:datetimepicker name="birthday" label="BirthDay (dd-MMM-yyyy)" displayFormat="dd-MMM-yyyy" required="true" formatLength="30" value="%%{#session.client.person.birthday}"/>
+	<s:datetimepicker name="birthday" label="BirthDay (dd-MMM-yyyy)" displayFormat="dd-MMM-yyyy" required="true" formatLength="30" value="%{#session.client.person.birthday}"/>
 	<td colspan="2"><s:select name="person.sex" label="Sex" headerKey="0" list="sexes" listKey="description" listValue="description" required="true" value="%{#session.client.person.sex}"/></td>
 	<td colspan="2"><s:textfield label="Address Line 1" name="address.addressline1" size="30" required="true" value="%{#session.client.person.address.addressline1}"/></td>
 	<td colspan="2"><s:textfield label="Address Line 2" name="address.addressline2" size="30" required="true" value="%{#session.client.person.address.addressline2}"/></td>

@@ -20,7 +20,7 @@
 		<table>
 			<tr>
 
-				<td><a href="<s:url action="userinput_action" namespace="/"/>">Add
+				<td><a href="<s:url action="createsurveys_action" namespace="/"/>">Add
 						Another Record</a></td>
 				<td><a
 					href="<s:url action="surveysmenu_action" namespace="/"/>">Survey
@@ -48,7 +48,7 @@
 	<table>
 		<tr>
 
-			<td><a href="<s:url action="surveysview_action" namespace="/"/>">Update
+			<td><a href="<s:url action="allsurveysview_action" namespace="/"/>">Update
 					Another Record</a></td>
 			<td><a
 				href="<s:url action="surveysmenu_action" namespace="/"/>">Survey
@@ -78,7 +78,7 @@
 		<table>
 			<tr>
 
-				<td><a href="<s:url action="surveysview_action" namespace="/"/>">Delete
+				<td><a href="<s:url action="allsurveysview_action" namespace="/"/>">Delete
 						Another Record</a></td>
 				<td><a
 					href="<s:url action="surveysmenu_action" namespace="/"/>">Survey

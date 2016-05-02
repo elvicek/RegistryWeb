@@ -1,14 +1,28 @@
 package com.aes.service;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.mail.MessagingException;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -21,6 +35,7 @@ import com.aes.data.dao.RoleDao;
 import com.aes.data.domain.Client;
 import com.aes.data.domain.Dbsettings;
 import com.aes.data.domain.Role;
+import com.aes.data.domain.Survey;
 import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
 import com.aes.exceptions.PersistanceException;
@@ -29,6 +44,8 @@ import com.hhiregistry.model.Cellgroup;
 import com.hhiregistry.model.Groups;
 import com.hhiregistry.model.Member;
 import com.hhiregistry.model.MemberGroups;
+import com.opensymphony.xwork2.Action;
+
 
 public class HhiService {
 
@@ -43,7 +60,10 @@ public class HhiService {
 	public static final String MESSAGE_TEMPLATE = "./app-config/template.html";
 	public static final String EMAIL_ADDRESSES_TEXT_FILE = "./app-config/allAddresses.txt";
 	public static String NEW_MEMBER_GROUP = "NEW MEMBERS";
-
+	public static String ADMIN_ROLE = "admin";
+	public static String DIRECTOR_ROLE = "director";
+	public static String SURVEY_CREATED_MSG = "New Survey for ?client has been requested and needs your attention";
+	public static String SURVEY_CREATED_SBJ = "New Survey Request for ?client";
 	private static Session session = null;
 	private static Logger logger = Logger.getLogger(HhiService.class.getName());
 
@@ -325,6 +345,52 @@ public class HhiService {
 
 	}
 	
+	public static List<Survey> getAllSurveys() throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Survey";
+			Query query = session.createQuery(queryString);
+
+			List<Survey> surveys = (List<Survey>) query.list();
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return surveys;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new PersistanceException();
+		}
+
+	}
+	
+	public static List<Survey> getNewSurveys() throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Survey where STATUS = :status";
+			Query query = session.createQuery(queryString);
+			query.setString("status", "NEW");
+			List<Survey> surveys = (List<Survey>) query.list();
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return surveys;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new PersistanceException();
+		}
+
+	}
+	
 	public static List<Member> getAllNewMembers() throws PersistanceException {
 
 		try {
@@ -523,6 +589,29 @@ public class HhiService {
 			}
 
 			session.delete(role);
+		} 
+
+		catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tx.commit();
+		session.flush();
+		session.close();
+
+	}
+	
+	
+	public static void deleteSurveyByName(String surveyName)
+			throws ConstraintViolationException{
+
+		Survey survey;
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		
+		try {
+			survey = getSurveyBySurveyName(surveyName);
+			session.delete(survey);
 		} 
 
 		catch (PersistanceException e) {
@@ -920,6 +1009,37 @@ public class HhiService {
 		}
 	}
 	
+	public static Survey getSurveyBySurveyName(String surveyName)
+			throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Survey where surveyName = :surveyName";
+			Query query = session.createQuery(queryString);
+			query.setString("surveyName", surveyName);
+
+			Object obj = query.uniqueResult();
+			Survey survey;
+
+			if (obj == null) {
+				survey = null;
+			} else {
+				survey = (Survey) obj;
+
+			}
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return survey;
+		} catch (Exception e) {
+			throw new PersistanceException();
+		}
+	}
+	
 	public static Client getClientById(Integer clientId)
 			throws PersistanceException {
 
@@ -1088,6 +1208,39 @@ try {
 			// session.delete(user);
 		}
 		session.getTransaction().commit();
+	}
+	
+	
+	
+	
+	public static void writeAddresses() {
+
+		ServletContext ctx = ServletActionContext.getServletContext();
+		HttpSession session = ServletActionContext.getRequest().getSession();
+		try {
+			List<Client> clients = HhiService.getAllClients();
+			FileWriter outFile = new FileWriter(HhiService.EMAIL_ADDRESSES_TEXT_FILE);
+			PrintWriter out = new PrintWriter(outFile);
+
+			for (Client client : clients) {
+
+				if (client.getPerson().getEmail() != null) {
+
+					out.println(client.getPerson().getEmail());
+				}
+
+			}
+
+			out.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public static Session getSession() {

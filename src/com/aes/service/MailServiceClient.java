@@ -18,7 +18,7 @@ import javax.mail.internet.MimeMessage;
 public class MailServiceClient {
 
 
-	 public  void sendEmail(String user, String pass, String from,  
+	 public  void sendEmail(final String user, final String pass, String from,  
 			              String recipient,String subject, String message)  
 			             throws MessagingException { 
 		
@@ -36,15 +36,22 @@ public class MailServiceClient {
 			         props.put("mail.smtp.timeout", "0" );
 
 			         
-			         Session session = null;
+			        // Session session = null;
 			         String protocol = "smtp";
 
 			    
-			         Authenticator auth = new SMTPAuthenticator(user, pass); 
+			        // Authenticator auth = new SMTPAuthenticator(user, pass); 
 			         
-			          session = Session.getInstance(props, auth);  
+			        //  session = Session.getInstance(props, auth);
+			         
+			         Session session = Session.getInstance(props,
+			       		  new javax.mail.Authenticator() {
+			       			protected PasswordAuthentication getPasswordAuthentication() {
+			       				return new PasswordAuthentication(user, pass);
+			       			}
+			       		  });
 			    
-			        // session.setDebug(true);  
+			        session.setDebug(true);  
 			    
 			         // create a message  
 			         Message msg = new MimeMessage(session);  
