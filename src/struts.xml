@@ -158,7 +158,8 @@
 		</action>
 		<action name="export_surveysview" class="com.aes.data.actions.SurveyActions"
 			method="exportSurveys">
-			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp
+			</result>
 			<result name="error">/jsp/data/surveys/surveys.jsp</result>
 		</action>
 		<action name="membersearch_action" class="com.aes.data.actions.MemberActions"
@@ -168,7 +169,8 @@
 		</action>
 		<action name="surveysearch_action" class="com.aes.data.actions.SurveyActions"
 			method="surveySearchAction">
-			<result name="success" type="dispatcher">/allsurveysview_action.action</result>
+			<result name="success" type="dispatcher">/allsurveysview_action.action
+			</result>
 			<result name="error">/jsp/data/surveys/surveys.jsp</result>
 		</action>
 		<action name="filterResults_action" class="com.aes.data.actions.MemberActions"
@@ -190,62 +192,78 @@
 		</action>
 		<action name="usersave_action" class="com.aes.data.actions.AdminActions"
 			method="saveUser">
-			<result name="success" type="dispatcher">/usersavesuccess_action.action</result>
+			<result name="success" type="dispatcher">/usersavesuccess_action.action
+			</result>
 			<result name="input">/userinput_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
-		
+
 		<action name="clientsave_action" class="com.aes.data.actions.ClientActions"
 			method="saveClient">
-			<result name="success" type="dispatcher">/clientsavesuccess_action.action</result>
+			<result name="success" type="dispatcher">/clientsavesuccess_action.action
+			</result>
 			<result name="input">/jsp/data/clients/clients.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 		<action name="surveysave_action" class="com.aes.data.actions.SurveyActions"
 			method="saveSurvey">
-			<result name="success" type="dispatcher">/surveysavesuccess_action.action</result>
+			<result name="success" type="dispatcher">/surveysavesuccess_action.action
+			</result>
 			<result name="input">/jsp/data/surveys/surveys.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
-		
+
 		<action name="userupdate_action" class="com.aes.data.actions.AdminActions"
 			method="updateUser">
-			<result name="success" type="dispatcher">/userupdatesuccess_action.action</result>
+			<result name="success" type="dispatcher">/userupdatesuccess_action.action
+			</result>
 			<result name="input" type="dispatcher">/useredit_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
-			</action>
-			
-			<action name="surveyupdate_action" class="com.aes.data.actions.SurveyActions"
+		</action>
+
+		<action name="surveyupdate_action" class="com.aes.data.actions.SurveyActions"
 			method="updateSurvey">
-			<result name="success" type="dispatcher">/surveyupdatesuccess_action.action</result>
+			<result name="success" type="dispatcher">/surveyupdatesuccess_action.action
+			</result>
 			<result name="input" type="dispatcher">/surveyedit_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
-			</action>
-			
+		</action>
+		<action name="surveyupdatestatus_action" class="com.aes.data.actions.SurveyActions"
+			method="updateSurveyStatus">
+			<result name="success" type="dispatcher">/surveyupdatesuccess_action.action
+			</result>
+			<result name="input" type="dispatcher">/mysurveysview_action.action
+			</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
 		<action name="clientupdate_action" class="com.aes.data.actions.ClientActions"
 			method="updateClient">
-			<result name="success" type="dispatcher">/clientupdatesuccess_action.action</result>
+			<result name="success" type="dispatcher">/clientupdatesuccess_action.action
+			</result>
 			<result name="input">/clientedit_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 		<action name="userdelete_action" class="com.aes.data.actions.AdminActions"
 			method="deleteUser">
-			<result name="success" type="dispatcher">/userdeletesuccess_action.action</result>
+			<result name="success" type="dispatcher">/userdeletesuccess_action.action
+			</result>
 			<result name="input">/usersview_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
-		
+
 		<action name="clientdelete_action" class="com.aes.data.actions.ClientActions"
 			method="deleteClient">
-			<result name="success" type="dispatcher">/clientdeletesuccess_action.action</result>
+			<result name="success" type="dispatcher">/clientdeletesuccess_action.action
+			</result>
 			<result name="input">/clientview_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
-		
-		
+
+
 		<action name="surveydelete_action" class="com.aes.data.actions.SurveyActions"
 			method="deleteSurvey">
-			<result name="success" type="dispatcher">/surveydeletesuccess_action.action</result>
+			<result name="success" type="dispatcher">/surveydeletesuccess_action.action
+			</result>
 			<result name="input">/allsurveysview_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
@@ -255,43 +273,49 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">saveSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
-		
+
 		<action name="clientsavesuccess_action" class="com.aes.data.actions.ClientActions"
 			method="saveSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">saveSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp
+			</result>
 
-		</action><action name="surveysavesuccess_action" class="com.aes.data.actions.SurveyActions"
+		</action>
+		<action name="surveysavesuccess_action" class="com.aes.data.actions.SurveyActions"
 			method="saveSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">saveSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp
+			</result>
 
 		</action>
-		
-		
+
+
 		<action name="userdeletesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="deleteSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">deleteSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
-		
-		
+
+
 		<action name="surveydeletesuccess_action" class="com.aes.data.actions.SurveyActions"
 			method="deleteSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">deleteSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp
+			</result>
 
 		</action>
 		<action name="clientdeletesuccess_action" class="com.aes.data.actions.ClientActions"
@@ -299,25 +323,28 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">deleteSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp
+			</result>
 
 		</action>
-	
+
 		<action name="userupdatesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="updateSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">updateSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
-		
+
 		<action name="surveyupdatesuccess_action" class="com.aes.data.actions.SurveyActions"
 			method="updateSuccessAction">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">updateSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp
+			</result>
 
 		</action>
 		<action name="clientupdatesuccess_action" class="com.aes.data.actions.ClientActions"
@@ -325,7 +352,8 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">updateSuccessAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/clients/clients.jsp
+			</result>
 
 		</action>
 		<action name="membersavesuccess_action" class="com.aes.data.actions.MemberActions"
@@ -389,7 +417,7 @@
 			</result>
 
 		</action>
-		
+
 		<action name="createsurveys_action" class="com.aes.data.actions.SurveyActions"
 			method="createSurvey">
 			<result name="success">/jsp/data/surveys/surveys.jsp</result>
@@ -398,8 +426,8 @@
 			</result>
 
 		</action>
-		
-		
+
+
 		<action name="clientinput_action" class="com.aes.data.actions.ClientActions"
 			method="clientInput">
 			<result name="success">/jsp/data/clients/clients.jsp</result>
@@ -408,7 +436,7 @@
 			</result>
 
 		</action>
-		
+
 		<action name="useredit_action" class="com.aes.data.actions.AdminActions"
 			method="userEdit">
 			<result name="success">/jsp/data/admin/administration.jsp</result>
@@ -423,8 +451,13 @@
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
-		
-		
+		<action name="surveyattend_action" class="com.aes.data.actions.SurveyActions"
+			method="surveyAttend">
+			<result name="success">/jsp/data/surveys/surveys.jsp</result>
+			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
 		<action name="clientedit_action" class="com.aes.data.actions.ClientActions"
 			method="clientEdit">
 			<result name="success">/jsp/data/clients/clients.jsp</result>
@@ -546,17 +579,20 @@
 
 		<action name="smsSendsuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
 		<action name="writeAddresssuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
 		<action name="emailSendsuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
 		<action name="rolesview_action" class="com.aes.data.actions.AdminActions"
@@ -586,8 +622,17 @@
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
-		
-		
+		<action name="mysurveysview_action" class="com.aes.data.actions.SurveyActions"
+			method="viewMyJobs">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">viewMyJobs</param>
+			</interceptor-ref>
+			<result name="success">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+
+
 		<action name="save_role" class="com.aes.data.actions.AdminActions"
 			method="saveRole">
 			<result name="success" type="dispatcher">/save_rolesuccess.action</result>
@@ -607,7 +652,8 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">rolesAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
 
@@ -625,7 +671,8 @@
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">rolesAction</param>
 			</interceptor-ref>
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
 
@@ -647,7 +694,8 @@
 
 		<action name="roledeletesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="rolesAction">
-			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp</result>
+			<result name="success" type="dispatcher">/jsp/data/admin/administration.jsp
+			</result>
 
 		</action>
 

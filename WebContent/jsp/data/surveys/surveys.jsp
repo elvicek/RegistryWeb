@@ -43,8 +43,14 @@
 <c:when test="${sessionScope.surveyContent eq initParam.view }">
 <%@ include file="surveysview.jsp" %>
 </c:when>
+<c:when test="${sessionScope.surveyContent eq 'viewJobs' }">
+<%@ include file="viewmyjobs.jsp" %>
+</c:when>
 <c:when test="${sessionScope.surveyContent eq initParam.edit }">
 <%@ include file="surveydataedit.jsp" %>
+</c:when>
+<c:when test="${sessionScope.surveyContent eq 'attend' }">
+<%@ include file="surveydataattend.jsp" %>
 </c:when>
 
 <c:otherwise>

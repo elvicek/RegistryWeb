@@ -107,6 +107,18 @@ public class SurveyActions extends ActionSupport {
 		session.setAttribute("surveyContent", "edit");
 		return Action.SUCCESS;
 	}
+	
+	public String surveyAttend() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		Survey surveyToEdit = retrieveSurveyToEdit();
+
+		session.setAttribute("survey", surveyToEdit);
+
+		session.setAttribute("surveyContent", "attend");
+		return Action.SUCCESS;
+	}
 
 	public String updateSuccessAction() {
 		logger.log(Level.INFO, "Updated Record successfully");
@@ -164,6 +176,38 @@ public class SurveyActions extends ActionSupport {
 		request.getSession().setAttribute("surveyContent", "success");
 		return Action.SUCCESS;
 
+	}public String updateSurveyStatus() {
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		Date localBirthday = null;
+		setSurveyAuditData(request);
+
+		try {
+			Survey aSurvey = HhiService.getSurveyBySurveyName(survey.getSurveyName());
+			changeStatus(aSurvey);
+			HhiService.update(survey);
+		} catch (Exception e) {
+			return Action.ERROR;
+
+		}
+
+		request.getSession().setAttribute("memberMessage", "updateRecordStatus");
+		request.getSession().setAttribute("surveyContent", "success");
+		return Action.SUCCESS;
+
+	}
+	
+	
+
+	private void changeStatus(Survey aSurvey) {
+		if(survey.getStatus().equalsIgnoreCase(SurveyStatus.NEW.toString())){
+			survey.setStatus(SurveyStatus.IN_PROGRESS.toString());	
+		}
+		else if (survey.getStatus().equalsIgnoreCase(SurveyStatus.ASSIGNED.toString())) {
+			survey.setStatus(SurveyStatus.COMPLETE.toString());	
+		}
+		
 	}
 
 	public String surveySearchAction() {
@@ -292,12 +336,13 @@ public class SurveyActions extends ActionSupport {
 		String setting;
 
 		try {
-		if (isAdminUser(request)) {
-			surveys = getAdminJobs();
+		if (isDirectorUser(request)) {
+			surveys = getDirectorJobs();
+		}
+		else {
+			surveys = getNewJobsByUser(request);
 		}
 
-		
-			surveys = HhiService.getAllSurveys();
 			setting = HhiService.getDbSettingDescription(HhiService.PAGER_OPTION);
 		} catch (PersistanceException e) {
 			// TODO Auto-generated catch block
@@ -308,58 +353,26 @@ public class SurveyActions extends ActionSupport {
 		session.setAttribute("pageSize", setting);
 		// If a search was initiated from the search bar;
 
-		/*
-		 * if (this.stringToSearch == null ||
-		 * !(this.stringToSearch.trim().length() > 0)) {
-		 * request.setAttribute("surveys", surveys);
-		 */
-		if (request.getAttribute("seachString") == null) {
 			request.setAttribute("surveys", surveys);
-		} else {
-
-			stringToSearch = (String) request.getAttribute("seachString");
-			List<Survey> trimmedSurveys = new ArrayList<Survey>();
-
-			for (Survey matchSurvey : surveys) {
-				/*
-				 * if
-				 * (((Client)matchSurvey.getClients().toArray()[0]).getPerson().
-				 * getName().toUpperCase().contains(stringToSearch.toUpperCase()
-				 * )
-				 * 
-				 * ||
-				 * ((Client)matchSurvey.getClients().toArray()[0]).getPerson().
-				 * getSurname().toUpperCase().contains(stringToSearch.
-				 * toUpperCase()) ||
-				 * matchSurvey.getSurveyName().toUpperCase().contains(
-				 * stringToSearch.toUpperCase()) ||
-				 * ((Client)matchSurvey.getClients().toArray()[0]).getClientName
-				 * ().contains(stringToSearch.toUpperCase())) {
-				 * trimmedSurveys.add(matchSurvey);
-				 */
-				if (matchSurvey.getClient().getPerson().getName().toUpperCase().contains(stringToSearch.toUpperCase())
-						|| matchSurvey.getClient().getPerson().getSurname().toUpperCase()
-								.contains(stringToSearch.toUpperCase())
-						|| matchSurvey.getSurveyName().toUpperCase().contains(stringToSearch.toUpperCase())
-						|| matchSurvey.getClient().getClientName().contains(stringToSearch.toUpperCase())) {
-					trimmedSurveys.add(matchSurvey);
-				}
-			}
-
-			request.setAttribute("surveys", trimmedSurveys);
-		}
+		
 		return Action.SUCCESS;
 	}
 
-	private List<Survey> getAdminJobs() throws PersistanceException {
+	private List<Survey> getNewJobsByUser(HttpServletRequest request) throws PersistanceException {
+		String username = request.getUserPrincipal().getName();
+		
+		return HhiService.getCurrentJobsByUser(username);
+	}
+
+	private List<Survey> getDirectorJobs() throws PersistanceException {
 		List<Survey> surveys;
 		surveys = HhiService.getNewSurveys();
 		return surveys;
 
 	}
 
-	private boolean isAdminUser(HttpServletRequest request) {
-		return request.isUserInRole(HhiService.ADMIN_ROLE);
+	private boolean isDirectorUser(HttpServletRequest request) {
+		return request.isUserInRole(HhiService.DIRECTOR_ROLE);
 
 	}
 

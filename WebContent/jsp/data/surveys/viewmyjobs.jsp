@@ -12,10 +12,10 @@
 			<td><table>
 					<tr>
 
-						<td><s:form action="surveyedit_action" method="Post"
+						<td><s:form action="surveyattend_action" method="Post"
 								name="edit">
 								<s:hidden name="surveyName" value="" />
-								<input type="submit" id="edit" value="Edit"
+								<input type="submit" id="edit" value="Attend"
 									onClick="setSurveyNameForEdit(document.data.select)" />
 							</s:form></td>
 						<td><s:form action="surveydelete_action" method="Post"
@@ -24,27 +24,11 @@
 								<input type="submit" id="delete" value="Delete"
 									onClick="setSurveyNameToDelete(document.data.select)" />
 							</s:form></td>
-						<td><a
-							href="<s:url action="surveysview_action" namespace="/"/>">View
-								All</a></td>
+						
 					</tr>
 				</table></td>
 			<td align="right">
 
-
-				<table class="search">
-
-					<tr>
-						<td><s:form action="surveysearch_action.action" method="Post"
-								name="search">
-								<s:hidden name="stringToSearch" value="" />
-								<input type="text" id="searchText" width="40" />
-								<input type="submit" id="edit" value="Search"
-									onClick="setSearchString(document.search.searchText.value)" />
-							</s:form></td>
-
-					</tr>
-				</table>
 
 			</td>
 		</tr>

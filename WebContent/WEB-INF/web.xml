@@ -52,6 +52,7 @@
 		<role-name>admin</role-name>
 		<role-name>secretary</role-name>
 		<role-name>engineer</role-name>
+		<role-name>director</role-name>
 		</auth-constraint>
 	</security-constraint>
 	

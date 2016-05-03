@@ -40,6 +40,7 @@ import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
 import com.aes.exceptions.PersistanceException;
 import com.aes.utils.HibernateUtils;
+import com.aes.utils.SurveyStatus;
 import com.hhiregistry.model.Cellgroup;
 import com.hhiregistry.model.Groups;
 import com.hhiregistry.model.Member;
@@ -354,6 +355,31 @@ public class HhiService {
 			String queryString = "from Survey";
 			Query query = session.createQuery(queryString);
 
+			List<Survey> surveys = (List<Survey>) query.list();
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return surveys;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new PersistanceException();
+		}
+
+	}
+	
+	public static List<Survey> getCurrentJobsByUser(String username) throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+			String status = SurveyStatus.COMPLETE.toString();
+
+			String queryString = "from Survey where STATUS != :status and USERNAME = :username";
+			Query query = session.createQuery(queryString);
+			query.setString("status", status);
+			query.setString("username", username);
 			List<Survey> surveys = (List<Survey>) query.list();
 
 			tx.commit();
