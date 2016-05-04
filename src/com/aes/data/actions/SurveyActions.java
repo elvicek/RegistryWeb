@@ -23,6 +23,7 @@ import com.aes.data.domain.Role;
 import com.aes.data.domain.Survey;
 import com.aes.data.domain.User;
 import com.aes.exceptions.PersistanceException;
+import com.aes.local.model.UserDetails;
 import com.aes.service.HhiService;
 import com.aes.service.MailSender;
 import com.aes.utils.SurveyStatus;
@@ -46,6 +47,8 @@ public class SurveyActions extends ActionSupport {
 	private Logger logger = Logger.getLogger(SurveyActions.class.getName());
 	private String surveyName;
 	private String surveyNameToDelete;
+	private String mode;
+	private String userName;
 
 	public String saveSurvey() {
 
@@ -113,7 +116,17 @@ public class SurveyActions extends ActionSupport {
 		String path = request.getRequestURI();
 		HttpSession session = request.getSession();
 		Survey surveyToEdit = retrieveSurveyToEdit();
+		
+		if(request.isUserInRole(HhiService.DIRECTOR_ROLE) && surveyToEdit.getStatus().equalsIgnoreCase(SurveyStatus.NEW.toString()))
+		{
+			request.setAttribute("mode", "assign");
+		}
+		else{
+			request.setAttribute("mode", "changeStatus");
+			
+		}
 
+		
 		session.setAttribute("survey", surveyToEdit);
 
 		session.setAttribute("surveyContent", "attend");
@@ -185,8 +198,14 @@ public class SurveyActions extends ActionSupport {
 
 		try {
 			Survey aSurvey = HhiService.getSurveyBySurveyName(survey.getSurveyName());
-			changeStatus(aSurvey);
-			HhiService.update(survey);
+			if(this.mode.equalsIgnoreCase("assign")){
+				assignSurvey(aSurvey);
+			}
+			else{
+				changeStatus(aSurvey);
+			}
+			
+			HhiService.update(aSurvey);
 		} catch (Exception e) {
 			return Action.ERROR;
 
@@ -200,12 +219,19 @@ public class SurveyActions extends ActionSupport {
 	
 	
 
+	private void assignSurvey(Survey aSurvey) throws PersistanceException {
+		User user = HhiService.getUserByUserName(userName);
+		aSurvey.setUser(user);
+		aSurvey.setStatus(SurveyStatus.ASSIGNED.toString());
+		
+	}
+
 	private void changeStatus(Survey aSurvey) {
-		if(survey.getStatus().equalsIgnoreCase(SurveyStatus.NEW.toString())){
-			survey.setStatus(SurveyStatus.IN_PROGRESS.toString());	
+		if(aSurvey.getStatus().equalsIgnoreCase(SurveyStatus.ASSIGNED.toString())){
+			aSurvey.setStatus(SurveyStatus.IN_PROGRESS.toString());	
 		}
-		else if (survey.getStatus().equalsIgnoreCase(SurveyStatus.ASSIGNED.toString())) {
-			survey.setStatus(SurveyStatus.COMPLETE.toString());	
+		else if (aSurvey.getStatus().equalsIgnoreCase(SurveyStatus.IN_PROGRESS.toString())) {
+			aSurvey.setStatus(SurveyStatus.COMPLETE.toString());	
 		}
 		
 	}
@@ -421,6 +447,28 @@ public class SurveyActions extends ActionSupport {
 
 		return clients;
 	}
+	
+	public List<UserDetails> getUserDetails() {
+
+		List<UserDetails> userDetails = new ArrayList<UserDetails>();
+		try {
+			List<User> fullList = HhiService.getAllUsers();
+
+			for(User user :fullList){
+				UserDetails details = new UserDetails();
+				details.setDisplayName(user.getPerson().getName()+" "+user.getPerson().getSurname()+" : "+user.getUsername());
+				details.setUserName(user.getUsername());
+				userDetails.add(details);
+				
+			}
+
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return userDetails;
+	}
 
 	private List<Client> removeEditClient(List<Client> fullList) {
 		List<Client> trimmedList = new ArrayList<Client>();
@@ -506,6 +554,22 @@ public class SurveyActions extends ActionSupport {
 
 	public void setSurveyNameToDelete(String surveyNameToDelete) {
 		this.surveyNameToDelete = surveyNameToDelete;
+	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

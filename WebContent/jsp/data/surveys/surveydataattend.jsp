@@ -26,11 +26,19 @@
 				<s:hidden name="survey.surveyDate"
 					value="%{#session.survey.surveyDate}"/>
 				<c:choose>
-					<c:when test="${sessionScope.survey.status eq 'NEW' }">
+					<c:when test="${sessionScope.survey.status eq 'NEW' && requestScope.mode eq 'changeStatus' }">
+					<s:hidden name="mode" value="changeStatus" />
 						<td align="right" colspan="2"><input type="submit"
 						value="Accept" /></td>
 					</c:when>
+					<c:when test="${sessionScope.survey.status eq 'NEW' && requestScope.mode eq 'assign' }">
+					<td colspan="2"><s:select name="userName" label="User" headerKey=" " headerValue="[Select a User]" list="userDetails" listKey="userName" listValue="displayName" required="true"/></td>
+					<s:hidden name="mode" value="assign" />
+						<td align="right" colspan="2"><input type="submit"
+						value="Assign" /></td>
+					</c:when>
 					<c:otherwise>
+					<s:hidden name="mode" value="changeStatus" />
 					<td align="right" colspan="2"><input type="submit"
 						value="Complete" /></td>
 					</c:otherwise>
