@@ -4,7 +4,7 @@
 
 
 
-<font class="heading">All Surveys</font>
+<font class="heading">My Jobs</font>
 <div id="center">
 
 	<table width="100%">
@@ -17,6 +17,12 @@
 								<s:hidden name="surveyName" value="" />
 								<input type="submit" id="edit" value="Attend"
 									onClick="setSurveyNameForEdit(document.data.select)" />
+							</s:form></td>
+							<td><s:form action="surveyeditresults_action" method="Post"
+								name="readings">
+								<s:hidden name="surveyName" value="" />
+								<input type="submit" id="readings" value="View Readings"
+									onClick="setSurveyNameForReadingsEdit(document.data.select)" />
 							</s:form></td>
 						<td><s:form action="surveydelete_action" method="Post"
 								name="toDelete">
@@ -71,7 +77,7 @@
 			requestURI="export_surveysview.action" id="surveydata" export="true">
 			<display:column media="html">
 				<input type="checkbox" name="select"
-					onClick="CheckClickMember(document.data.select)" />
+					onClick="CheckClickSurvey(document.data.select)" />
 			</display:column>
 			<display:column property="surveyName" title="Survey Name" />
 			<display:column property="client.clientName" title="Client Name" />

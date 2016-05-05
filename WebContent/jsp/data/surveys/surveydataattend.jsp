@@ -26,7 +26,7 @@
 				<s:hidden name="survey.surveyDate"
 					value="%{#session.survey.surveyDate}"/>
 				<c:choose>
-					<c:when test="${sessionScope.survey.status eq 'NEW' && requestScope.mode eq 'changeStatus' }">
+					<c:when test="${sessionScope.survey.status eq 'ASSIGNED' && requestScope.mode eq 'changeStatus' }">
 					<s:hidden name="mode" value="changeStatus" />
 						<td align="right" colspan="2"><input type="submit"
 						value="Accept" /></td>

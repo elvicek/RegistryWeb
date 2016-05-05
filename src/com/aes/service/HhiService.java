@@ -62,9 +62,14 @@ public class HhiService {
 	public static final String EMAIL_ADDRESSES_TEXT_FILE = "./app-config/allAddresses.txt";
 	public static String NEW_MEMBER_GROUP = "NEW MEMBERS";
 	public static String ADMIN_ROLE = "admin";
+	public static String ENGINEER_ROLE = "engineer";
 	public static String DIRECTOR_ROLE = "director";
 	public static String SURVEY_CREATED_MSG = "New Survey for ?client has been requested and needs your attention";
+	public static String SURVEY_STATUS_MSG = "Survey for ?client has changed status to ?status";
+	public static String SURVEY_ASSIGNED_MSG = "You have been assigned job for ?client. The  job needs your attention";
 	public static String SURVEY_CREATED_SBJ = "New Survey Request for ?client";
+	public static String SURVEY_STATUS_SBJ = "Survey Status changed for ?client";
+	public static String SURVEY_ASSIGNED_SBJ = "Job Assigned  for ?client";
 	private static Session session = null;
 	private static Logger logger = Logger.getLogger(HhiService.class.getName());
 

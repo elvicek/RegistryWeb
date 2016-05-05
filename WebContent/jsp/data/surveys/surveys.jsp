@@ -49,6 +49,9 @@
 <c:when test="${sessionScope.surveyContent eq initParam.edit }">
 <%@ include file="surveydataedit.jsp" %>
 </c:when>
+<c:when test="${sessionScope.surveyContent eq 'readingsEdit' }">
+<%@ include file="surveysreadingsinput.jsp" %>
+</c:when>
 <c:when test="${sessionScope.surveyContent eq 'attend' }">
 <%@ include file="surveydataattend.jsp" %>
 </c:when>

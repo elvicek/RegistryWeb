@@ -121,6 +121,45 @@ function CheckClickMember(chk) {
 
 }
 
+function CheckClickSurvey(chk) {
+
+	var chkd = 0;
+	
+
+	if (chk.checked == true) {
+
+		chkd = chkd + 1;
+	} else {
+		for (i = 0; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				chkd = chkd + 1;
+
+			}
+
+		}
+
+	}
+	// For Delete Button
+	if (chkd < 1) {
+
+		document.getElementById("delete").disabled = true;
+	} else {
+		document.getElementById("delete").disabled = false;
+	}
+
+	// For Edit And MemberShip Button
+	if (chkd == 1) {
+		document.getElementById("edit").disabled = false;
+		document.getElementById("readings").disabled = false;
+
+	} else {
+		document.getElementById("edit").disabled = true;
+		document.getElementById("readings").disabled = true;
+
+	}
+
+}
+
 function setMemberIdSubmit(chk) {
 
 	var s = "";
@@ -155,6 +194,39 @@ function setMemberIdSubmit(chk) {
 }
 
 
+
+function setSurveyNameForReadingsEdit(chk) {
+
+	var s = "";
+	var tabl = document.getElementById('surveydata');
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+		 
+		document.readings.surveyName.value = id;
+
+		document.readings.submit();
+
+	} else {
+
+		for (j = 0; j < chk.length; j++) {
+			if (chk[j].checked == true) {
+
+				var tr = tabl.rows[j + 1];
+
+				var cll = tr.cells[1];
+				var id = cll.innerHTML;
+				document.readings.surveyName.value = id;
+				
+				document.readings.submit();
+			}
+
+		}
+	}
+}
 function setSurveyNameForEdit(chk) {
 
 	var s = "";
@@ -180,6 +252,39 @@ function setSurveyNameForEdit(chk) {
 				var cll = tr.cells[1];
 				var id = cll.innerHTML;
 				document.edit.surveyName.value = id;
+				
+				document.edit.submit();
+			}
+
+		}
+	}
+}
+
+function setReadingIdForEdit(chk) {
+
+	var s = "";
+	var tabl = document.getElementById('readingsdata');
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+		 
+		document.edit.readingId.value = id;
+
+		document.edit.submit();
+
+	} else {
+
+		for (j = 0; j < chk.length; j++) {
+			if (chk[j].checked == true) {
+
+				var tr = tabl.rows[j + 1];
+
+				var cll = tr.cells[1];
+				var id = cll.innerHTML;
+				document.edit.readingId.value = id;
 				
 				document.edit.submit();
 			}
@@ -537,6 +642,58 @@ function setSurveyNameToDelete(chk) {
 	document.toDelete.submit();
 }
 
+function setReadingIdToDelete(chk) {
+	// alert("Working");
+
+	var readings = "";
+	var chkd = 0;
+	var id = "";
+
+	var tabl = document.getElementById('readingsdata');
+
+	if (chk.checked == true) {
+
+		var tr = tabl.rows[1];
+
+		var cll = tr.cells[1];
+		var id = cll.innerHTML;
+
+		document.toDelete.readingIdToDelete.value = id;
+		document.toDelete.submit();
+
+	} else {
+
+		if (chk.length > 1) {
+			for (j = 0; j < chk.length; j++) {
+				if (chk[j].checked == true) {
+
+					var tr = tabl.rows[j + 1];
+
+					var cll = tr.cells[1];
+					id = cll.innerHTML;
+					if (chkd == 0) {
+						surveys = id;
+						// alert("ID "+id);
+					} else {
+
+						readings = readings + ":" + id;
+
+					}
+					chkd = chkd + 1;
+					
+				}
+
+			}
+			document.toDelete.readingIdToDelete.value = readings;
+		}
+
+		else {
+			document.toDelete.readingIdToDelete.value = id;
+		}
+	}
+	document.toDelete.submit();
+}
+
 function setMemberIds(chk) {
 	// alert("Working");
 
@@ -803,6 +960,13 @@ function setFunctions() {
 			&& (document.getElementById("delete") != null)) {
 		document.getElementById("edit").disabled = true;
 		document.getElementById("delete").disabled = true;
+	}
+	if ((document.getElementById("edit") != null)
+			&& (document.getElementById("delete") != null)
+			&& (document.getElementById("readings") != null)) {
+		document.getElementById("edit").disabled = true;
+		document.getElementById("delete").disabled = true;
+		document.getElementById("readings").disabled = true;
 	}
 	if (document.getElementById("membershipview") != null) {
 		document.getElementById("membershipview").disabled = true;

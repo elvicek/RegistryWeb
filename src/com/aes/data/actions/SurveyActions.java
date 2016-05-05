@@ -21,8 +21,10 @@ import com.aes.data.domain.Dbsettings;
 import com.aes.data.domain.Person;
 import com.aes.data.domain.Role;
 import com.aes.data.domain.Survey;
+import com.aes.data.domain.SurveyReadings;
 import com.aes.data.domain.User;
 import com.aes.exceptions.PersistanceException;
+import com.aes.local.model.MailMessage;
 import com.aes.local.model.UserDetails;
 import com.aes.service.HhiService;
 import com.aes.service.MailSender;
@@ -30,6 +32,7 @@ import com.aes.utils.SurveyStatus;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sun.mail.dsn.message_deliverystatus;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.xml.internal.ws.resources.DispatchMessages;
 
 public class SurveyActions extends ActionSupport {
@@ -42,6 +45,8 @@ public class SurveyActions extends ActionSupport {
 	private String clientName;
 	private String surveyRequestedDate;
 	private String editSurveyType;
+	private String editUnitType;
+	private String editUnit;
 	private String stringToSearch;
 
 	private Logger logger = Logger.getLogger(SurveyActions.class.getName());
@@ -49,7 +54,9 @@ public class SurveyActions extends ActionSupport {
 	private String surveyNameToDelete;
 	private String mode;
 	private String userName;
+	private SurveyReadings surveyReading;
 
+	
 	public String saveSurvey() {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -70,7 +77,9 @@ public class SurveyActions extends ActionSupport {
 			this.survey.setSurveyRequestedDate(localBirthday);
 			survey.setStatus(SurveyStatus.NEW.toString());
 			HhiService.save(survey);
-			notifyDirectors(survey);
+			String message =  HhiService.SURVEY_CREATED_MSG.replace("?client", client.getClientName());
+			String subject = HhiService.SURVEY_CREATED_SBJ.replace("?client", client.getClientName());
+		    notifyUsers(getDirectors(), message, subject);
 		} catch (PersistanceException e1) {
 			logger.log(Level.SEVERE,
 					"Database Error Occures. Please ensure you have connection to database or record does not exist");
@@ -88,14 +97,55 @@ public class SurveyActions extends ActionSupport {
 
 		return Action.SUCCESS;
 	}
+	
+	
+	public String saveReading() {
 
-	private void notifyDirectors(Survey survey) throws PersistanceException {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		setReadingAuditData(request);
+
+		try {
+
+			Survey survey = HhiService.getSurveyBySurveyName(surveyName);
+			this.surveyReading.setSurvey(survey);
+			HhiService.save(surveyReading);
+		} catch (PersistanceException e1) {
+			logger.log(Level.SEVERE,
+					"Database Error Occures. Please ensure you have connection to database or record does not exist");
+			e1.printStackTrace();
+			return Action.ERROR;
+
+		} 
+
+		request.setAttribute("memberMessage", "Reading saved successfully");
+		request.getSession().setAttribute("surveyContent", "success");
+		request.getSession().setAttribute("surveyInEdit", surveyName);
+
+		return Action.SUCCESS;
+	}
+
+	private void setReadingAuditData(HttpServletRequest request) {
+		String principal = request.getUserPrincipal().getName();
+		Date date = new Date();
+		this.surveyReading.setCreatedBy(principal);
+		this.surveyReading.setCreatedDate(date);
+		
+	}
+
+
+	private List<User> getDirectors() throws PersistanceException {
 		Role role = HhiService.getRoleById(HhiService.DIRECTOR_ROLE);
-		List<User> users = new ArrayList<User>(role.getUsers());
-		// String clientName = ((Client)
-		// survey.getClients().toArray()[0]).getClientName();
-		String clientName = survey.getClient().getClientName();
-		dispatchMessages(users, clientName);
+		return new ArrayList<User>(role.getUsers());
+	}
+	
+	private void notifyUsers(List<User> users,String message,String subject){
+		dispatchMessages(users,message,subject);
+
+	}
+	
+	private void notifyUsers(MailMessage mailMessage) {
+		dispatchMessages(mailMessage.getUsers(),mailMessage.getMessage(),mailMessage.getSubject());
 
 	}
 
@@ -109,6 +159,38 @@ public class SurveyActions extends ActionSupport {
 
 		session.setAttribute("surveyContent", "edit");
 		return Action.SUCCESS;
+	}
+	
+	public String surveyEditReadings() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		Survey aSurvey = null;
+		try{
+			aSurvey = HhiService.getSurveyBySurveyName(surveyName);
+			
+		}
+		catch(PersistanceException e){
+			return Action.ERROR;
+		}
+
+		session.setAttribute("survey", aSurvey);
+
+		session.setAttribute("surveyContent", "readingsEdit");
+		return Action.SUCCESS;
+	}
+	
+	public List<SurveyReadings> getReadings(){
+		Survey aSurvey = null;
+		try{
+			aSurvey = HhiService.getSurveyBySurveyName(surveyName);
+			
+		}
+		catch(PersistanceException e){
+			
+		}
+
+		return new ArrayList<SurveyReadings>(aSurvey.getSurveyReadingses());
 	}
 	
 	public String surveyAttend() {
@@ -194,18 +276,20 @@ public class SurveyActions extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		Date localBirthday = null;
+		MailMessage mailMessage = null;
 		setSurveyAuditData(request);
 
 		try {
 			Survey aSurvey = HhiService.getSurveyBySurveyName(survey.getSurveyName());
 			if(this.mode.equalsIgnoreCase("assign")){
-				assignSurvey(aSurvey);
+				mailMessage = assignSurvey(aSurvey);
 			}
 			else{
-				changeStatus(aSurvey);
+				mailMessage = changeStatus(aSurvey);
 			}
 			
 			HhiService.update(aSurvey);
+			notifyUsers(mailMessage);
 		} catch (Exception e) {
 			return Action.ERROR;
 
@@ -219,20 +303,32 @@ public class SurveyActions extends ActionSupport {
 	
 	
 
-	private void assignSurvey(Survey aSurvey) throws PersistanceException {
+	private MailMessage assignSurvey(Survey aSurvey) throws PersistanceException {
 		User user = HhiService.getUserByUserName(userName);
 		aSurvey.setUser(user);
 		aSurvey.setStatus(SurveyStatus.ASSIGNED.toString());
-		
+		String subject = HhiService.SURVEY_ASSIGNED_SBJ.replace("?client", aSurvey.getClient().getClientName());
+		String message = HhiService.SURVEY_ASSIGNED_MSG.replace("?client", aSurvey.getClient().getClientName());
+		List<User> users = new ArrayList<User>();
+		users.add(user);
+		return new MailMessage(users, message, subject)	;	
 	}
 
-	private void changeStatus(Survey aSurvey) {
+	private MailMessage changeStatus(Survey aSurvey) throws PersistanceException {
+		String subject = HhiService.SURVEY_STATUS_SBJ.replace("?client", aSurvey.getClient().getClientName());
+		MailMessage mailMessage = null;
 		if(aSurvey.getStatus().equalsIgnoreCase(SurveyStatus.ASSIGNED.toString())){
 			aSurvey.setStatus(SurveyStatus.IN_PROGRESS.toString());	
+			String message = HhiService.SURVEY_STATUS_MSG.replace("?client", aSurvey.getClient().getClientName()).replace("?status", SurveyStatus.IN_PROGRESS.name());
+			mailMessage = new MailMessage(getDirectors(),message,subject);
 		}
 		else if (aSurvey.getStatus().equalsIgnoreCase(SurveyStatus.IN_PROGRESS.toString())) {
-			aSurvey.setStatus(SurveyStatus.COMPLETE.toString());	
+			aSurvey.setStatus(SurveyStatus.COMPLETE.toString());
+			String message = HhiService.SURVEY_STATUS_MSG.replace("?client", aSurvey.getClient().getClientName()).replace("?status", SurveyStatus.COMPLETE.name());
+			mailMessage = new MailMessage(getDirectors(),message,subject);
 		}
+		
+		return mailMessage;
 		
 	}
 
@@ -281,10 +377,9 @@ public class SurveyActions extends ActionSupport {
 		return Action.SUCCESS;
 	}
 
-	private void dispatchMessages(List<User> users, String clientName) {
+	private void dispatchMessages(List<User> users, String message, String subject) {
 		ServletContext ctx = ServletActionContext.getServletContext();
-		MailSender mailSender = new MailSender(ctx, users, HhiService.SURVEY_CREATED_MSG.replace("?client", clientName),
-				HhiService.SURVEY_CREATED_SBJ.replace("?client", clientName));
+		MailSender mailSender = new MailSender(ctx, users,message,subject);
 		Thread thread = new Thread(mailSender);
 		thread.start();
 
@@ -455,10 +550,12 @@ public class SurveyActions extends ActionSupport {
 			List<User> fullList = HhiService.getAllUsers();
 
 			for(User user :fullList){
+				if( ((Role)user.getRoles().toArray()[0]).getRoleName().equalsIgnoreCase(HhiService.ENGINEER_ROLE)){
 				UserDetails details = new UserDetails();
 				details.setDisplayName(user.getPerson().getName()+" "+user.getPerson().getSurname()+" : "+user.getUsername());
 				details.setUserName(user.getUsername());
 				userDetails.add(details);
+				}
 				
 			}
 
@@ -499,6 +596,44 @@ public class SurveyActions extends ActionSupport {
 
 		return surveyTypes;
 	}
+	
+	public List<Dbsettings> getReadingTypes() {
+
+		List<Dbsettings> readingTypes = null;
+		try {
+			if (this.editSurveyType == null) {
+				readingTypes = HhiService.getDbSetting(HhiService.UNIT_TYPE);
+			} else {
+				readingTypes = HhiService.getDbSetting(HhiService.UNIT_TYPE, editUnitType);
+
+			}
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return readingTypes;
+	}
+
+	
+	public List<Dbsettings> getUnits() {
+
+		List<Dbsettings> unit = null;
+		try {
+			if (this.editSurveyType == null) {
+				unit = HhiService.getDbSetting(HhiService.UNIT);
+			} else {
+				unit = HhiService.getDbSetting(HhiService.UNIT, editUnit);
+
+			}
+		} catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return unit;
+	}
+
 
 	public Survey getSurvey() {
 		return survey;
@@ -570,6 +705,32 @@ public class SurveyActions extends ActionSupport {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getEditUnitType() {
+		return editUnitType;
+	}
+
+	public void setEditUnitType(String editUnitType) {
+		this.editUnitType = editUnitType;
+	}
+
+	public String getEditUnit() {
+		return editUnit;
+	}
+
+	public void setEditUnit(String editUnit) {
+		this.editUnit = editUnit;
+	}
+
+
+	public SurveyReadings getSurveyReading() {
+		return surveyReading;
+	}
+
+
+	public void setSurveyReading(SurveyReadings surveyReading) {
+		this.surveyReading = surveyReading;
 	}
 
 }

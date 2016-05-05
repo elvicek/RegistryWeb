@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC "-//OpenSymphony Group//XWork Validator 1.0.2//EN" "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+	<field name="survey.surveyName">
+		<field-validator type="requiredstring">
+			<message>Please enter a survey name</message>
+		</field-validator>
+	</field>
+	<field name="clientName">
+		<field-validator type="requiredstring">
+			<message>Please select client</message>
+		</field-validator>
+	</field>
+	<field name="survey.surveyType">
+		<field-validator type="requiredstring">
+			<message>Please select a survey type</message>
+		</field-validator>
+	</field>
+	<field name="surveyRequestedDate">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>Please enter survey date</message>
+		</field-validator>
+	</field>
+</validators>
