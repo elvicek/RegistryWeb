@@ -220,6 +220,13 @@
 			<result name="input">/jsp/data/surveys/surveys.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
+		<action name="readingdelete_action" class="com.aes.data.actions.SurveyActions"
+			method="deleteSurveyReading">
+			<result name="success" type="dispatcher">/surveyeditresults_action.action
+			</result>
+			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
 
 		<action name="userupdate_action" class="com.aes.data.actions.AdminActions"
 			method="updateUser">
@@ -275,6 +282,9 @@
 			<result name="input">/allsurveysview_action.action</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
+		
+		
+		
 
 		<action name="usersavesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="saveSuccessAction">

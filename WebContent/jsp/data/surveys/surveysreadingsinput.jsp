@@ -9,9 +9,10 @@
 				<table class="messages">
 					<tr>
 						<td><p>
-								Reading Recorded Successfully.
+								<font color="green"><c:out value="${requestScope.memberMessage}"></c:out></font>
 							</p></td>
 				</table>
+				
 </c:if>
 <div id="center">
 
@@ -28,11 +29,13 @@
 	
        <s:actionerror />
 	<s:hidden name="surveyName" value="%{#session.survey.surveyName}"/>
+	<s:label>Default calculation is for Dynamic pressure where Pd = 1/2pv2</s:label>
 	<td colspan="2"><s:textfield label="Location" name="surveyReading.location" size="40" required="true"/></td>
-	<td colspan="2"><s:textfield label="Description" name="surveyReading.description" size="40" required="true"/></td>
-	<td colspan="2"><s:select name="surveyReading.readingType" label="Reading Type " headerKey=" " headerValue="[Select Unit Type]" list="readingTypes" listKey="description" listValue="description" required="true"/></td>
-	<td colspan="2"><s:select name="surveyReading.unit" label="Unit" headerKey=" " headerValue="[Select Unit]" list="units" listKey="description" listValue="description" required="true"/></td>
-	<td colspan="2"><s:textfield label="Reading Value" name="surveyReading.value" size="20" required="true"/></td>
+	<td colspan="2"><s:textfield label="Description" name="surveyReading.description" size="40"/></td>
+	<td colspan="2"><s:textfield label="Density (kg/m3) " name="surveyReading.density" size="15" required="true"/></td>
+	<td colspan="2"><s:textfield label="Velocity (m/s)" name="surveyReading.velocity" size="15" required="true"/></td>
+	<td colspan="2"><s:select name="surveyReading.readingType" label="Reading Type " headerKey=" " headerValue="Dynamic Pressure" list="readingTypes" listKey="description" listValue="description" required="true"/></td>
+	<td colspan="2"><s:select name="surveyReading.unit" label="Unit" headerKey=" " headerValue="Pd" list="units" listKey="description" listValue="description" required="true"/></td>
 	<td align="right" colspan="2"><input  type="reset" value="Reset"/><input type="submit" value="Submit"/></td>
 	</tr>
 	
@@ -55,6 +58,7 @@
 						<s:form action="readingdelete_action" method="Post"
 								name="toDelete">
 								<s:hidden name="readingIdToDelete" value="" />
+								<s:hidden name="surveyName" value="%{#session.survey.surveyName}"/>
 								<input type="submit" id="delete" value="Delete"
 									onClick="setReadingIdToDelete(document.data.select)" />
 							</s:form></td>
@@ -101,15 +105,16 @@
 			requestURI="export_readingsview.action" id="readingsdata" export="true">
 			<display:column media="html">
 				<input type="checkbox" name="select"
-					onClick="CheckClickSurvey(document.data.select)" />
+					onClick="CheckClickReadings(document.data.select)" />
 			</display:column>
-			<display:column property="readingId" title="ID" class="hidden"/>
+			<display:column property="readingId" title="ID"/>
 			<display:column property="location" title="Location" />
-			<display:column property="readingType" title="Reading Type" />
-			<display:column property="unit"
-				title="Unit" />
-			<display:column property="value"
-				title="Value" />
+			<display:column property="description" title="Location" />
+			<display:column property="velocity" title="Velocity" />
+			<display:column property="density" title="Density" />
+			
+			<display:column property="dynamicPressure"
+				title="Dynamic Pressure (Pd)" />
 
 
 			<display:setProperty name="export.pdf" value="true" />

@@ -121,6 +121,44 @@ function CheckClickMember(chk) {
 
 }
 
+function CheckClickReadings(chk) {
+
+	var chkd = 0;
+	
+
+	if (chk.checked == true) {
+
+		chkd = chkd + 1;
+	} else {
+		for (i = 0; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				chkd = chkd + 1;
+
+			}
+
+		}
+
+	}
+	// For Delete Button
+	if (chkd < 1) {
+
+		document.getElementById("delete").disabled = true;
+	} else {
+		document.getElementById("delete").disabled = false;
+	}
+
+	// For Edit And MemberShip Button
+	if (chkd == 1) {
+		document.getElementById("edit").disabled = false;
+
+	} else {
+		document.getElementById("edit").disabled = true;
+		
+
+	}
+
+}
+
 function CheckClickSurvey(chk) {
 
 	var chkd = 0;
@@ -672,7 +710,7 @@ function setReadingIdToDelete(chk) {
 					var cll = tr.cells[1];
 					id = cll.innerHTML;
 					if (chkd == 0) {
-						surveys = id;
+						readings = id;
 						// alert("ID "+id);
 					} else {
 

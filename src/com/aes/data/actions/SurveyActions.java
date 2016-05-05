@@ -1,5 +1,6 @@
 package com.aes.data.actions;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,6 +56,7 @@ public class SurveyActions extends ActionSupport {
 	private String mode;
 	private String userName;
 	private SurveyReadings surveyReading;
+	private String readingIdToDelete;
 
 	
 	public String saveSurvey() {
@@ -109,6 +111,8 @@ public class SurveyActions extends ActionSupport {
 
 			Survey survey = HhiService.getSurveyBySurveyName(surveyName);
 			this.surveyReading.setSurvey(survey);
+			BigDecimal dynamicPressure = calculateDynamicPressure(surveyReading);
+			surveyReading.setDynamicPressure(dynamicPressure);
 			HhiService.save(surveyReading);
 		} catch (PersistanceException e1) {
 			logger.log(Level.SEVERE,
@@ -124,6 +128,13 @@ public class SurveyActions extends ActionSupport {
 
 		return Action.SUCCESS;
 	}
+
+	private BigDecimal calculateDynamicPressure(SurveyReadings surveyReading) {
+
+		BigDecimal dp = (new BigDecimal("0.5").multiply(surveyReading.getDensity()).multiply(surveyReading.getVelocity()).multiply(surveyReading.getVelocity()));
+		return dp.setScale(2, BigDecimal.ROUND_UP);
+	}
+
 
 	private void setReadingAuditData(HttpServletRequest request) {
 		String principal = request.getUserPrincipal().getName();
@@ -368,6 +379,31 @@ public class SurveyActions extends ActionSupport {
 		request.getSession().setAttribute("surveyContent", "success");
 		return Action.SUCCESS;
 	}
+	
+	public String deleteSurveyReading() {
+		String[] readingsToDelete = null;
+
+		if (readingIdToDelete.split(":").length == 0) {
+
+			readingsToDelete[0] = readingIdToDelete;
+
+		} else {
+
+			readingsToDelete = readingIdToDelete.split(":");
+
+		}
+
+		for (String id : readingsToDelete) {
+
+			HhiService.deleteSurveyReadingById(Integer.valueOf(id));
+
+		}
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		request.setAttribute("memberMessage", "Reading deleted successfully");
+		request.getSession().setAttribute("surveyContent", "success");
+		return Action.SUCCESS;
+	}
 
 	public String exportSurveys() {
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -604,6 +640,7 @@ public class SurveyActions extends ActionSupport {
 			if (this.editSurveyType == null) {
 				readingTypes = HhiService.getDbSetting(HhiService.UNIT_TYPE);
 			} else {
+		
 				readingTypes = HhiService.getDbSetting(HhiService.UNIT_TYPE, editUnitType);
 
 			}
@@ -612,7 +649,7 @@ public class SurveyActions extends ActionSupport {
 			e.printStackTrace();
 		}
 
-		return readingTypes;
+		return new ArrayList<Dbsettings>();
 	}
 
 	
@@ -631,7 +668,7 @@ public class SurveyActions extends ActionSupport {
 			e.printStackTrace();
 		}
 
-		return unit;
+		return new ArrayList<Dbsettings>();
 	}
 
 
@@ -732,5 +769,18 @@ public class SurveyActions extends ActionSupport {
 	public void setSurveyReading(SurveyReadings surveyReading) {
 		this.surveyReading = surveyReading;
 	}
+
+
+	public String getReadingIdToDelete() {
+		return readingIdToDelete;
+	}
+
+
+	public void setReadingIdToDelete(String readingIdToDelete) {
+		this.readingIdToDelete = readingIdToDelete;
+	}
+
+
+	
 
 }

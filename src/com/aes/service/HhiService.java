@@ -36,6 +36,7 @@ import com.aes.data.domain.Client;
 import com.aes.data.domain.Dbsettings;
 import com.aes.data.domain.Role;
 import com.aes.data.domain.Survey;
+import com.aes.data.domain.SurveyReadings;
 import com.aes.data.domain.User;
 import com.aes.exceptions.UsersExistInRoleException;
 import com.aes.exceptions.PersistanceException;
@@ -654,6 +655,28 @@ public class HhiService {
 		session.close();
 
 	}
+	
+	public static void deleteSurveyReadingById(Integer readingId)
+			throws ConstraintViolationException{
+
+		SurveyReadings surveyReading;
+		Session session = getSession();
+		Transaction tx = session.beginTransaction();
+		
+		try {
+			surveyReading = getSurveyreadingById(readingId);
+			session.delete(surveyReading);
+		} 
+
+		catch (PersistanceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tx.commit();
+		session.flush();
+		session.close();
+
+	}
 
 	public static void addMemberToCellgroup(Cellgroup cellgroup, Member member) {
 
@@ -1097,6 +1120,38 @@ public class HhiService {
 			session.close();
 
 			return client;
+		} catch (Exception e) {
+			throw new PersistanceException();
+		}
+	}
+	
+	
+	public static SurveyReadings getSurveyreadingById(Integer readingId)
+			throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from SurveyReadings where READING_ID = :readingId";
+			Query query = session.createQuery(queryString);
+			query.setInteger("readingId", readingId);
+
+			Object obj = query.uniqueResult();
+			SurveyReadings reading;
+
+			if (obj == null) {
+				reading = null;
+			} else {
+				reading = (SurveyReadings) obj;
+
+			}
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return reading;
 		} catch (Exception e) {
 			throw new PersistanceException();
 		}
