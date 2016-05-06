@@ -56,7 +56,7 @@ public class SurveyActions extends ActionSupport {
 	private String mode;
 	private String userName;
 	private SurveyReadings surveyReading;
-	private String readingIdToDelete;
+	private String readingId;
 
 	
 	public String saveSurvey() {
@@ -128,6 +128,34 @@ public class SurveyActions extends ActionSupport {
 
 		return Action.SUCCESS;
 	}
+	
+	public String updateReading() {
+
+		HttpServletRequest request = ServletActionContext.getRequest();
+		
+		setReadingAuditData(request);
+
+		try {
+
+			Survey survey = HhiService.getSurveyBySurveyName(surveyName);
+			this.surveyReading.setSurvey(survey);
+			BigDecimal dynamicPressure = calculateDynamicPressure(surveyReading);
+			surveyReading.setDynamicPressure(dynamicPressure);
+			HhiService.update(surveyReading);
+		} catch (PersistanceException e1) {
+			logger.log(Level.SEVERE,
+					"Database Error Occures. Please ensure you have connection to database or record does not exist");
+			e1.printStackTrace();
+			return Action.ERROR;
+
+		} 
+
+		request.setAttribute("memberMessage", "Reading updated successfully");
+		request.getSession().setAttribute("surveyContent", "success");
+		request.getSession().setAttribute("surveyInEdit", surveyName);
+
+		return Action.SUCCESS;
+	}
 
 	private BigDecimal calculateDynamicPressure(SurveyReadings surveyReading) {
 
@@ -188,6 +216,28 @@ public class SurveyActions extends ActionSupport {
 		session.setAttribute("survey", aSurvey);
 
 		session.setAttribute("surveyContent", "readingsEdit");
+		return Action.SUCCESS;
+	}
+	
+	public String editReadingValues() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		Survey aSurvey = null;
+		SurveyReadings readings = null;
+		try{
+			aSurvey = HhiService.getSurveyBySurveyName(surveyName);
+			readings = HhiService.getSurveyreadingById(Integer.valueOf(readingId));
+			
+		}
+		catch(PersistanceException e){
+			return Action.ERROR;
+		}
+
+		session.setAttribute("survey", aSurvey);
+		session.setAttribute("surveyReading", readings);
+		session.setAttribute("surveyContent", "readingsEdit");
+		request.setAttribute("readingsMode", "edit");
 		return Action.SUCCESS;
 	}
 	
@@ -383,13 +433,13 @@ public class SurveyActions extends ActionSupport {
 	public String deleteSurveyReading() {
 		String[] readingsToDelete = null;
 
-		if (readingIdToDelete.split(":").length == 0) {
+		if (readingId.split(":").length == 0) {
 
-			readingsToDelete[0] = readingIdToDelete;
+			readingsToDelete[0] = readingId;
 
 		} else {
 
-			readingsToDelete = readingIdToDelete.split(":");
+			readingsToDelete = readingId.split(":");
 
 		}
 
@@ -771,15 +821,17 @@ public class SurveyActions extends ActionSupport {
 	}
 
 
-	public String getReadingIdToDelete() {
-		return readingIdToDelete;
+	public String getReadingId() {
+		return readingId;
 	}
 
 
-	public void setReadingIdToDelete(String readingIdToDelete) {
-		this.readingIdToDelete = readingIdToDelete;
+	public void setReadingId(String readingId) {
+		this.readingId = readingId;
 	}
 
+
+	
 
 	
 

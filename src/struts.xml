@@ -220,8 +220,22 @@
 			<result name="input">/jsp/data/surveys/surveys.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
+		<action name="surveyreadingsupdate_action" class="com.aes.data.actions.SurveyActions"
+			method="updateReading">
+			<result name="success" type="dispatcher">/surveyeditresults_action.action
+			</result>
+			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
 		<action name="readingdelete_action" class="com.aes.data.actions.SurveyActions"
 			method="deleteSurveyReading">
+			<result name="success" type="dispatcher">/surveyeditresults_action.action
+			</result>
+			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+		<action name="readingedit_action" class="com.aes.data.actions.SurveyActions"
+			method="editReadingValues">
 			<result name="success" type="dispatcher">/surveyeditresults_action.action
 			</result>
 			<result name="input">/jsp/data/surveys/surveys.jsp</result>
@@ -756,7 +770,15 @@
 	</package>
 
 
-
+<package name="default" namespace="/" extends="jasperreports-default">
+    <action name="clientsreport_action" class="com.aes.data.actions.JasperAction">
+        <result name="success" type="jasper">
+            <param name="location">./app-config/clients_compiled_template.jasper</param>
+            <param name="dataSource">allClients</param>
+            <param name="format">PDF</param>
+        </result>
+    </action>
+</package>
 
 
 </struts>

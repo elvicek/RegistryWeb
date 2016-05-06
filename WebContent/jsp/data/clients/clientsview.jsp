@@ -110,7 +110,7 @@
 				value="UserDetails.xls" />
 			<display:footer media="excel pdf">Sample footer</display:footer>
 			<display:caption class="heading">
-				<strong>AES User Details</strong>
+				<strong>AES Client Details</strong>
 			</display:caption>
 
 

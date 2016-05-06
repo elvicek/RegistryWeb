@@ -62,6 +62,7 @@ import com.hhiregistry.model.MemberGroups;
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
+
 public class AdminActions extends ActionSupport {
 
 	// private Integer groupId;
@@ -1042,11 +1043,14 @@ public class AdminActions extends ActionSupport {
 
 		ServletContext ctx = ServletActionContext.getServletContext();
 		HttpSession session = ServletActionContext.getRequest().getSession();
+		java.io.File file = new java.io.File(HhiService.EMAIL_ADDRESSES_TEXT_FILE);
+		logger.log(Level.INFO,"Absolute Path to file :::::::::::::::::::::"+file.getAbsolutePath());
 		try {
 			List<Client> clients = HhiService.getAllClients();
 			FileWriter outFile = new FileWriter(HhiService.EMAIL_ADDRESSES_TEXT_FILE);
 			PrintWriter out = new PrintWriter(outFile);
-
+			
+			
 			for (Client client : clients) {
 
 				if (client.getPerson().getEmail() != null) {

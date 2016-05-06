@@ -60,6 +60,8 @@ public class HhiService {
 	public static int UNIT_TYPE = 7;
 	public static int PAGER_OPTION = 8;
 	public static final String MESSAGE_TEMPLATE = "./app-config/template.html";
+	public static final String CLIENTS_JASPER_TEMPLATE = "./app-config/clients_compiled_template.jasper";
+	public static final String SURVEY_JASPER_TEMPLATE = "./app-config/survey_compiled_template.jasper";
 	public static final String EMAIL_ADDRESSES_TEXT_FILE = "./app-config/allAddresses.txt";
 	public static String NEW_MEMBER_GROUP = "NEW MEMBERS";
 	public static String ADMIN_ROLE = "admin";

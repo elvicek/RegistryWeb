@@ -19,6 +19,8 @@ import com.aes.service.HhiService;
 import com.hhiregistry.model.Groups;
 import com.hhiregistry.model.Member;
 
+import net.sf.jasperreports.engine.JasperCompileManager;
+
 /**
  * @author elvicek
  *
@@ -40,7 +42,23 @@ public final class Initializer implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		initialisePagerParams(event);
+		initialiseJasperReports();
 
+	}
+
+	private void initialiseJasperReports() {
+		 try {
+	            JasperCompileManager.compileReportToFile(
+	                    "./app-config/jasper/clients_jasper_template.jrxml",
+	                    "./app-config/jasper/clients_compiled_template.jasper");
+	            JasperCompileManager.compileReportToFile(
+	                    "./app-config/jasper/survey_jasper_template.jrxml",
+	                    "./app-config/jasper/survey_compiled_template.jasper");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            
+	        }
+		
 	}
 
 	private void initialisePagerParams(ServletContextEvent event) {

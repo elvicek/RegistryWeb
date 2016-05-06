@@ -185,10 +185,33 @@ function CheckClickSurvey(chk) {
 		document.getElementById("delete").disabled = false;
 	}
 
-	// For Edit And MemberShip Button
+	// For Edit And Readings Button
 	if (chkd == 1) {
 		document.getElementById("edit").disabled = false;
-		document.getElementById("readings").disabled = false;
+		// For readings: Check if survey is in correct status to have readings
+		
+		    var tabl = document.getElementById('surveydata');
+		    var status = "";
+		    if (chk.checked == true) {
+
+				var tr = tabl.rows[1];
+
+				var cll = tr.cells[5];
+				status = cll.innerHTML;
+		    
+	} else {
+
+		for (j = 0; j < chk.length; j++) {
+			if (chk[j].checked == true) {
+
+				var tr = tabl.rows[j + 1];
+
+				var cll = tr.cells[5];
+				status = cll.innerHTML;
+			}
+		}
+	}
+		document.getElementById("readings").disabled = valueOfStatus(status);
 
 	} else {
 		document.getElementById("edit").disabled = true;
@@ -196,6 +219,15 @@ function CheckClickSurvey(chk) {
 
 	}
 
+}
+
+function valueOfStatus(status){
+	if(status == 'NEW' || status == 'ASSIGNED'){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 function setMemberIdSubmit(chk) {
@@ -422,7 +454,7 @@ function setMemberIdSubmitIndividual(chk) {
 	}else {
 
 		if (chk.length > 1) {
-			//alert("In else");
+			// alert("In else");
 		for (j = 0; j < chk.length; j++) {
 			if (chk[j].checked == true) {
 
@@ -432,14 +464,14 @@ function setMemberIdSubmitIndividual(chk) {
 				id = cll.innerHTML;
 				if (chkd == 0) {
 					members = id;
-					//alert("ID "+id);
+					// alert("ID "+id);
 				} else {
 
 					members = members + ":" + id;
 
 				}
 				chkd = chkd + 1;
-				//alert("Members in loop "+members);
+				// alert("Members in loop "+members);
 				// document.edit.memberIdToDelete.value = id;
 
 			}
@@ -449,7 +481,7 @@ function setMemberIdSubmitIndividual(chk) {
 		
 	}
 	document.individual.memberIdToSms.value = members;
-	//alert(document.birthday.memberIdToSms.value);
+	// alert(document.birthday.memberIdToSms.value);
 	document.individual.submit();
 }
 
@@ -460,7 +492,7 @@ function setMemberIdSubmitBirthday(chk) {
 	var chkd = 0;
 	var id = "";
 	var tabl = document.getElementById('memberdatabirthday');
-	//alert(chk.length);
+	// alert(chk.length);
 	
 	if (chk.length == 1 && chk.checked == true) {
 
@@ -476,7 +508,7 @@ function setMemberIdSubmitBirthday(chk) {
 	
 	}else {
 		if (chk.length > 1) {
-			//alert("In else");
+			// alert("In else");
 		for (j = 0; j < chk.length; j++) {
 			if (chk[j].checked == true) {
 
@@ -486,14 +518,14 @@ function setMemberIdSubmitBirthday(chk) {
 				id = cll.innerHTML;
 				if (chkd == 0) {
 					members = id;
-					//alert("ID "+id);
+					// alert("ID "+id);
 				} else {
 
 					members = members + ":" + id;
 
 				}
 				chkd = chkd + 1;
-				//alert("Members in loop "+members);
+				// alert("Members in loop "+members);
 				// document.edit.memberIdToDelete.value = id;
 
 			}
@@ -503,7 +535,7 @@ function setMemberIdSubmitBirthday(chk) {
 		
 	}
 	document.birthday.memberIdToSms.value = members;
-	//alert(document.birthday.memberIdToSms.value);
+	// alert(document.birthday.memberIdToSms.value);
 	document.birthday.submit();
 	
 	
@@ -696,7 +728,7 @@ function setReadingIdToDelete(chk) {
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
 
-		document.toDelete.readingIdToDelete.value = id;
+		document.toDelete.readingId.value = id;
 		document.toDelete.submit();
 
 	} else {
@@ -722,11 +754,11 @@ function setReadingIdToDelete(chk) {
 				}
 
 			}
-			document.toDelete.readingIdToDelete.value = readings;
+			document.toDelete.readingId.value = readings;
 		}
 
 		else {
-			document.toDelete.readingIdToDelete.value = id;
+			document.toDelete.readingId.value = id;
 		}
 	}
 	document.toDelete.submit();
@@ -868,7 +900,7 @@ function refreshPager(fromID) {
 	var val = document.getElementById(fromID).options[i].value;
 	
 	document.apply.pageSizeOption.value = val;
-	//alert(document.apply.pageSizeOption.value);
+	// alert(document.apply.pageSizeOption.value);
 	document.getElementById(fromID).options[i].selected = true;
 	document.apply.submit();
 	
@@ -948,7 +980,7 @@ function setRoleNameSubmitMembership(chk) {
 		var cll = tr.cells[1];
 		var id = cll.innerHTML;
 		document.membership.roleId.value = id;
-		//alert(id+"ID Value"+document.membership.roleId.value);
+		// alert(id+"ID Value"+document.membership.roleId.value);
 
 		document.membership.submit();
 		
