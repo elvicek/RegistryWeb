@@ -39,8 +39,13 @@ Home</a>
 		|
 		<a href="<s:url action="surveysmenu_action" namespace="/"/>">Surveys</a>
 		|
+		<a href="<s:url action="reportsmenu_action" namespace="/"/>">Reports</a>
+		|
+		 <%
+if (request.isUserInRole("admin")) {%>
 		<a href="<s:url action="administrationmenu_action" namespace="/"/>">Administration</a> 
 		|
+		<%}%>
 		<a href="<s:url action="help_action" namespace="/"/>">Help</a>
 		</td> 
 		

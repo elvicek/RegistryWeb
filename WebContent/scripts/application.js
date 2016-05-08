@@ -121,6 +121,39 @@ function CheckClickMember(chk) {
 
 }
 
+function CheckClickReport(chk) {
+
+	var chkd = 0;
+	
+
+	if (chk.checked == true) {
+
+		chkd = chkd + 1;
+	} else {
+		for (i = 0; i < chk.length; i++) {
+			if (chk[i].checked == true) {
+				chkd = chkd + 1;
+
+			}
+
+		}
+
+	}
+	
+
+	// For Edit And MemberShip Button
+	if (chkd == 1) {
+		document.getElementById("edit").disabled = false;
+		
+
+	} else {
+		document.getElementById("edit").disabled = true;
+		
+
+	}
+
+}
+
 function CheckClickReadings(chk) {
 
 	var chkd = 0;
@@ -1030,6 +1063,11 @@ function setFunctions() {
 			&& (document.getElementById("delete") != null)) {
 		document.getElementById("edit").disabled = true;
 		document.getElementById("delete").disabled = true;
+	}
+	if ((document.getElementById("edit") != null)
+			&& (document.getElementById("delete") == null)) {
+		document.getElementById("edit").disabled = true;
+	
 	}
 	if ((document.getElementById("edit") != null)
 			&& (document.getElementById("delete") != null)

@@ -61,11 +61,7 @@
 
 		<display:table name="clients" pagesize="${pageSize}" class="data"
 			requestURI="export_clientsview.action" id="clientdata" export="true">
-			<display:column media="html">
-				<input type="checkbox" name="select"
-					onClick="CheckClickMember(document.data.select)" />
-			</display:column>
-			<display:column property="clientName" title="User Name" />
+			<display:column property="clientName" title="Client Name" />
 			<display:column property="address.addressline1"
 				title="Client Address Line 1" />
 			<display:column property="address.addressline2"

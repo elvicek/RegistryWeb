@@ -38,7 +38,7 @@
 		<table class="messages">
 			<tr>
 				<td><p>
-						User Record Has been Updated Successfully<br /> To Add Another
+						Survey Record Has been Updated Successfully<br /> To Add Another
 						Record Click on link to select another Record to Delete below<br />
 						For Other Options Use the Menu Navigation
 					</p></td>
@@ -67,7 +67,7 @@
 		<table class="messages">
 			<tr>
 				<td><p>
-						User Record Status Has been Updated Successfully<br /> To Add Another
+						Survey Record Status Has been Updated Successfully<br /> To Add Another
 						Record Click on link to select another Record to Delete below<br />
 						For Other Options Use the Menu Navigation
 					</p></td>
@@ -95,7 +95,7 @@
 	<table class="messages">
 		<tr>
 			<td><p>
-					User Record(s) Has been Deleted Successfully<br /> To Delete
+					Survey Record(s) Has been Deleted Successfully<br /> To Delete
 					Another Record Click on link to Delete another Record below<br />
 					For Other Options Use the Menu Navigation
 				</p></td>

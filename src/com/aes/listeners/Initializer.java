@@ -6,6 +6,8 @@ package com.aes.listeners;
 import java.util.ArrayList; 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -14,6 +16,7 @@ import javax.servlet.ServletContextListener;
 import org.joda.time.DateMidnight;
 import org.joda.time.Days;
 
+import com.aes.data.actions.AdminActions;
 import com.aes.exceptions.PersistanceException;
 import com.aes.service.HhiService;
 import com.hhiregistry.model.Groups;
@@ -26,6 +29,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
  *
  */
 public final class Initializer implements ServletContextListener {
+	private Logger logger = Logger.getLogger(Initializer.class.getName());
 
 	/* (non-Javadoc)
 	 * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
@@ -48,6 +52,8 @@ public final class Initializer implements ServletContextListener {
 
 	private void initialiseJasperReports() {
 		 try {
+			 java.io.File file = new java.io.File(HhiService.CLIENTS_JASPER_TEMPLATE);
+				logger.log(Level.INFO,"Absolute Path to Jasper template file  :::::::::::::::::::::"+file.getAbsolutePath());
 	            JasperCompileManager.compileReportToFile(
 	                    "./app-config/jasper/clients_jasper_template.jrxml",
 	                    "./app-config/jasper/clients_compiled_template.jasper");

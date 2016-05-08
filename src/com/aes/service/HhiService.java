@@ -377,6 +377,31 @@ public class HhiService {
 
 	}
 	
+	public static List<Survey> getAllStartedSurveys() throws PersistanceException {
+
+		try {
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+
+			String queryString = "from Survey where STATUS != 'NEW' or STATUS != 'ASSIGNED'";
+			Query query = session.createQuery(queryString);
+
+			List<Survey> surveys = (List<Survey>) query.list();
+
+			tx.commit();
+			session.flush();
+			session.close();
+
+			return surveys;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new PersistanceException();
+		}
+
+	}
+	
+	
+	
 	public static List<Survey> getCurrentJobsByUser(String username) throws PersistanceException {
 
 		try {

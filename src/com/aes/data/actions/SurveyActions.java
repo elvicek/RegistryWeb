@@ -385,6 +385,7 @@ public class SurveyActions extends ActionSupport {
 		}
 		else if (aSurvey.getStatus().equalsIgnoreCase(SurveyStatus.IN_PROGRESS.toString())) {
 			aSurvey.setStatus(SurveyStatus.COMPLETE.toString());
+			aSurvey.setSurveyDate(new Date());
 			String message = HhiService.SURVEY_STATUS_MSG.replace("?client", aSurvey.getClient().getClientName()).replace("?status", SurveyStatus.COMPLETE.name());
 			mailMessage = new MailMessage(getDirectors(),message,subject);
 		}
@@ -429,6 +430,16 @@ public class SurveyActions extends ActionSupport {
 		request.getSession().setAttribute("surveyContent", "success");
 		return Action.SUCCESS;
 	}
+	
+	public String menuAction() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String path = request.getRequestURI();
+		HttpSession session = request.getSession();
+		session.setAttribute("surveyContent", "menu");
+
+		return Action.SUCCESS;
+	}
+
 	
 	public String deleteSurveyReading() {
 		String[] readingsToDelete = null;

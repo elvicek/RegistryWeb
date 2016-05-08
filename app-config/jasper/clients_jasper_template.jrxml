@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport name="jasper_test">
+  <!-- Our fields from the Client class. -->
+  <field name="clientName" class="java.lang.String"/>
+  <field name="description" class="java.lang.String"/>
+  <field name="address" class="com.aes.data.domain.Address">
+   <fieldDescription><![CDATA[address]]></fieldDescription>
+  </field>
+  <field name="createdBy" class="java.lang.String"/>
+  <field name="createdDate" class="java.util.Date"/>
+  <field name="person" class="com.aes.data.domain.Person"/>
+  <title>
+    <band height="50">
+      <staticText>
+        <reportElement x="0" y="0" width="180" height="15"/>
+        <textElement/>
+        <text><![CDATA[AES Client Report]]></text>
+      </staticText>
+    </band>
+  </title>
+  <pageHeader>
+    <band/>
+  </pageHeader>
+  <columnHeader>
+    <band height="20">
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[CLIENT NAME]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="360" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[DESCRIPTION]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[ADDRESS LINE1]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[ADDRESS LINE2]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[ADDRESS LINE3]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[CONTACT NAME]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[CONTACT PHONE]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[CREATED BY]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="180" y="0" width="180" height="20"/>
+        <textElement>
+          <font isUnderline="true"/>
+        </textElement>
+        <text><![CDATA[CREATED DATE]]></text>
+      </staticText>
+    </band>
+  </columnHeader>
+  <detail>
+    <band height="20">
+      <textField>
+        <reportElement x="180" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{clientName}]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{address}.getAddressline1()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{address}.getAddressline2()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{address}.getAddressline3()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{person}.getName()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{person}.getWorkphone()]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{createdBy}]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement x="360" y="0" width="180" height="15"/>
+        <textElement/>
+        <textFieldExpression><![CDATA[$F{createdDate}]]></textFieldExpression>
+      </textField>
+    </band>
+  </detail>
+  <columnFooter>
+    <band/>
+  </columnFooter>
+  <pageFooter>
+    <band height="15">
+      <staticText>
+        <reportElement x="0" y="0" width="40" height="15"/>
+        <textElement/>
+        <text><![CDATA[Page:]]></text>
+      </staticText>
+      <textField>
+        <reportElement x="40" y="0" width="100" height="15"/>
+        <textElement/>
+        <textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+      </textField>
+    </band>
+  </pageFooter>
+  <summary>
+    <band/>
+  </summary>
+</jasperReport>

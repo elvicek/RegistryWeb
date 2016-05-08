@@ -42,19 +42,28 @@ Home</a></li>
         <li><a href="<s:url action="surveyauth_action" namespace="/"/>">Authosise Surveys</a></li> 
       </ul> 
     </li> 
-    <li><a href="#">Maintenance</a> 
-    </li>
+    <li><a href="#">Reports</a> 
+      <ul>  
+        <li><a href="<s:url action="clientview_report_action" namespace="/"/>">All Clients Report</a></li> 
+        <li><a href="<s:url action="surveyview_report_action" namespace="/"/>">Survey Reading Report</a></li> 
+      </ul> 
+    </li> 
+   
+    <%
+if (request.isUserInRole("admin")) {%>  
+    <!-- put admin-only information-->
+
     <li><a href="#">Administration</a> 
     <ul>
       <li><a href="<s:url action="rolesview_action" namespace="/"/>">View All Roles</a></li>
       <li><a href="<s:url action="roleinput_action" namespace="/"/>">Create New Roles</a></li>
       <li><a href="<s:url action="usersview_action" namespace="/"/>">View Users</a></li>
       <li><a href="<s:url action="userinput_action" namespace="/"/>">Input Users</a></li>
-      <li><a href="<s:url action="groupSMS_action" namespace="/"/>">Send SMS to Users</a></li>
       <li><a href="<s:url action="messageEmail_action" namespace="/"/>">Email users</a></li>
       <li><a href="<s:url action="emailTextFile_action" namespace="/"/>">Email Text File</a></li>
     </ul>
     </li>
+    <%}%>
     <li><a href="<s:url action="help_action" namespace="/"/>">Help</a> 
       
     </li>  

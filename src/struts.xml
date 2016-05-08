@@ -7,7 +7,13 @@
 	<!-- remove these constant elements in production -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
-	<package name="com.aes.data.actions" extends="struts-default">
+	<constant name="struts.action.excludePattern" value="/servlets/.*" />
+	<package name="com.aes.data.actions" namespace="/"
+		extends="struts-default, jasperreports-default">
+		<result-types>
+			<result-type name="jasper"
+				class="org.apache.struts2.views.jasperreports.JasperReportsResult" />
+		</result-types>
 		<action name="home_action">
 			<result>/jsp/welcome.jsp</result>
 		</action>
@@ -212,7 +218,7 @@
 			<result name="input">/jsp/data/surveys/surveys.jsp</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
-		
+
 		<action name="surveyreadingssave_action" class="com.aes.data.actions.SurveyActions"
 			method="saveReading">
 			<result name="success" type="dispatcher">/surveyeditresults_action.action
@@ -265,6 +271,14 @@
 			</result>
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
+		<action name="surveyupdatestatus_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="updateSurveyStatus">
+			<result name="success" type="dispatcher">/surveyupdatesuccess_mobile_action.action
+			</result>
+			<result name="input" type="dispatcher">/mysurveysview_action.action
+			</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
 		<action name="clientupdate_action" class="com.aes.data.actions.ClientActions"
 			method="updateClient">
 			<result name="success" type="dispatcher">/clientupdatesuccess_action.action
@@ -297,8 +311,16 @@
 			<result name="error" type="dispatcher">/member_error.action</result>
 		</action>
 		
-		
-		
+		<action name="surveydelete_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="deleteSurvey">
+			<result name="success" type="dispatcher">/surveydeletesuccess_mobile_action.action
+			</result>
+			<result name="input">/mysurveysview_mobile_action.action</result>
+			<result name="error" type="dispatcher">/member_error.action</result>
+		</action>
+
+
+
 
 		<action name="usersavesuccess_action" class="com.aes.data.actions.AdminActions"
 			method="saveSuccessAction">
@@ -350,6 +372,15 @@
 			</result>
 
 		</action>
+		<action name="surveydeletesuccess_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="deleteSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">deleteSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys_mobile.jsp
+			</result>
+
+		</action>
 		<action name="clientdeletesuccess_action" class="com.aes.data.actions.ClientActions"
 			method="deleteSuccessAction">
 			<interceptor-ref name="validation">
@@ -376,6 +407,15 @@
 				<param name="excludeMethods">updateSuccessAction</param>
 			</interceptor-ref>
 			<result name="success" type="dispatcher">/jsp/data/surveys/surveys.jsp
+			</result>
+
+		</action>
+		<action name="surveyupdatesuccess_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="updateSuccessAction">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">updateSuccessAction</param>
+			</interceptor-ref>
+			<result name="success" type="dispatcher">/jsp/data/surveys/surveys_mobile.jsp
 			</result>
 
 		</action>
@@ -441,6 +481,18 @@
 			<result name="success">/jsp/data/clients/clients.jsp</result>
 			<result name="error">/jsp/data/clients/clients.jsp</result>
 		</action>
+
+		<action name="surveysmenu_action" class="com.aes.data.actions.ClientActions"
+			method="menuAction">
+			<result name="success">/jsp/data/clients/clients.jsp</result>
+			<result name="error">/jsp/data/clients/clients.jsp</result>
+		</action>
+
+		<action name="reportsmenu_action" class="com.aes.data.actions.ClientActions"
+			method="menuAction">
+			<result name="success">/jsp/data/clients/clients.jsp</result>
+			<result name="error">/jsp/data/clients/clients.jsp</result>
+		</action>
 		<action name="userinput_action" class="com.aes.data.actions.AdminActions"
 			method="userInput">
 			<result name="success">/jsp/data/admin/administration.jsp</result>
@@ -490,10 +542,24 @@
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
+		<action name="surveyeditresults_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="surveyEditReadings">
+			<result name="success">/jsp/data/surveys/surveys_mobile.jsp</result>
+			<result name="input">/jsp/data/surveys/surveys_mobile.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
 		<action name="surveyattend_action" class="com.aes.data.actions.SurveyActions"
 			method="surveyAttend">
 			<result name="success">/jsp/data/surveys/surveys.jsp</result>
 			<result name="input">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+		<action name="surveyattend_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="surveyAttend">
+			<result name="success">/jsp/data/surveys/surveys_mobile.jsp</result>
+			<result name="input">/jsp/data/surveys/surveys_mobile.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
@@ -643,6 +709,12 @@
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
+		<action name="clientview_report_action" class="com.aes.reports.JasperActions"
+			method="viewClients">
+			<result name="success">/jsp/data/reports/reports.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
 		<action name="clientview_action" class="com.aes.data.actions.ClientActions"
 			method="viewClients">
 			<interceptor-ref name="validation">
@@ -661,12 +733,29 @@
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
+
+		<action name="surveyview_report_action" class="com.aes.reports.JasperActions"
+			method="viewSurveys">
+			<result name="success">/jsp/data/reports/reports.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
 		<action name="mysurveysview_action" class="com.aes.data.actions.SurveyActions"
 			method="viewMyJobs">
 			<interceptor-ref name="validation">
 				<param name="excludeMethods">viewMyJobs</param>
 			</interceptor-ref>
 			<result name="success">/jsp/data/surveys/surveys.jsp</result>
+			<result name="error" type="dispatcher">/administration_error.action
+			</result>
+		</action>
+		
+		<action name="mysurveysview_mobile_action" class="com.aes.data.actions.SurveyActions"
+			method="viewMyJobs">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">viewMyJobs</param>
+			</interceptor-ref>
+			<result name="success">/jsp/data/surveys/surveys_mobile.jsp</result>
 			<result name="error" type="dispatcher">/administration_error.action
 			</result>
 		</action>
@@ -766,19 +855,32 @@
 
 		</action>
 
+		<action name="clientsreport_action" class="com.aes.reports.JasperActions">
+			<result name="success" type="jasper">
+				<param name="location">/app-config/jasper/clients_compiled_template.jasper</param>
+				<param name="dataSource">allClients</param>
+				<param name="format">PDF</param>
+			</result>
+			<result name="error">/jsp/data/admin/administration.jsp</result>
+
+		</action>
+		<action name="surveyreport_action" class="com.aes.reports.JasperActions">
+			<result name="success" type="jasper">
+				<param name="location">/app-config/jasper/survey_compiled_template.jasper</param>
+				<param name="dataSource">surveyReadings</param>
+				<param name="format">PDF</param>
+				<param name="reportParameters">reportParams</param>
+				
+			</result>
+			<result name="error">/jsp/data/admin/administration.jsp</result>
+
+		</action>
 
 	</package>
-
-
-<package name="default" namespace="/" extends="jasperreports-default">
-    <action name="clientsreport_action" class="com.aes.data.actions.JasperAction">
-        <result name="success" type="jasper">
-            <param name="location">./app-config/clients_compiled_template.jasper</param>
-            <param name="dataSource">allClients</param>
-            <param name="format">PDF</param>
-        </result>
-    </action>
-</package>
-
+	<!-- package name="/reports" namespace="/reports" extends="jasperreports-default"> 
+		<action name="clientsreport_action" class="com.aes.reports.JasperActions"> 
+		<result name="success" type="jasper"> <param name="location">/app-config/clients_compiled_template.jasper</param> 
+		<param name="dataSource">allClients</param> <param name="format">PDF</param> 
+		</result> </action> </package -->
 
 </struts>

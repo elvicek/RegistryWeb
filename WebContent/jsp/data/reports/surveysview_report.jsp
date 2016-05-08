@@ -12,21 +12,13 @@
 			<td><table>
 					<tr>
 
-						<td><s:form action="surveyedit_action" method="Post"
+						<td><s:form action="surveyreport_action" method="Post"
 								name="edit">
 								<s:hidden name="surveyName" value="" />
-								<input type="submit" id="edit" value="Edit"
+								<input type="submit" id="edit" value="View Report"
 									onClick="setSurveyNameForEdit(document.data.select)" />
 							</s:form></td>
-						<td><s:form action="surveydelete_action" method="Post"
-								name="toDelete">
-								<s:hidden name="surveyNameToDelete" value="" />
-								<input type="submit" id="delete" value="Delete"
-									onClick="setSurveyNameToDelete(document.data.select)" />
-							</s:form></td>
-						<td><a
-							href="<s:url action="surveysview_action" namespace="/"/>">View
-								All</a></td>
+						
 					</tr>
 				</table></td>
 			<td align="right">
@@ -87,7 +79,7 @@
 			requestURI="export_surveysview.action" id="surveydata" export="true">
 			<display:column media="html">
 				<input type="checkbox" name="select"
-					onClick="CheckClickMember(document.data.select)" />
+					onClick="CheckClickReport(document.data.select)" />
 			</display:column>
 			<display:column property="surveyName" title="Survey Name" />
 			<display:column property="client.clientName" title="Client Name" />
