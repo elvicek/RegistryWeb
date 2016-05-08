@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jasper_report_template" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="225d00c9-5f95-4844-9211-9499346d152d">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="76"/>
 	<property name="ireport.y" value="0"/>
+        <parameter name="Title" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -23,7 +24,7 @@
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[AES Survey Report]]></text>
+				<text><![CDATA[Survey Readings]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -74,16 +75,15 @@
 				</textElement>
 				<text><![CDATA[DYNAMIC_PRESSURE]]></text>
 			</staticText>
-			
 			<staticText>
-				<reportElement x="636" y="0" width="70" height="20" uuid="906a9662-2746-49fc-a535-a0c141985edf"/>
+				<reportElement x="530" y="0" width="70" height="20" uuid="906a9662-2746-49fc-a535-a0c141985edf"/>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CREATED BY]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="721" y="0" width="81" height="20" uuid="d06af913-508a-49c0-817b-72bd149cb160"/>
+				<reportElement x="656" y="0" width="81" height="20" uuid="d06af913-508a-49c0-817b-72bd149cb160"/>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
@@ -117,15 +117,15 @@
 				<textFieldExpression><![CDATA[$F{velocity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="412" y="1" width="57" height="15" uuid="55185fe2-e7a9-46c2-a909-e0d6b8e6f5c6"/>
+				<reportElement x="412" y="1" width="97" height="15" uuid="55185fe2-e7a9-46c2-a909-e0d6b8e6f5c6"/>
 				<textFieldExpression><![CDATA[$F{dynamicPressure}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="636" y="1" width="70" height="15" uuid="7c1865e7-da21-49af-b7db-71f3469b671a"/>
+				<reportElement x="530" y="1" width="70" height="15" uuid="7c1865e7-da21-49af-b7db-71f3469b671a"/>
 				<textFieldExpression><![CDATA[$F{createdBy}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="721" y="0" width="87" height="15" uuid="e722482e-ec43-4f7b-95bc-10e95017afbf"/>
+				<reportElement x="666" y="0" width="87" height="15" uuid="e722482e-ec43-4f7b-95bc-10e95017afbf"/>
 				<textFieldExpression><![CDATA[$F{createdDate}]]></textFieldExpression>
 			</textField>
 		</band>
