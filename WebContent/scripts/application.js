@@ -1058,6 +1058,7 @@ function setCellgroupNameSubmitMembership(chk) {
 }
 
 function setFunctions() {
+	
 
 	if ((document.getElementById("edit") != null)
 			&& (document.getElementById("delete") != null)) {

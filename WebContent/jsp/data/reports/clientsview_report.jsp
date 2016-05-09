@@ -15,7 +15,7 @@
 						<td><s:form action="clientsreport_action" method="Post"
 								name="view_report">
 			
-								<input type="submit" id="edit" value="View Report"/>
+								<input type="submit" id="view_report" value="View Report"/>
 							</s:form></td>
 						
 					</tr>
